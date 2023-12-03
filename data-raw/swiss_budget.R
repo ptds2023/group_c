@@ -29,14 +29,16 @@ budget_table <- budget_table %>%
     Expenses %in% c("Mandatory contributions (OASI, etc.)", "Various fees", "Other insurances", "Life insurance") ~ "Insurances & AVS",
     Expenses %in% c("Housing and utilities (primary residence)", "Homemaking", "Housing and utilities (secondary residence)") ~ "Rent",
     Expenses %in% c("Groceries", "Soft drinks") ~ "Food & Beverage",
-    Expenses %in% c("Entertainment, recreation, and cultural activities", "Travel accommodations", "Donations, gifts, hosting") ~ "Leisure",
+    Expenses == "Entertainment, recreation, and cultural activities" ~ "Leisure",
     Expenses %in% c("Vehicle purchases and maintenance", "Other transportation costs") ~ "Transport",
     Expenses == "Healthcare" ~ "Healthcare",
+    Expenses == "Travel accommodations" ~ "Travel",
+    Expenses %in% c( "Donations, gifts, hosting", "Alimony and child support")  ~ "Donations and child support",
     Expenses == "Communications" ~ "Communications",
-    Expenses == "Alimony and child support" ~ "Alimony and child support",
     Expenses == "Alcoholic drinks and tobacco" ~ "Alcoholic drinks and tobacco",
-    Expenses %in% c("Home administration", "Other goods and services", "Clothing and shoes") ~ "Current household expenses",
-    Expenses == "School and education" ~ "School",
+    Expenses %in% c("Home administration", "Other goods and services") ~ "Current household expenses",
+    Expenses == "Clothing and shoes" ~ "Clothing and shoes",
+    Expenses == "School and education" ~ "School and education",
     TRUE ~ as.character(Expenses)
   ))
 # 4. Aggregate data
