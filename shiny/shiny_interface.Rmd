@@ -20,6 +20,7 @@ library(plotly)
 library(DT)
 
 # Predefined list of categories
+# These categories are identical to the ones we extracted from moneyland.ch
 categories <- c(
   "Mandatory transfer expenses (AVS, etc.)",
   "Housing and energy (primary residence)",
@@ -46,14 +47,16 @@ categories <- c(
 )
 
 # Swiss average expenses (monthly)
+# These values were scrapped from moneyland.ch to get the swiss average expenditures
 swiss_expenses <- c(
   2800, 1345, 580, 558, 533, 510, 313, 282, 245, 199, 177, 175, 174, 173, 164, 95, 67, 56, 46, 45, 36, 245
 )
 
-# Define UI
+# Defining the user interface layout
 ui <- dashboardPage(
   dashboardHeader(title = "Expense Tracker"),
   dashboardSidebar(
+    # Sidebar inputs for income and expenses
     numericInput("income", "Enter Income:", value = NULL),
     h4("Enter Expenses:"),
     selectInput("category", "Category:", categories),
@@ -61,8 +64,10 @@ ui <- dashboardPage(
     actionButton("add_expense", "Add Expense")
   ),
   dashboardBody(
+    # Main body with tabs for different views
     tabsetPanel(
       tabPanel("Summary",
+      # Summary tab with visualizations and editable table
                fluidRow(
                  box(plotlyOutput("bar_chart"), width = 6),
                  box(DTOutput("expense_table"), width = 6),
@@ -70,6 +75,7 @@ ui <- dashboardPage(
                  box("Note: You can edit the table if you made a mistake.", width = 12)
                )
       ),
+      # Compare to the average tab for comparison with Swiss averages
       tabPanel("Compare to the average",
                box(plotlyOutput("compare_scatter_plot"), width = 12)
       )
@@ -77,13 +83,13 @@ ui <- dashboardPage(
   )
 )
 
-# Define server
+# Defining the server logic
 server <- function(input, output, session) {
-  # Initialize reactive values
+  # Initialize reactive values for expenses and selected categories
   expenses_data <- reactiveVal(data.frame(category = character(), amount = numeric()))
   selected_categories <- reactiveVal(character())
 
-  # Add expense when button is clicked
+  # Observe add_expense button click -> "add expense" when button is clicked
   observeEvent(input$add_expense, {
     category <- input$category
     amount <- input$expense
@@ -148,7 +154,7 @@ server <- function(input, output, session) {
     selected_categories(expenses_data()$category)
   })
 
-  # Update scatter plot for comparison
+  # Update scatter plot for expense comparison
   observe({
     user_vs_swiss <- data.frame(
       category = selected_categories(),
