@@ -1,15 +1,18 @@
-Package: pkgTest
+Package: BudgetOverview
 Type: Package
 Title: What the Package Does (Title Case)
 Version: 0.1.0
-Authors@R: c(person("John", "Doe", email = "john.doe@example.com",
+Authors@R: c(person("Konstantinos", "Kourlimpinis", email = "konstantinos.kourlimpinis@unil.ch",
                   role = c("aut", "cre")),
-            person("John", "Smith", email = "john.doe@example.com",
-                  role = c("ctb")))
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
+            person("Marc", "Bourleau", email = "marc.bourleau@unil.ch",
+                  role = c("ctb")),
+            person("Khrystyna","Khmilovska", email = khrystyna.khmilovska@unil.ch),
+            person("Eleonore","Gillain", email = "eleonore.gillain@unil.ch" )
+                  )
+Maintainer: The package maintainer <konstantinos.kourlimpinis@unil.ch>
+Description: This package is accompanying our final project for the Programming Tools class. In this package, you can find the functions we are using for our shiny app, whose aim is provide users with an overview of their monthly budget. 
     Use four spaces when indenting paragraphs within the Description.
-License: MIT + file LICENSE
+License: MIT
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.2.3
