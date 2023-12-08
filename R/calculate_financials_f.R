@@ -1,0 +1,22 @@
+#' Calculate Total Expenses and Savings
+#'
+#' This function calculates the total expenses and savings based on the provided
+#' data frame of expenses and the user's income.
+#'
+#' @param expenses_data A data frame containing expenses.
+#' @param income Numeric value of the user's income.
+#' @return A list containing the total expenses and savings.
+#' @export
+#' @examples
+#' expenses <- data.frame(category = c("Food", "Rent"), amount = c(100, 500))
+#' financials <- calculate_financials(expenses, 2000)
+calculate_financials <- function(expenses_data, income) {
+  if (is.null(income) || income <= 0) {
+    stop("Invalid income")
+  }
+
+  total_expenses <- sum(expenses_data$amount)
+  savings <- income - total_expenses
+
+  return(list(total_expenses = total_expenses, savings = savings))
+}
