@@ -1,10 +1,3 @@
----
-title: "shiny"
-output: html_document
-date: "2023-12-01"
----
-
-```{r}
 # Install required packages if not already installed
 if (!require("shiny")) install.packages("shiny")
 if (!require("shinydashboard")) install.packages("shinydashboard")
@@ -149,10 +142,4 @@ server <- function(input, output, session) {
 # Run the application
 shinyApp(ui = ui, server = server)
 
-
-
-
-
-
-```
 
