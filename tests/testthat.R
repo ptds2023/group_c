@@ -7,6 +7,6 @@
 # * https://testthat.r-lib.org/articles/special-files.html
 
 library(testthat)
-library(pkgTest)
+library(budgetoverview)
 
-test_check("pkgTest")
+test_check("budgetoverview")
