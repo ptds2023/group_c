@@ -11,7 +11,8 @@
 #' expenses <- data.frame(category = c("Food", "Rent"), amount = c(100, 500))
 #' financials <- calculate_financials(expenses, 2000)
 calculate_financials <- function(expenses_data, income) {
-  if (is.null(income) || income <= 0) {
+  # Check if income is numeric and greater than zero
+  if (!is.numeric(income) || is.na(income) || income <= 0) {
     stop("Invalid income")
   }
 

@@ -80,6 +80,11 @@ server <- function(input, output, session) {
 
   # Update bar chart when data changes
   output$bar_chart <- renderPlotly({
+    # Validate that income is numeric and greater than zero
+    validate(
+      need(is.numeric(input$income) && !is.na(input$income) && input$income > 0, "Please enter a valid income")
+    )
+
     data <- calculate_financials(expenses_data(), input$income)
     p <- create_bar_chart(data)
     ggplotly(p)

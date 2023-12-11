@@ -20,28 +20,29 @@
 #' print(plot)
 #'
 #' @export
-compare_to_average <- function(user_data, swiss_data, categories) {
-  # Create a data frame for categories
-  category_df <- data.frame(category = categories)
+compare_to_average <- function(user_data, average_data, selected_categories) {
+  # Check if user_data is empty or if there are no selected categories
+  if (nrow(user_data) == 0 || length(selected_categories) == 0) {
+    return(data.frame())  # Return an empty data frame or a suitable default value
+  }
 
-  # Join user data with category data
-  user_vs_swiss <- merge(category_df, user_data, by = "category", all.x = TRUE)
+  # Ensure that user_data only contains the selected categories
+  user_data <- user_data[user_data$category %in% selected_categories, ]
 
-  # Replace NA in user_amount with 0
-  user_vs_swiss$user_amount[is.na(user_vs_swiss$user_amount)] <- 0
+  # Create a new data frame for comparison
+  comparison_data <- data.frame(
+    Category = selected_categories,
+    UserExpenses = numeric(length(selected_categories)),
+    AverageExpenses = average_data[selected_categories]
+  )
 
-  # Add Swiss data to the data frame
-  user_vs_swiss$swiss_amount <- swiss_data
+  # Fill in the UserExpenses column with user data
+  for (cat in selected_categories) {
+    if (cat %in% user_data$category) {
+      comparison_data[comparison_data$Category == cat, "UserExpenses"] <- user_data[user_data$category == cat, "amount"]
+    }
+  }
 
-  # Create the plot
-  p <- ggplot(user_vs_swiss, aes(x = user_amount, y = category)) +
-    geom_point(aes(color = "User"), size = 4) +
-    geom_point(aes(x = swiss_amount, color = "Swiss Average"), size = 4) +
-    labs(title = "User vs Swiss Average Expenses", x = "Amount", y = "Category") +
-    theme_minimal() +
-    scale_color_manual(values = c("User" = "#66c2a5", "Swiss Average" = "#fc8d62")) +
-    theme(legend.position = "bottom")
-
-  return(p)
+  # Return the comparison data
+  return(comparison_data)
 }
-
