@@ -4,25 +4,31 @@
 \alias{compare_to_average}
 \title{Compare User Expenses to Swiss Average}
 \usage{
-compare_to_average(user_data, swiss_data, categories)
+compare_to_average(user_data, average_data, selected_categories)
 }
 \arguments{
-\item{user_data}{User's expenses data frame.}
+\item{user_data}{A data frame containing the user's expenses data with columns 'category' and 'amount'.}
 
-\item{swiss_data}{Numeric vector of Swiss average expenses.}
+\item{swiss_data}{A vector containing the Swiss average expenses for each category.}
 
-\item{categories}{Character vector of expense categories.}
+\item{categories}{A vector of categories to compare.}
 }
 \value{
-A ggplot object representing the comparison scatter plot.
+A ggplot object representing the comparison between user expenses and Swiss average expenses across different categories.
 }
 \description{
-This function creates a scatter plot comparing the user's expenses
-in different categories to the Swiss average expenses.
+This function compares user's expenses in various categories to the Swiss average expenses. It produces a ggplot object that visualizes this comparison using point plots.
 }
 \examples{
-user_data <- data.frame(category = c("Food", "Rent"), amount = c(100, 500))
-swiss_data <- c(120, 700) # Example Swiss data
-categories <- c("Food", "Rent")
-comparison_plot <- compare_to_average(user_data, swiss_data, categories)
+user_data <- data.frame(category = c("Groceries", "Rent", "Utilities"),
+                        amount = c(300, 1200, 150))
+swiss_data <- c(350, 1000, 200)
+categories <- c("Groceries", "Rent", "Utilities", "Entertainment", "Transport")
+
+plot <- compare_to_average(user_data, swiss_data, categories)
+print(plot)
+
+}
+\author{
+Group C composed of Marc Bourleau, Eleonore Gillain, Khrystyna Khmilovska and Konstantinos Kourlimpinis.
 }

@@ -13,10 +13,12 @@ create_scatter_plot(expenses_data)
 A ggplot object representing the scatter plot.
 }
 \description{
-Generates a scatter plot showing the distribution and percentage share of
-each expense category in the total expenses.
+Generates a scatter plot showing the distribution and percentage share of each expense category in the total expenses.
 }
 \examples{
 expenses <- data.frame(category = c("Food", "Rent"), amount = c(100, 500))
 scatter_plot <- create_scatter_plot(expenses)
+}
+\author{
+Group C composed of Marc Bourleau, Eleonore Gillain, Khrystyna Khmilovska and Konstantinos Kourlimpinis.
 }

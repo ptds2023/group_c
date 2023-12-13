@@ -17,10 +17,12 @@ add_expense(expenses_data, category, amount)
 A data frame with the new expense added.
 }
 \description{
-This function adds a new expense entry to the given data frame of expenses.
-It checks for the validity of the category and amount before adding.
+This function adds a new expense entry to the given data frame of expenses. It checks for the validity of the category and amount before adding.
 }
 \examples{
 expenses <- data.frame(category = character(), amount = numeric())
 expenses <- add_expense(expenses, "Food", 100)
+}
+\author{
+Group C composed of Marc Bourleau, Eleonore Gillain, Khrystyna Khmilovska and Konstantinos Kourlimpinis.
 }

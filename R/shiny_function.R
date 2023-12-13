@@ -11,8 +11,6 @@
 runDemo <- function() {
   # Load required libraries
   requireNamespace("shiny")
-  requireNamespace("shinythemes")
-  requireNamespace("shinyWidgets")
   requireNamespace("plotly")
   requireNamespace("DT")
   requireNamespace("ggplot2")

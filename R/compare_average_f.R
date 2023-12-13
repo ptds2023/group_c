@@ -8,7 +8,7 @@
 #'
 #' @return A ggplot object representing the comparison between user expenses and Swiss average expenses across different categories.
 #'
-#'@import ggplot2
+#' @import ggplot2
 #' @examples
 #' user_data <- data.frame(category = c("Groceries", "Rent", "Utilities"),
 #'                         amount = c(300, 1200, 150))

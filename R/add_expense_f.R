@@ -1,8 +1,7 @@
-#' Add an Expense to the Data Frame
-#'
-#' This function adds a new expense entry to the given data frame of expenses.
-#' It checks for the validity of the category and amount before adding.
-#'
+#' @title Add an Expense to the Data Frame
+#' @name add_expense
+#' @description This function adds a new expense entry to the given data frame of expenses. It checks for the validity of the category and amount before adding.
+#' @author Group C composed of Marc Bourleau, Eleonore Gillain, Khrystyna Khmilovska and Konstantinos Kourlimpinis.
 #' @param expenses_data A data frame containing existing expenses.
 #' @param category The category of the new expense.
 #' @param amount The amount of the new expense.

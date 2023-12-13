@@ -15,10 +15,12 @@ calculate_financials(expenses_data, income)
 A list containing the total expenses and savings.
 }
 \description{
-This function calculates the total expenses and savings based on the provided
-data frame of expenses and the user's income.
+This function calculates the total expenses and savings based on the provided data frame of expenses and the user's income.
 }
 \examples{
 expenses <- data.frame(category = c("Food", "Rent"), amount = c(100, 500))
 financials <- calculate_financials(expenses, 2000)
+}
+\author{
+Group C composed of Marc Bourleau, Eleonore Gillain, Khrystyna Khmilovska and Konstantinos Kourlimpinis.
 }

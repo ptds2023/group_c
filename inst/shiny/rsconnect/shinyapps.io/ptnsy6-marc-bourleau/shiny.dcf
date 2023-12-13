@@ -1,0 +1,10 @@
+name: shiny
+title:
+username: ptnsy6-marc-bourleau
+account: ptnsy6-marc-bourleau
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 10789431
+bundleId:
+url: https://ptnsy6-marc-bourleau.shinyapps.io/shiny/
+version: 1

@@ -24,12 +24,13 @@ createBarChart(
 An interactive Plotly object.
 }
 \description{
-This function creates an interactive bar chart using ggplot2 and Plotly. It is designed to visualize
-data in categories with their corresponding amounts. The chart uses a minimalistic color palette and
-hides the legend for a cleaner appearance.
+This function creates an interactive bar chart using ggplot2 and Plotly. It is designed to visualize data in categories with their corresponding amounts. The chart uses a minimalistic color palette and hides the legend for a cleaner appearance.
 }
 \examples{
 test_data <- data.frame(category = c("Income", "Expenses", "Savings"),
                        amount = c(1000, 500, 500))
 createBarChart(test_data)
+}
+\author{
+Group C composed of Marc Bourleau, Eleonore Gillain, Khrystyna Khmilovska and Konstantinos Kourlimpinis.
 }
