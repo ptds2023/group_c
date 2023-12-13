@@ -62,6 +62,3 @@ bar_chart <- createBarChart(test_data)
 # Creating a scatter plot of expenses
 scatter_plot <- create_scatter_plot(expenses)
 ```
-
-
-
