@@ -1,0 +1,67 @@
+---
+title: "Financial Tracking and Analysis with budgetoverview"
+output: rmarkdown::html_vignette
+description: >
+  This vignette details how to use the budgetoverview package to manage financial data, create visualizations, and compare expenses to average spending.
+vignette: >
+  %\VignetteIndexEntry{Financial Tracking and Analysis}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+library(budgetoverview)
+```
+
+# Adding Expenses
+
+Begin by adding individual expenses using the add_expense function. This allows for tracking expenses by category.
+
+```{r}
+# Starting with an empty data frame for expenses
+expenses <- data.frame(category = character(), amount = numeric())
+# Adding a Food expense
+expenses <- add_expense(expenses, "Food", 100)
+
+```
+
+# Financial Summary
+
+Calculate your total expenses and how much you have saved with the calculate_financials function.
+
+```{r}
+# Example expenses data
+expenses <- data.frame(category = c("Food", "Rent"), amount = c(100, 500))
+# Calculating financials based on an income of 2000
+financials <- calculate_financials(expenses, 2000)
+```
+
+# Expense Comparison
+
+Compare your spending to the average with `compare_to_average`.
+
+```{r}
+# User's expenses data
+user_expenses <- data.frame(category = c("Groceries", "Rent", "Utilities"),
+                            amount = c(300, 1200, 150))
+# Average Swiss expenses for comparison
+swiss_averages <- c(Groceries = 350, Rent = 1000, Utilities = 200)
+# Comparing and plotting
+comparison_plot <- compare_to_average(user_expenses, swiss_averages)
+
+```
+
+# Visualizing Data
+
+Visualize your financial data with `createBarChart` and `create_scatter_plot`.
+
+```{r}
+# Creating a bar chart of income, expenses, and savings
+bar_chart <- createBarChart(test_data)
+# Creating a scatter plot of expenses
+scatter_plot <- create_scatter_plot(expenses)
+```
+
+
+
