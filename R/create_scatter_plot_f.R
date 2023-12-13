@@ -18,7 +18,7 @@ create_scatter_plot <- function(expenses_data) {
     geom_point(color = "#66c2a5", size = expenses_data_summary$amount * 0.01, alpha = 0.5) +
     geom_text(size = 3) +
     labs(title = "Expenses by Category", x = "% Share of Expenses", y = "Amount") +
-    theme_minimal()
+    ggplot2::theme_minimal()
 
   return(p)
 }

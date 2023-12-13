@@ -26,6 +26,7 @@ Imports:
     kableExtra,
     tidyverse,
     RColorBrewer,
+    here
 Suggests: 
     knitr,
     rmarkdown,

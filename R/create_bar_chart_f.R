@@ -22,7 +22,7 @@ createBarChart <- function(data, title = "Income, Expenses, and Savings", xLabel
     geom_bar(stat = "identity") +
     scale_fill_manual(values = c("#66c2a5", "#fc8d62", "#8da0cb")) +
     labs(title = title, x = xLabel, y = yLabel) +
-    theme_minimal() +
+    ggplot2::theme_minimal() +
     theme(legend.position = "none")
 
   ggplotly(p)
