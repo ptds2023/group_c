@@ -1,15 +1,14 @@
-#' Compare User Expenses to Swiss Average
-#'
-#' This function compares user's expenses in various categories to the Swiss average expenses. It produces a ggplot object that visualizes this comparison using point plots.
-#'
+#' @title Compare User Expenses to Swiss Average
+#' @name compare_to_average
+#' @description This function compares user's expenses in various categories to the Swiss average expenses. It produces a ggplot object that visualizes this comparison using point plots.
+#' @author Group C composed of Marc Bourleau, Eleonore Gillain, Khrystyna Khmilovska and Konstantinos Kourlimpinis.
 #' @param user_data A data frame containing the user's expenses data with columns 'category' and 'amount'.
 #' @param swiss_data A vector containing the Swiss average expenses for each category.
 #' @param categories A vector of categories to compare.
 #'
 #' @return A ggplot object representing the comparison between user expenses and Swiss average expenses across different categories.
 #'
-#' @importFrom ggplot2 ggplot aes geom_point labs theme_minimal scale_color_manual theme
-#'
+#'@import ggplot2
 #' @examples
 #' user_data <- data.frame(category = c("Groceries", "Rent", "Utilities"),
 #'                         amount = c(300, 1200, 150))

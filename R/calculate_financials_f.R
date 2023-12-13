@@ -1,8 +1,7 @@
-#' Calculate Total Expenses and Savings
-#'
-#' This function calculates the total expenses and savings based on the provided
-#' data frame of expenses and the user's income.
-#'
+#' @title Calculate Total Expenses and Savings
+#' @name calculate_financials
+#' @description This function calculates the total expenses and savings based on the provided data frame of expenses and the user's income.
+#' @author Group C composed of Marc Bourleau, Eleonore Gillain, Khrystyna Khmilovska and Konstantinos Kourlimpinis.
 #' @param expenses_data A data frame containing expenses.
 #' @param income Numeric value of the user's income.
 #' @return A list containing the total expenses and savings.

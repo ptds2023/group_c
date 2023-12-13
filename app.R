@@ -1,9 +1,11 @@
+#' importFrom shiny shinyApp
 # Install required packages if not already installed
 if (!require("shiny")) install.packages("shiny")
 if (!require("shinydashboard")) install.packages("shinydashboard")
 if (!require("dplyr")) install.packages("dplyr")
 if (!require("plotly")) install.packages("plotly")
 if (!require("DT")) install.packages("DT")
+if (!require("budgetoverview")) install.packages("budgetoverview")
 
 # Load libraries
 library(shiny)
@@ -12,6 +14,10 @@ library(dplyr)
 library(plotly)
 library(DT)
 library(budgetoverview)
+library(here)
+
+# Import scraped data set
+swiss_budget <- read.csv(here::here("raw-data/swiss_budget.csv"))
 
 # Predefined list of categories
 categories <- swiss_budget$grouped_expenses

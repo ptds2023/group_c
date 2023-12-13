@@ -1,10 +1,10 @@
-#' Create a Scatter Plot of Expenses Data
-#'
-#' Generates a scatter plot showing the distribution and percentage share of
-#' each expense category in the total expenses.
-#'
+#' @title Create a Scatter Plot of Expenses Data
+#' @name create_scatter_plot
+#' @description Generates a scatter plot showing the distribution and percentage share of each expense category in the total expenses.
+#' @author Group C composed of Marc Bourleau, Eleonore Gillain, Khrystyna Khmilovska and Konstantinos Kourlimpinis.
 #' @param expenses_data A data frame containing expenses data.
 #' @return A ggplot object representing the scatter plot.
+#' @import ggplot2
 #' @export
 #' @examples
 #' expenses <- data.frame(category = c("Food", "Rent"), amount = c(100, 500))

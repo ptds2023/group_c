@@ -1,15 +1,13 @@
-#' Create a Bar Chart with Plotly
-#'
-#' This function creates an interactive bar chart using ggplot2 and Plotly. It is designed to visualize
-#' data in categories with their corresponding amounts. The chart uses a minimalistic color palette and
-#' hides the legend for a cleaner appearance.
-#'
+#' @title Create a Bar Chart with Plotly
+#' @name createBarChart
+#' @description This function creates an interactive bar chart using ggplot2 and Plotly. It is designed to visualize data in categories with their corresponding amounts. The chart uses a minimalistic color palette and hides the legend for a cleaner appearance.
+#' @author Group C composed of Marc Bourleau, Eleonore Gillain, Khrystyna Khmilovska and Konstantinos Kourlimpinis.
 #' @param data A data frame containing the variables `category` and `amount`.
 #' @param title Title of the plot, default is "Income, Expenses, and Savings".
 #' @param xLabel Label for the x-axis, default is "Category".
 #' @param yLabel Label for the y-axis, default is "Amount".
 #' @return An interactive Plotly object.
-#' @importFrom ggplot2 ggplot aes geom_bar scale_fill_manual labs theme_minimal theme0
+#' @import ggplot2
 #' @importFrom plotly ggplotly
 #' @examples
 #' test_data <- data.frame(category = c("Income", "Expenses", "Savings"),

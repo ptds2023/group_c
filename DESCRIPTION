@@ -6,7 +6,7 @@ Authors@R: c(person("Konstantinos", "Kourlimpinis", email = "konstantinos.kourli
                   role = c("aut", "cre")),
             person("Marc", "Bourleau", email = "marc.bourleau@unil.ch",
                   role = c("ctb")),
-            person("Khrystyna","Khmilovska", email = khrystyna.khmilovska@unil.ch),
+            person("Khrystyna","Khmilovska", email = "khrystyna.khmilovska@unil.ch"),
             person("Eleonore","Gillain", email = "eleonore.gillain@unil.ch" )
                   )
 Maintainer: The package maintainer <konstantinos.kourlimpinis@unil.ch>
@@ -16,8 +16,16 @@ Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.2.3
 Imports:
+    shiny,
+    shinydashboard,
+    dplyr,
+    plotly,
+    DT,
     ggplot2,
-    stats
+    rvest,
+    kableExtra,
+    tidyverse,
+    RColorBrewer,
 Suggests: 
     knitr,
     rmarkdown,
