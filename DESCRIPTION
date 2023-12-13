@@ -33,4 +33,7 @@ Suggests:
     testthat (>= 3.0.0)
 VignetteBuilder: knitr
 Config/testthat/edition: 3
-URL: https://ptds2023.github.io/
+Repository: https://github.com/ptds2023/group_c
+BugReports: https://github.com/ptds2023/group_c/issues
+
+
