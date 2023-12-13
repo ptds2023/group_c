@@ -1,0 +1,39 @@
+---
+title: "Expense Tracker User Guide"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Expense Tracker User Guide}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+description: "Learn how to input data and navigate the Expense Tracker Shiny app to manage your personal finances effectively."
+---
+
+# Inputting Data
+
+To track your expenses:
+
+1.  Enter Income: Start by inputting your monthly income in the 'Enter Income' field.
+2.  Enter Expenses: Add individual expenses by:
+    -   Selecting a category from the 'Category' dropdown.
+
+    -   Entering the expense amount.
+
+    -   Clicking 'Add Expense' to add it to the summary.
+
+# Navigating the App
+
+The 'Summary' tab displays :
+
+-   A bar chart of your income, expenses, and savings.
+
+-   A scatter plot showing expenses by category.
+
+-   A table containing the information you're inputting, updating as you enter more data.
+
+    -   This is an interactive table, so you can change the values inside it, in case you make an input error.
+
+The 'Compare to the average' tab allows you to view how your spending compares to swiss average expenses.
+
+-   Toggle between 'Scatter Plot' and 'Pie Chart' to change the expense visualization.
+
+-   Use the 'Colorblind-Friendly' option for accessible color palettes.
