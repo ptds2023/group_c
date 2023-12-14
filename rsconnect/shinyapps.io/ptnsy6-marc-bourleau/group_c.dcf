@@ -5,6 +5,6 @@ account: ptnsy6-marc-bourleau
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 10790236
-bundleId: 8044697
+bundleId: 8050353
 url: https://ptnsy6-marc-bourleau.shinyapps.io/group_c/
 version: 1
