@@ -1,5 +1,5 @@
 ---
-title: "Financial Tracking and Analysis with budgetoverview"
+title: "Financial Tracking and Analysis"
 output: rmarkdown::html_vignette
 description: >
   This vignette details how to use the budgetoverview package to manage financial data, create visualizations, and compare expenses to average spending.
@@ -42,13 +42,26 @@ financials <- calculate_financials(expenses, 2000)
 Compare your spending to the average with `compare_to_average`.
 
 ```{r}
+# # User's expenses data
+# user_expenses <- data.frame(category = c("Groceries", "Rent", "Utilities"),
+#                             amount = c(300, 1200, 150))
+# # Average Swiss expenses for comparison
+# swiss_averages <- c(Groceries = 350, Rent = 1000, Utilities = 200)
+# # Comparing and plotting
+# comparison_plot <- compare_to_average(user_expenses, swiss_averages)
+
+```
+
+```{r}
 # User's expenses data
 user_expenses <- data.frame(category = c("Groceries", "Rent", "Utilities"),
                             amount = c(300, 1200, 150))
 # Average Swiss expenses for comparison
 swiss_averages <- c(Groceries = 350, Rent = 1000, Utilities = 200)
+# Categories to compare
+selected_categories <- c("Groceries", "Rent", "Utilities")
 # Comparing and plotting
-comparison_plot <- compare_to_average(user_expenses, swiss_averages)
+comparison_plot <- compare_to_average(user_expenses, swiss_averages, selected_categories)
 
 ```
 
@@ -56,9 +69,16 @@ comparison_plot <- compare_to_average(user_expenses, swiss_averages)
 
 Visualize your financial data with `createBarChart` and `create_scatter_plot`.
 
-```{r}
+```{r, message=FALSE,warning=FALSE}
+# Example test data (since we don't have user data in the vignette)
+test_data <- data.frame(
+  category = c("Income", "Expenses", "Savings"),
+  amount = c(1000, 500, 500)
+)
+
 # Creating a bar chart of income, expenses, and savings
 bar_chart <- createBarChart(test_data)
+
 # Creating a scatter plot of expenses
 scatter_plot <- create_scatter_plot(expenses)
 ```
