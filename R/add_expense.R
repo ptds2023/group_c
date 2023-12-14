@@ -18,17 +18,23 @@
 #'     # Update UI or perform other actions
 #'   }
 #' })
-add_expense <- function(category, amount, expenses_data, selected_categories) {
+add_expense <- function(category, amount, expenses_data, selected_categories, session) {
   if (is.na(amount) || amount < 0) {
-    stop("Amount must be a non-negative number")
+    showModal(modalDialog(
+      title = "Invalid Amount",
+      "Amount must be a non-negative number.",
+      easyClose = TRUE,
+      footer = NULL
+    ), session = session)
+    return(FALSE)
   }
 
   if (!(category %in% selected_categories())) {
     new_data <- rbind(expenses_data(), data.frame(category = category, amount = amount))
     expenses_data(new_data)
     selected_categories(c(selected_categories(), category))
-    TRUE
+    return(TRUE)
   } else {
-    FALSE
+    return(FALSE)
   }
 }

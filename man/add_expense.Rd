@@ -4,24 +4,32 @@
 \alias{add_expense}
 \title{Add an Expense to the Data Frame}
 \usage{
-add_expense(category, amount, expenses_data, selected_categories)
+add_expense(category, amount, expenses_data, selected_categories, session)
 }
 \arguments{
-\item{category}{The category of the new expense.}
+\item{amount}{The amount of the new expense, must be non-negative.}
 
-\item{amount}{The amount of the new expense.}
+\item{expenses_data}{A reactive value containing a data frame of expenses.}
 
-\item{expenses_data}{A data frame containing existing expenses.}
+\item{selected_categories}{A reactive value storing the list of already selected categories.}
 }
 \value{
-A data frame with the new expense added.
+Logical indicating whether the expense was successfully added (TRUE) or not (FALSE).
 }
 \description{
 This function adds a new expense entry to the given data frame of expenses. It checks for the validity of the category and amount before adding.
 }
 \examples{
-expenses <- data.frame(category = character(), amount = numeric())
-expenses <- add_expense(expenses, "Food", 100)
+# In a Shiny server function:
+expenses_data <- reactiveVal(data.frame(category = character(), amount = numeric()))
+selected_categories <- reactiveVal(character())
+
+observeEvent(input$add_expense, {
+  result <- add_expense(input$category, input$expense, expenses_data, selected_categories)
+  if (result) {
+    # Update UI or perform other actions
+  }
+})
 }
 \author{
 Group C composed of Marc Bourleau, Eleonore Gillain, Khrystyna Khmilovska and Konstantinos Kourlimpinis.

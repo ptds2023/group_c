@@ -21,7 +21,7 @@ ui <- shinydashboard::dashboardPage(
       tags$link(rel = "stylesheet", type = "text/css", href = "styles/styles.css")
     ),
     numericInput("income", "Enter Income:", value = NULL),
-    h4("Enter Expenses:"),
+    h4(class = "white-label", "Enter Expenses:"),  # Add class to the label
     selectInput("category", "Category:", categories),
     numericInput("expense", "Expense:", value = 0),
     actionButton("add_expense", "Add Expense"),
@@ -33,8 +33,14 @@ ui <- shinydashboard::dashboardPage(
       tabPanel("Summary",
                fluidRow(
                  box(plotlyOutput("bar_chart"), width = 6),
-                 box(DTOutput("expense_table"), width = 6),
-                 box(plotlyOutput("scatter_plot"), width = 12))
+                 box(
+                   tags$div(style = "text-align: right; margin-top: 5px; margin-right: 10px; color: red; font-style: italic;",
+                            "Double Click on the amount to edit it"),
+                   DTOutput("expense_table"),
+                   width = 6
+                 ),
+                 box(plotlyOutput("scatter_plot"), width = 12)
+               )
       ),
       tabPanel("Compare to the average",
                box(plotlyOutput("compare_scatter_plot"), width = 12)
@@ -51,18 +57,13 @@ server <- function(input, output, session) {
 
   # Add expense when button is clicked
   observeEvent(input$add_expense, {
-    result <- add_expense(input$category, input$expense, expenses_data, selected_categories)
-    if (!result) {
-      showModal(modalDialog(
-        title = "Category Already Selected",
-        "You can only choose each category once. Please select a different category.",
-        easyClose = TRUE
-      ))
-    } else {
+    result <- add_expense(input$category, input$expense, expenses_data, selected_categories, session)
+    if (result) {
       # Remove selected category from the dropdown list
       updateSelectInput(session, "category", choices = setdiff(categories, input$category), selected = NULL)
       updateNumericInput(session, "expense", value = 0)
     }
+    # No else part needed here, as showModal will handle the error display
   })
 
   # Generate editable table for editing
