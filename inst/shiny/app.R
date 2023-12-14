@@ -12,7 +12,6 @@ categories <- swiss_budget$Grouped_Expenses
 swiss_expenses <- swiss_budget$Total_CH
 #  Set resource path for CSS
 shiny::addResourcePath("styles", system.file("styles", package = "budgetoverview"))
-
 # Define UI
 ui <- shinydashboard::dashboardPage(
   dashboardHeader(title = "Expense Tracker"),
@@ -29,7 +28,7 @@ ui <- shinydashboard::dashboardPage(
     radioButtons("scatter_plot_type", "Select Plot Type For Expenses by Category:", choices = c("Scatter Plot", "Pie Chart"), selected = "Scatter Plot"),
     checkboxInput("colorblind_switch", "Colorblind-Friendly", value = FALSE)
   ),
-  dashboardBody(
+  shinydashboard::dashboardBody(
     tabsetPanel(
       tabPanel("Summary",
                fluidRow(
@@ -68,12 +67,12 @@ server <- function(input, output, session) {
   })
 
   # Generate editable table for editing
-  output$expense_table <- renderDT({
+  output$expense_table <- DT::renderDT({
     datatable(expenses_data(), editable = TRUE, options = list(dom = 't'))
   })
 
   # Update bar chart when the table or income is edited
-  output$bar_chart <- renderPlotly({
+  output$bar_chart <- plotly::renderPlotly({
     financials <- budgetoverview::calculate_financials(expenses_data(), input$income)
     data <- data.frame(
       category = c("Income", "Expenses", "Savings"),
@@ -83,13 +82,13 @@ server <- function(input, output, session) {
   })
 
   # Update scatter plot when the table is edited
-  output$scatter_plot <- renderPlotly({
+  output$scatter_plot <- plotly::renderPlotly({
     plot_data <- budgetoverview::create_scatter_plot_data(expenses_data(), input$scatter_plot_type, input$colorblind_switch)
     budgetoverview::create_scatter_plot(plot_data, input$scatter_plot_type)
   })
 
   # Update scatter plot for comparison
-  output$compare_scatter_plot <- renderPlotly({
+  output$compare_scatter_plot <- plotly::renderPlotly({
     comparison_data <- budgetoverview::compare_to_average(expenses_data(), swiss_expenses, expenses_data()$category)
     budgetoverview::create_comparison_scatter_plot(comparison_data, input$colorblind_switch)
   })

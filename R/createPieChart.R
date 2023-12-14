@@ -6,13 +6,14 @@
 #' @param colorblind_switch A boolean flag to use colorblind-friendly palette. Default is FALSE.
 #' @return A ggplot object representing the pie chart.
 #' @import scales
+#' @import ggplot2
 #' @export
 #' @examples
 #' data <- data.frame(
 #'   category = c("Category 1", "Category 2", "Category 3"),
 #'   value = c(10, 20, 30)
 #' )
-#' create_pie_chart(data, TRUE)
+#' createPieChart(data, TRUE)
 createPieChart <- function(data, colorblind_switch = FALSE) {
   if (!"ggplot2" %in% installed.packages()) {
     stop("ggplot2 is not installed. Please install it to use this function.")

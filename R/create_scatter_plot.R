@@ -5,6 +5,8 @@
 #' @param expenses_data A data frame containing expenses data.
 #' @return A ggplot object representing the scatter plot.
 #' @import ggplot2
+#' @import dplyr
+#' @importFrom magrittr %>%
 #' @export
 #' @examples
 #' expenses <- data.frame(category = c("Food", "Rent"), amount = c(100, 500))

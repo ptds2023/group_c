@@ -22,7 +22,7 @@ data <- data.frame(
   category = c("Category 1", "Category 2", "Category 3"),
   value = c(10, 20, 30)
 )
-create_pie_chart(data, TRUE)
+createPieChart(data, TRUE)
 }
 \author{
 Group C composed of Marc Bourleau, Eleonore Gillain, Khrystyna Khmilovska and Konstantinos Kourlimpinis.
