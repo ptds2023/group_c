@@ -59,7 +59,7 @@ server <- function(input, output, session) {
     # Use custom function if category hasn't been selected before
     if (!(category %in% selected_categories())) {
       tryCatch({
-        updated_expenses_data <- budgetoverview::add_expense(expenses_data(), category, amount)
+        updated_expenses_data <- budgetoverview::add_expense_f(expenses_data(), category, amount)
         expenses_data(updated_expenses_data)
         selected_categories(c(selected_categories(), category))
       }, error = function(e) {
@@ -91,17 +91,17 @@ server <- function(input, output, session) {
 
     # Update bar chart with custom function
     output$bar_chart <- renderPlotly({
-      financials <- budgetoverview::calculate_financials(expenses_data(), input$income)
+      financials <- budgetoverview::calculate_financials_f(expenses_data(), input$income)
       budgetoverview::createBarChart(financials)
     })
 
     # Determine which scatter plot to display
     output$scatter_plot <- renderPlotly({
       if (input$scatter_plot_type == "Scatter Plot") {
-        budgetoverview::create_scatter_plot(expenses_data(), input$colorblind_switch)
+        budgetoverview::create_scatter_plot_f(expenses_data(), input$colorblind_switch)
       } else {
         # Assuming there's a function for pie chart in budgetoverview
-        budgetoverview::create_pie_chart(expenses_data(), input$colorblind_switch)
+        budgetoverview::create(expenses_data(), input$colorblind_switch)
       }
     })
 
