@@ -2,9 +2,14 @@
 % Please edit documentation in R/create_scatter_plot.R
 \name{create_scatter_plot}
 \alias{create_scatter_plot}
+\alias{generate_scatter_or_pie}
 \title{Create a Scatter Plot of Expenses Data}
 \usage{
-create_scatter_plot(expenses_data)
+generate_scatter_or_pie(
+  expenses_data_summary,
+  scatter_plot_type,
+  colorblind_switch
+)
 }
 \arguments{
 \item{expenses_data}{A data frame containing expenses data.}

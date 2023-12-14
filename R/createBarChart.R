@@ -14,15 +14,27 @@
 #'                        amount = c(1000, 500, 500))
 #' createBarChart(test_data)
 #' @export
-createBarChart <- function(data, title = "Income, Expenses, and Savings", xLabel = "Category", yLabel = "Amount") {
-  require(ggplot2)
-  require(plotly)
+# createBarChart <- function(data, title = "Income, Expenses, and Savings", xLabel = "Category", yLabel = "Amount") {
+#   require(ggplot2)
+#   require(plotly)
+#
+#   p <- ggplot(data, aes(x = category, y = amount, fill = category)) +
+#     geom_bar(stat = "identity") +
+#     scale_fill_manual(values = c("#66c2a5", "#fc8d62", "#8da0cb")) +
+#     labs(title = title, x = xLabel, y = yLabel) +
+#     ggplot2::theme_minimal() +
+#     theme(legend.position = "none")
+#
+#   ggplotly(p)
+# }
 
+generate_bar_chart <- function(data, colorblind_switch) {
+  color_palette <- if (colorblind_switch) c("#1b9e77", "#d95f02", "#7570b3") else c("#66c2a5", "#fc8d62", "#8da0cb")
   p <- ggplot(data, aes(x = category, y = amount, fill = category)) +
     geom_bar(stat = "identity") +
-    scale_fill_manual(values = c("#66c2a5", "#fc8d62", "#8da0cb")) +
-    labs(title = title, x = xLabel, y = yLabel) +
-    ggplot2::theme_minimal() +
+    scale_fill_manual(values = color_palette) +
+    labs(title = "Income, Expenses, and Savings", x = "Category", y = "Amount") +
+    theme_minimal() +
     theme(legend.position = "none")
 
   ggplotly(p)

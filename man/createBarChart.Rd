@@ -2,14 +2,10 @@
 % Please edit documentation in R/createBarChart.R
 \name{createBarChart}
 \alias{createBarChart}
+\alias{generate_bar_chart}
 \title{Create a Bar Chart with Plotly}
 \usage{
-createBarChart(
-  data,
-  title = "Income, Expenses, and Savings",
-  xLabel = "Category",
-  yLabel = "Amount"
-)
+generate_bar_chart(data, colorblind_switch)
 }
 \arguments{
 \item{data}{A data frame containing the variables `category` and `amount`.}

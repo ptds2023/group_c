@@ -47,23 +47,22 @@ ui <- shinydashboard::dashboardPage(
 server <- function(input, output, session) {
   # Initialize reactive values
   expenses_data <- reactiveVal(data.frame(category = character(), amount = numeric()))
+  selected_categories <- reactiveVal(character())
 
   # Add expense when button is clicked
   observeEvent(input$add_expense, {
-    tryCatch({
-      updated_expenses_data <- budgetoverview::add_expense(expenses_data(), input$category, input$expense)
-      expenses_data(updated_expenses_data)
-
-      # Update the selectInput choices
-      updateSelectInput(session, "category", choices = setdiff(categories, expenses_data()$category), selected = NULL)
-      updateNumericInput(session, "expense", value = 0)
-    }, error = function(e) {
+    result <- add_expense(input$category, input$expense, expenses_data, selected_categories)
+    if (!result) {
       showModal(modalDialog(
-        title = "Error",
-        e$message,
+        title = "Category Already Selected",
+        "You can only choose each category once. Please select a different category.",
         easyClose = TRUE
       ))
-    })
+    } else {
+      # Remove selected category from the dropdown list
+      updateSelectInput(session, "category", choices = setdiff(categories, input$category), selected = NULL)
+      updateNumericInput(session, "expense", value = 0)
+    }
   })
 
   # Generate editable table for editing
@@ -71,27 +70,42 @@ server <- function(input, output, session) {
     datatable(expenses_data(), editable = TRUE, options = list(dom = 't'))
   })
 
-  # Update bar chart when the table or income is edited
-  output$bar_chart <- renderPlotly({
-    financials <- budgetoverview::calculate_financials(expenses_data(), input$income)
+  # Update graphs when the table is edited
+  observe({
+    total_expenses <- sum(expenses_data()$amount)
+    savings <- ifelse(is.null(input$income), 0, input$income) - total_expenses
+
     data <- data.frame(
       category = c("Income", "Expenses", "Savings"),
-      amount = c(input$income, financials$total_expenses, financials$savings)
+      amount = c(ifelse(is.null(input$income), 0, input$income), total_expenses, savings)
     )
-    createBarChart(data)
-  })
 
-  # Update scatter plot when the table is edited
-  output$scatter_plot <- renderPlotly({
-    budgetoverview::create_scatter_plot(expenses_data())
+    # Bar Chart
+    output$bar_chart <- renderPlotly({
+      generate_bar_chart(data, input$colorblind_switch)
+    })
+
+    expenses_data_summary <- expenses_data() %>%
+      mutate(percentage = amount / total_expenses * 100)
+
+    # Scatter Plot or Pie Chart
+    output$scatter_plot <- renderPlotly({
+      generate_scatter_or_pie(expenses_data_summary, input$scatter_plot_type, input$colorblind_switch)
+    })
   })
 
   # Update scatter plot for comparison
-  output$compare_scatter_plot <- renderPlotly({
-    comparison_data <- budgetoverview::compare_to_average(expenses_data(), swiss_expenses, expenses_data()$category)
-    ggplot(comparison_data, aes(x = UserExpenses, y = AverageExpenses, label = Category)) +
-      geom_point() +
-      theme_minimal()
+  observe({
+    user_vs_swiss <- data.frame(
+      category = selected_categories(),
+      user_amount = expenses_data()$amount,
+      swiss_amount = swiss_expenses[match(selected_categories(), categories)]
+    )
+
+    # Comparison Scatter Plot
+    output$compare_scatter_plot <- renderPlotly({
+      generate_comparison_plot(user_vs_swiss, input$colorblind_switch)
+    })
   })
 }
 

@@ -1,4 +1,5 @@
 library(budgetoverview)
-launchMyApp()
+budgetoverview::launchMyApp()
 
 # rsconnect::deployApp(appDir = "inst/shiny")
+

@@ -14,24 +14,40 @@
 #'   value = c(10, 20, 30)
 #' )
 #' createPieChart(data, TRUE)
-createPieChart <- function(data, colorblind_switch = FALSE) {
-  if (!"ggplot2" %in% installed.packages()) {
-    stop("ggplot2 is not installed. Please install it to use this function.")
-  }
+# createPieChart <- function(data, colorblind_switch = FALSE) {
+#   if (!"ggplot2" %in% installed.packages()) {
+#     stop("ggplot2 is not installed. Please install it to use this function.")
+#   }
+#
+#   library(ggplot2)
+#
+#   # Choosing a color palette
+#   if (colorblind_switch) {
+#     colors <- scales::brewer_pal(palette = "Set2")(length(unique(data$category)))
+#   } else {
+#     colors <- scales::brewer_pal(palette = "Set1")(length(unique(data$category)))
+#   }
+#
+#   ggplot(data, aes(x = "", y = value, fill = category)) +
+#     geom_bar(width = 1, stat = "identity") +
+#     coord_polar("y", start = 0) +
+#     scale_fill_manual(values = colors) +
+#     theme_void() +
+#     labs(fill = "Category")
+# }
 
-  library(ggplot2)
 
-  # Choosing a color palette
-  if (colorblind_switch) {
-    colors <- scales::brewer_pal(palette = "Set2")(length(unique(data$category)))
-  } else {
-    colors <- scales::brewer_pal(palette = "Set1")(length(unique(data$category)))
-  }
 
-  ggplot(data, aes(x = "", y = value, fill = category)) +
-    geom_bar(width = 1, stat = "identity") +
-    coord_polar("y", start = 0) +
-    scale_fill_manual(values = colors) +
-    theme_void() +
-    labs(fill = "Category")
+generate_comparison_plot <- function(user_vs_swiss, colorblind_switch) {
+  color_vector <- if (colorblind_switch) brewer.pal(12, "Set1") else brewer.pal(12, "Pastel1")
+
+  p <- ggplot(user_vs_swiss) +
+    geom_point(aes(x = user_amount / sum(user_amount) * 100, y = user_amount, shape = "User", color = category), size = user_vs_swiss$user_amount * 0.01, alpha = 0.5) +
+    geom_point(aes(x = swiss_amount / sum(swiss_amount) * 100, y = swiss_amount, shape = "Swiss", color = category), size = user_vs_swiss$user_amount * 0.01, alpha = 0.5) +
+    labs(title = "Compare to the Average Swiss Expenses", x = "% Share of Expenses", y = "Amount") +
+    theme_minimal() +
+    theme(legend.position = "right") +
+    scale_color_manual(values = color_vector, breaks = unique(user_vs_swiss$category), name = "Category")
+
+  ggplotly(p)
 }

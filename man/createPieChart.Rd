@@ -2,14 +2,15 @@
 % Please edit documentation in R/createPieChart.R
 \name{createPieChart}
 \alias{createPieChart}
+\alias{generate_comparison_plot}
 \title{Create a Pie Chart with Plotly}
 \usage{
-createPieChart(data, colorblind_switch = FALSE)
+generate_comparison_plot(user_vs_swiss, colorblind_switch)
 }
 \arguments{
-\item{data}{A data frame with at least two columns: category and value.}
-
 \item{colorblind_switch}{A boolean flag to use colorblind-friendly palette. Default is FALSE.}
+
+\item{data}{A data frame with at least two columns: category and value.}
 }
 \value{
 A ggplot object representing the pie chart.

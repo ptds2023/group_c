@@ -4,14 +4,14 @@
 \alias{add_expense}
 \title{Add an Expense to the Data Frame}
 \usage{
-add_expense(expenses_data, category, amount)
+add_expense(category, amount, expenses_data, selected_categories)
 }
 \arguments{
-\item{expenses_data}{A data frame containing existing expenses.}
-
 \item{category}{The category of the new expense.}
 
 \item{amount}{The amount of the new expense.}
+
+\item{expenses_data}{A data frame containing existing expenses.}
 }
 \value{
 A data frame with the new expense added.

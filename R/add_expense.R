@@ -10,15 +10,25 @@
 #' @examples
 #' expenses <- data.frame(category = character(), amount = numeric())
 #' expenses <- add_expense(expenses, "Food", 100)
-add_expense <- function(expenses_data, category, amount) {
-  # Ensure that the category and amount are valid
-  if (is.null(category) || is.na(amount) || amount <= 0) {
-    stop("Invalid category or amount")
+# add_expense <- function(expenses_data, category, amount) {
+#   # Ensure that the category and amount are valid
+#   if (is.null(category) || is.na(amount) || amount <= 0) {
+#     stop("Invalid category or amount")
+#   }
+#
+#   # Add the new expense to the data frame
+#   new_expense <- data.frame(category = category, amount = amount)
+#   updated_expenses_data <- rbind(expenses_data, new_expense)
+#
+#   return(updated_expenses_data)
+# }
+add_expense <- function(category, amount, expenses_data, selected_categories) {
+  if (!(category %in% selected_categories())) {
+    new_data <- rbind(expenses_data(), data.frame(category = category, amount = amount))
+    expenses_data(new_data)
+    selected_categories(c(selected_categories(), category))
+    TRUE
+  } else {
+    FALSE
   }
-
-  # Add the new expense to the data frame
-  new_expense <- data.frame(category = category, amount = amount)
-  updated_expenses_data <- rbind(expenses_data, new_expense)
-
-  return(updated_expenses_data)
 }
