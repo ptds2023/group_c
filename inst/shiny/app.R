@@ -13,6 +13,11 @@ swiss_expenses <- swiss_budget$Total_CH
 #  Set resource path for CSS
 shiny::addResourcePath("styles", system.file("styles", package = "budgetoverview"))
 
+
+
+
+
+
 # Define UI
 ui <- shinydashboard::dashboardPage(
   dashboardHeader(title = "Expense Tracker"),
@@ -27,7 +32,7 @@ ui <- shinydashboard::dashboardPage(
     numericInput("expense", "Expense:", value = 0),
     actionButton("add_expense", "Add Expense"),
     radioButtons("scatter_plot_type", "Select Plot Type For Expenses by Category:", choices = c("Scatter Plot", "Pie Chart"), selected = "Scatter Plot"),
-    checkboxInput("colorblind_switch", "Colorblind-Friendly", value = FALSE)  # Corrected to checkboxInput
+    checkboxInput("colorblind_switch", "Colorblind-Friendly", value = FALSE)
   ),
   dashboardBody(
     tabsetPanel(
@@ -79,22 +84,22 @@ server <- function(input, output, session) {
       category = c("Income", "Expenses", "Savings"),
       amount = c(input$income, financials$total_expenses, financials$savings)
     )
-    createBarChart(data)
+    budgetoverview::createBarChart(data, input$colorblind_switch)
   })
 
   # Update scatter plot when the table is edited
   output$scatter_plot <- renderPlotly({
-    budgetoverview::create_scatter_plot(expenses_data())
+    plot_data <- budgetoverview::create_scatter_plot_data(expenses_data(), input$scatter_plot_type, input$colorblind_switch)
+    budgetoverview::create_scatter_plot(plot_data, input$scatter_plot_type)
   })
 
   # Update scatter plot for comparison
   output$compare_scatter_plot <- renderPlotly({
     comparison_data <- budgetoverview::compare_to_average(expenses_data(), swiss_expenses, expenses_data()$category)
-    ggplot(comparison_data, aes(x = UserExpenses, y = AverageExpenses, label = Category)) +
-      geom_point() +
-      theme_minimal()
+    budgetoverview::create_comparison_scatter_plot(comparison_data, input$colorblind_switch)
   })
 }
 
 # Run the application
 shinyApp(ui = ui, server = server)
+
