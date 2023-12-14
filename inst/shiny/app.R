@@ -26,9 +26,9 @@ ui <- shinydashboard::dashboardPage(
     numericInput("expense", "Expense:", value = 0),
     actionButton("add_expense", "Add Expense"),
     radioButtons("scatter_plot_type", "Select Plot Type For Expenses by Category:", choices = c("Scatter Plot", "Pie Chart"), selected = "Scatter Plot"),
-    checkboxInput("colorblind_switch", "Colorblind-Friendly", value = FALSE)
+    checkboxInput("colorblind_switch", "Colorblind-Friendly", value = FALSE)  # Corrected to checkboxInput
   ),
-  shinydashboard::dashboardBody(
+  dashboardBody(
     tabsetPanel(
       tabPanel("Summary",
                fluidRow(
@@ -67,30 +67,31 @@ server <- function(input, output, session) {
   })
 
   # Generate editable table for editing
-  output$expense_table <- DT::renderDT({
+  output$expense_table <- renderDT({
     datatable(expenses_data(), editable = TRUE, options = list(dom = 't'))
   })
 
   # Update bar chart when the table or income is edited
-  output$bar_chart <- plotly::renderPlotly({
+  output$bar_chart <- renderPlotly({
     financials <- budgetoverview::calculate_financials(expenses_data(), input$income)
     data <- data.frame(
       category = c("Income", "Expenses", "Savings"),
       amount = c(input$income, financials$total_expenses, financials$savings)
     )
-    budgetoverview::createBarChart(data, input$colorblind_switch)
+    createBarChart(data)
   })
 
   # Update scatter plot when the table is edited
-  output$scatter_plot <- plotly::renderPlotly({
-    plot_data <- budgetoverview::create_scatter_plot_data(expenses_data(), input$scatter_plot_type, input$colorblind_switch)
-    budgetoverview::create_scatter_plot(plot_data, input$scatter_plot_type)
+  output$scatter_plot <- renderPlotly({
+    budgetoverview::create_scatter_plot(expenses_data())
   })
 
   # Update scatter plot for comparison
-  output$compare_scatter_plot <- plotly::renderPlotly({
+  output$compare_scatter_plot <- renderPlotly({
     comparison_data <- budgetoverview::compare_to_average(expenses_data(), swiss_expenses, expenses_data()$category)
-    budgetoverview::create_comparison_scatter_plot(comparison_data, input$colorblind_switch)
+    ggplot(comparison_data, aes(x = UserExpenses, y = AverageExpenses, label = Category)) +
+      geom_point() +
+      theme_minimal()
   })
 }
 
