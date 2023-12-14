@@ -1,30 +1,26 @@
-#' @title Create a Scatter Plot of Expenses Data
-#' @name create_scatter_plot
-#' @description Generates a scatter plot showing the distribution and percentage share of each expense category in the total expenses.
+#' @title Generate Scatter Plot or Pie Chart
+#' @name generate_scatter_or_pie
+#' @description This function creates either a scatter plot or a pie chart based on user input. It is designed to be used within a Shiny application.
 #' @author Group C composed of Marc Bourleau, Eleonore Gillain, Khrystyna Khmilovska and Konstantinos Kourlimpinis.
-#' @param expenses_data A data frame containing expenses data.
-#' @return A ggplot object representing the scatter plot.
+#' @param expenses_data_summary A data frame summarizing expenses data. It should contain at least two columns: 'category' for the expense categories and 'percentage' for the percentage share of each category.
+#' @param scatter_plot_type A character string specifying the type of plot to generate. Expected values are "Scatter Plot" or "Pie Chart".
+#' @param colorblind_switch A logical value indicating whether to use a colorblind-friendly palette.
+#' @return A Plotly object representing the specified type of plot (scatter plot or pie chart).
 #' @import ggplot2
 #' @import dplyr
+#' @import plotly
 #' @importFrom magrittr %>%
 #' @export
 #' @examples
-#' expenses <- data.frame(category = c("Food", "Rent"), amount = c(100, 500))
-#' scatter_plot <- create_scatter_plot(expenses)
-# create_scatter_plot <- function(expenses_data) {
-#   total_expenses <- sum(expenses_data$amount)
-#   expenses_data_summary <- expenses_data %>%
-#     mutate(percentage = amount / total_expenses * 100)
-#
-#   p <- ggplot(expenses_data_summary, aes(x = percentage, y = amount, label = category)) +
-#     geom_point(color = "#66c2a5", size = expenses_data_summary$amount * 0.01, alpha = 0.5) +
-#     geom_text(size = 3) +
-#     labs(title = "Expenses by Category", x = "% Share of Expenses", y = "Amount") +
-#     ggplot2::theme_minimal()
-#
-#   return(p)
-# }
-#
+#' # Example usage within a Shiny server function:
+#' expenses_summary <- data.frame(
+#'   category = c("Food", "Transport", "Utilities"),
+#'   amount = c(200, 150, 100),
+#'   percentage = c(40, 30, 30)
+#' )
+#' output$myPlot <- renderPlotly({
+#'   generate_scatter_or_pie(expenses_summary, input$plotType, input$colorblindSwitch)
+#' })
 
 generate_scatter_or_pie <- function(expenses_data_summary, scatter_plot_type, colorblind_switch) {
   color_vector <- if (colorblind_switch) brewer.pal(3, "Set1") else brewer.pal(3, "Pastel1")
