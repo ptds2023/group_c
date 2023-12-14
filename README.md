@@ -26,7 +26,15 @@ Here's what the our Shiny app does in more detail:
 
 ## How are the files organized in this project? 
 
-- R: In this directory you can find all the R script files (.R) with functions that the package uses (example: graph creation based on the user's data)
-- man: In this directory you can find the documentation files. Every function in our package has a description which is found here. 
-- DESCRIPTION: This metadata file includes information about our package name, version, author and dependencies on other packages. 
+There's many different folders & files in our package directory and here's what you can find in each of them. 
+
+### Folders: 
+
+- R: In this directory you can find all the R script files (.R) with functions that the package/Shiny uses (example: graph creation based on the user's data)
+- man: In this directory you can find the documentation files. Every function in our package has a description which is found here. These were all automatically generated using ROxygen.
 - data: This directory is where all the user's data can be found. This is where they are stored once the user inputs them through the shiny app. 
+
+### Files: 
+
+- DESCRIPTION: This metadata file includes information about our package name, version, author and dependencies on other packages. 
+
