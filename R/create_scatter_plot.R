@@ -22,3 +22,4 @@ create_scatter_plot <- function(expenses_data) {
 
   return(p)
 }
+

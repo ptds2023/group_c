@@ -13,11 +13,6 @@ swiss_expenses <- swiss_budget$Total_CH
 #  Set resource path for CSS
 shiny::addResourcePath("styles", system.file("styles", package = "budgetoverview"))
 
-
-
-
-
-
 # Define UI
 ui <- shinydashboard::dashboardPage(
   dashboardHeader(title = "Expense Tracker"),
@@ -102,4 +97,3 @@ server <- function(input, output, session) {
 
 # Run the application
 shinyApp(ui = ui, server = server)
-
