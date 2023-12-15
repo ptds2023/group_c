@@ -58,14 +58,23 @@ server <- function(input, output, session) {
 
   # Add expense when button is clicked
   observeEvent(input$add_expense, {
-    result <- add_expense(input$category, input$expense, expenses_data, selected_categories, session)
-    if (result) {
-      # Remove selected category from the dropdown list
-      updateSelectInput(session, "category", choices = setdiff(categories, input$category), selected = NULL)
-      updateNumericInput(session, "expense", value = 0)
+    # Check if the category has already been selected
+    if(input$category %in% expenses_data()$category) {
+      # Show modal dialog if category is already selected
+      showModal(modalDialog(
+        title = "Category Already Selected",
+        "You can only choose each category once. Please select a different category. If you want to modify an existing category, double-click on the amount inside the table.",
+        easyClose = TRUE
+      ))
+    } else {
+      result <- add_expense(input$category, input$expense, expenses_data, selected_categories, session)
+      if (result) {
+        updateNumericInput(session, "expense", value = 0)
+      }
+      # No else part needed here, as showModal will handle the error display
     }
-    # No else part needed here, as showModal will handle the error display
   })
+
 
   # Generate editable table for editing
   output$expense_table <- renderDT({
