@@ -11,6 +11,8 @@ vignette: >
 
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+knitr::opts_chunk$set(eval = FALSE)
+
 library(budgetoverview)
 ```
 
@@ -56,7 +58,28 @@ To add a new entry to a data frame that tracks expenses. It is designed to be in
 
 ### Example Usage in Shiny
 
-In a Shiny app, this function would be used within an **`observeEvent`** or similar reactive context. It would typically be triggered by a user action, such as pressing an "Add Expense" button. The function reads the category and amount from the user input, attempts to add the expense, and then you can take additional actions based on whether the expense was successfully added.
+In a Shiny app, this function would be used within an **`observeEvent`** or similar reactive context. It is triggered by a user action, specifically pressing an "Add Expense" button. The function reads the category and amount from the user input, attempts to add the expense, and then you can take additional actions based on whether the expense was successfully added.
+
+```{r}
+# Assuming you have a Shiny reactive environment set up
+
+# Initialize reactive values
+expenses_data <- reactiveVal(data.frame(category = character(), amount = numeric()))
+selected_categories <- reactiveVal(character())
+
+# Example usage within a Shiny observeEvent
+observeEvent(input$add_expense, {
+  result <- add_expense(input$category, input$expense, expenses_data, selected_categories)
+  if (result) {
+    # Perform actions after successful addition
+    print("Expense added successfully.")
+  } else {
+    # Handle cases where addition fails
+    print("Failed to add expense.")
+  }
+})
+```
+
 
 # 2. generate_bar_chart
 
@@ -100,15 +123,24 @@ Calculate your total expenses and how much you have saved with the calculate_fin
 
 ### Example Usage
 
--   An example is provided in the documentation showing how to create a bar chart with a dataset containing categories "Income", "Expenses", and "Savings", and their corresponding amounts.
-
 -   In a Shiny application, this plot can be rendered using **`renderPlotly()`** to make it interactive.
+
+```{r}
+# Sample data
+data <- data.frame(
+  category = c("Income", "Expenses", "Savings"),
+  amount = c(1000, 750, 250)
+)
+
+# Generate and display the bar chart
+bar_chart <- generate_bar_chart(data, colorblind_switch = FALSE)
+bar_chart
+```
+
 
 ### Output
 
 -   The function returns a Plotly ggplot object, which is an interactive plot that can be rendered in a web browser, making it suitable for Shiny applications or R Markdown documents.
-
-This function is a great example of combining the strengths of **`ggplot2`** for data visualization and **`plotly`** for interactivity, specifically tailored for financial data in a user-friendly and accessible manner.
 
 # 3. generate_comparison_plot
 
@@ -152,13 +184,24 @@ This function is a great example of combining the strengths of **`ggplot2`** for
 
 ### Example Usage
 
--   The function is intended to be used within a Shiny server function. An example is provided in the documentation where the **`user_vs_swiss`** data frame is defined with categories and corresponding amounts. The function is then called within **`renderPlotly()`** to create an interactive plot in the Shiny app.
+-   Just like the previous ones, this function is intended to be used within a Shiny server function.
+
+```{r}
+# Sample data for user expenses vs. average expenses
+user_vs_swiss <- data.frame(
+  category = c("Food", "Transport", "Utilities"),
+  user_amount = c(200, 150, 100),
+  swiss_amount = c(250, 180, 120)
+)
+
+# Generate and display the comparison scatter plot
+comparison_scatter_plot <- generate_comparison_plot(user_vs_swiss, colorblind_switch = FALSE)
+comparison_scatter_plot
+```
 
 ### Output
 
 -   The function returns a Plotly ggplot object, which is an interactive plot suitable for web applications, particularly for Shiny.
-
-In summary, **`generate_comparison_plot`** is a specialized function for visualizing and comparing financial data interactively, with an emphasis on user-friendliness and accessibility. It provides insights into personal spending habits in comparison to a broader average, a useful feature for budgeting and financial planning applications.
 
 # 4. generate_scatter_or_pie
 
@@ -213,3 +256,21 @@ Dynamically generate a visualization of expenses data, either as a scatter plot 
 ### Example Usage in Shiny
 
 -   The function can be called within a Shiny server function, where the user's choice of plot type and colorblind mode can be passed as inputs. The resulting plot can be rendered in the UI using **`renderPlotly`**.
+
+```{r}
+# Sample summarized expenses data
+expenses_summary <- data.frame(
+  category = c("Food", "Transport", "Utilities"),
+  amount = c(200, 150, 100),
+  percentage = c(40, 30, 30)
+)
+
+# Generate and display the scatter plot
+scatter_plot <- generate_scatter_or_pie(expenses_summary, "Scatter Plot", colorblind_switch = FALSE)
+scatter_plot
+
+# Generate and display the pie chart
+pie_chart <- generate_scatter_or_pie(expenses_summary, "Pie Chart", colorblind_switch = FALSE)
+pie_chart
+```
+

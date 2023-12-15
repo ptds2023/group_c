@@ -1,8 +1,8 @@
 ---
-title: "Expense Tracker User Guide"
+title: "Shiny - How to use"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Expense Tracker User Guide}
+  %\VignetteIndexEntry{Shiny - How to use}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 description: "Learn how to input data and navigate the Expense Tracker Shiny app to manage your personal finances effectively."
@@ -10,10 +10,12 @@ description: "Learn how to input data and navigate the Expense Tracker Shiny app
 
 # Inputting Data
 
-To track your expenses:
+## To track your expenses:
 
-1.  Enter Income: Start by inputting your monthly income in the 'Enter Income' field.
-2.  Enter Expenses: Add individual expenses by:
+1.  **Enter Income**: Start by inputting your monthly income in the 'Enter Income' field.
+
+2.  **Enter Expenses** : Add individual expenses by:
+
     -   Selecting a category from the 'Category' dropdown.
 
     -   Entering the expense amount.
@@ -22,7 +24,7 @@ To track your expenses:
 
 # Navigating the App
 
-The 'Summary' tab displays :
+## The 'Summary' tab displays :
 
 -   A bar chart of your income, expenses, and savings.
 

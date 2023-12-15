@@ -32,13 +32,13 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/function-usage.html">Financial Tracking and Analysis</a>
+      <a href="../articles/function-usage.html">Functions - How to use</a>
     </li>
     <li>
       <a href="../articles/package-installation.html">Installing budgetoverview</a>
     </li>
     <li>
-      <a href="../articles/shiny-usage.html">Expense Tracker User Guide</a>
+      <a href="../articles/shiny-usage.html">Shiny - How to use</a>
     </li>
   </ul></li>
       </ul><ul class="nav navbar-nav navbar-right"><li>
@@ -57,7 +57,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Add an Expense to the Data Frame</h1>
-    <small class="dont-index">Source: <a href="https://github.com/ptds2023/group_c/blob/HEAD/R/add_expense_f.R" class="external-link"><code>R/add_expense_f.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/ptds2023/group_c/blob/HEAD/R/add_expense.R" class="external-link"><code>R/add_expense.R</code></a></small>
     <div class="hidden name"><code>add_expense.Rd</code></div>
     </div>
 
@@ -66,28 +66,28 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">add_expense</span><span class="op">(</span><span class="va">expenses_data</span>, <span class="va">category</span>, <span class="va">amount</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">add_expense</span><span class="op">(</span><span class="va">category</span>, <span class="va">amount</span>, <span class="va">expenses_data</span>, <span class="va">selected_categories</span>, <span class="va">session</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <dl><dt>expenses_data</dt>
-<dd><p>A data frame containing existing expenses.</p></dd>
+    <dl><dt>amount</dt>
+<dd><p>The amount of the new expense, must be non-negative.</p></dd>
 
 
-<dt>category</dt>
-<dd><p>The category of the new expense.</p></dd>
+<dt>expenses_data</dt>
+<dd><p>A reactive value containing a data frame of expenses.</p></dd>
 
 
-<dt>amount</dt>
-<dd><p>The amount of the new expense.</p></dd>
+<dt>selected_categories</dt>
+<dd><p>A reactive value storing the list of already selected categories.</p></dd>
 
 </dl></div>
     <div id="value">
     <h2>Value</h2>
     
 
-<p>A data frame with the new expense added.</p>
+<p>Logical indicating whether the expense was successfully added (TRUE) or not (FALSE).</p>
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -96,8 +96,19 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">expenses</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>category <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span>, amount <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">expenses</span> <span class="op">&lt;-</span> <span class="fu">add_expense</span><span class="op">(</span><span class="va">expenses</span>, <span class="st">"Food"</span>, <span class="fl">100</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># In a Shiny server function:</span></span></span>
+<span class="r-in"><span><span class="va">expenses_data</span> <span class="op">&lt;-</span> <span class="fu">reactiveVal</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>category <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span>, amount <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in reactiveVal(data.frame(category = character(), amount = numeric())):</span> could not find function "reactiveVal"</span>
+<span class="r-in"><span><span class="va">selected_categories</span> <span class="op">&lt;-</span> <span class="fu">reactiveVal</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in reactiveVal(character()):</span> could not find function "reactiveVal"</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">observeEvent</span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">add_expense</span>, <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="va">result</span> <span class="op">&lt;-</span> <span class="fu">add_expense</span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">category</span>, <span class="va">input</span><span class="op">$</span><span class="va">expense</span>, <span class="va">expenses_data</span>, <span class="va">selected_categories</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="kw">if</span> <span class="op">(</span><span class="va">result</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>    <span class="co"># Update UI or perform other actions</span></span></span>
+<span class="r-in"><span>  <span class="op">}</span></span></span>
+<span class="r-in"><span><span class="op">}</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in observeEvent(input$add_expense, {    result &lt;- add_expense(input$category, input$expense, expenses_data,         selected_categories)    if (result) {    }}):</span> could not find function "observeEvent"</span>
 </code></pre></div>
     </div>
   </div>

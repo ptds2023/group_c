@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Financial Tracking and Analysis • budgetoverview</title>
+<title>Functions - How to use • budgetoverview</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
@@ -17,7 +17,7 @@
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Financial Tracking and Analysis">
+<script src="../pkgdown.js"></script><meta property="og:title" content="Functions - How to use">
 <meta property="og:description" content="This vignette details how to use the budgetoverview package to manage financial data, create visualizations, and compare expenses to average spending.
 ">
 <meta property="og:image" content="/logo.png">
@@ -58,13 +58,13 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/function-usage.html">Financial Tracking and Analysis</a>
+      <a href="../articles/function-usage.html">Functions - How to use</a>
     </li>
     <li>
       <a href="../articles/package-installation.html">Installing budgetoverview</a>
     </li>
     <li>
-      <a href="../articles/shiny-usage.html">Expense Tracker User Guide</a>
+      <a href="../articles/shiny-usage.html">Shiny - How to use</a>
     </li>
   </ul>
 </li>
@@ -89,7 +89,7 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Financial Tracking and Analysis</h1>
+      <h1 data-toc-skip>Functions - How to use</h1>
             
       
       <small class="dont-index">Source: <a href="https://github.com/ptds2023/group_c/blob/HEAD/vignettes/function-usage.Rmd" class="external-link"><code>vignettes/function-usage.Rmd</code></a></small>
@@ -100,68 +100,462 @@
     
     
 <div class="section level2">
-<h2 id="adding-expenses">Adding Expenses<a class="anchor" aria-label="anchor" href="#adding-expenses"></a>
+<h2 id="add_expense">1. add_expense<a class="anchor" aria-label="anchor" href="#add_expense"></a>
 </h2>
-<p>Begin by adding individual expenses using the add_expense function.
-This allows for tracking expenses by category.</p>
+<div class="section level4">
+<h4 id="purpose">Purpose<a class="anchor" aria-label="anchor" href="#purpose"></a>
+</h4>
+<p>To add a new entry to a data frame that tracks expenses. It is
+designed to be interactive and reactive, fitting within the Shiny
+framework.</p>
+</div>
+<div class="section level4">
+<h4 id="parameters">Parameters<a class="anchor" aria-label="anchor" href="#parameters"></a>
+</h4>
+<ul>
+<li><p><strong><code>category</code></strong>: The category of the new
+expense. This is a string that describes what the expense is for (e.g.,
+“Groceries”, “Utilities”).</p></li>
+<li><p><strong><code>amount</code></strong>: The monetary value of the
+expense. This should be a non-negative number. The function includes a
+check to ensure that the amount is not negative or
+<strong><code>NA</code></strong> (missing).</p></li>
+<li><p><strong><code>expenses_data</code></strong>: A reactive value
+that contains a data frame of expenses. In Shiny, reactive values are
+used to store and manage data that can change over time and trigger
+reactive updates in the app. This parameter expects the current state of
+expenses.</p></li>
+<li><p><strong><code>selected_categories</code></strong>: Another
+reactive value that stores a list of categories that have already been
+used or selected. This helps in tracking which expense categories have
+been entered.</p></li>
+<li><p><strong><code>session</code></strong>: The Shiny session object,
+used here for showing modal dialogues in the Shiny app.</p></li>
+</ul>
+</div>
+<div class="section level4">
+<h4 id="functionality">Functionality<a class="anchor" aria-label="anchor" href="#functionality"></a>
+</h4>
+<ol style="list-style-type: decimal">
+<li>
+<p><strong>Validate Amount</strong>:</p>
+<ul>
+<li>The function first checks if the
+<strong><code>amount</code></strong> is <strong><code>NA</code></strong>
+(not available/missing) or less than 0. If either is true, a modal
+dialog box is displayed to the user, indicating that the amount must be
+non-negative, and the function returns
+<strong><code>FALSE</code></strong>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Check Category and Update Data</strong>:</p>
+<ul>
+<li><p>The function then checks if the
+<strong><code>category</code></strong> is not already present in
+<strong><code>selected_categories</code></strong>. If it’s a new
+category, the function proceeds to add the expense.</p></li>
+<li><p>It appends the new expense data (category and amount) to the
+current <strong><code>expenses_data</code></strong> data frame using
+<strong><code>rbind</code></strong>.</p></li>
+<li><p>The <strong><code>expenses_data</code></strong> reactive value is
+updated with this new data frame.</p></li>
+<li><p>The <strong><code>selected_categories</code></strong> reactive
+value is also updated to include the new category.</p></li>
+<li><p>The function returns <strong><code>TRUE</code></strong> to
+indicate that the expense was successfully added.</p></li>
+</ul>
+</li>
+<li>
+<p><strong>Handle Duplicate Category</strong>:</p>
+<ul>
+<li>If the category already exists in
+<strong><code>selected_categories</code></strong>, the function does not
+add the expense and returns <strong><code>FALSE</code></strong>.</li>
+</ul>
+</li>
+</ol>
+</div>
+<div class="section level4">
+<h4 id="example-usage-in-shiny">Example Usage in Shiny<a class="anchor" aria-label="anchor" href="#example-usage-in-shiny"></a>
+</h4>
+<p>In a Shiny app, this function would be used within an
+<strong><code>observeEvent</code></strong> or similar reactive context.
+It is triggered by a user action, specifically pressing an “Add Expense”
+button. The function reads the category and amount from the user input,
+attempts to add the expense, and then you can take additional actions
+based on whether the expense was successfully added.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Starting with an empty data frame for expenses</span></span>
-<span><span class="va">expenses</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>category <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span>, amount <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co"># Adding a Food expense</span></span>
-<span><span class="va">expenses</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_expense.html">add_expense</a></span><span class="op">(</span><span class="va">expenses</span>, <span class="st">"Food"</span>, <span class="fl">100</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Assuming you have a Shiny reactive environment set up</span></span>
+<span></span>
+<span><span class="co"># Initialize reactive values</span></span>
+<span><span class="va">expenses_data</span> <span class="op">&lt;-</span> <span class="fu">reactiveVal</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>category <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span>, amount <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">selected_categories</span> <span class="op">&lt;-</span> <span class="fu">reactiveVal</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Example usage within a Shiny observeEvent</span></span>
+<span><span class="fu">observeEvent</span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">add_expense</span>, <span class="op">{</span></span>
+<span>  <span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_expense.html">add_expense</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">category</span>, <span class="va">input</span><span class="op">$</span><span class="va">expense</span>, <span class="va">expenses_data</span>, <span class="va">selected_categories</span><span class="op">)</span></span>
+<span>  <span class="kw">if</span> <span class="op">(</span><span class="va">result</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="co"># Perform actions after successful addition</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="st">"Expense added successfully."</span><span class="op">)</span></span>
+<span>  <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
+<span>    <span class="co"># Handle cases where addition fails</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="st">"Failed to add expense."</span><span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
+<span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
+</div>
 </div>
 <div class="section level2">
-<h2 id="financial-summary">Financial Summary<a class="anchor" aria-label="anchor" href="#financial-summary"></a>
+<h2 id="generate_bar_chart">2. generate_bar_chart<a class="anchor" aria-label="anchor" href="#generate_bar_chart"></a>
 </h2>
 <p>Calculate your total expenses and how much you have saved with the
 calculate_financials function.</p>
+<div class="section level4">
+<h4 id="function-purpose">Function Purpose<a class="anchor" aria-label="anchor" href="#function-purpose"></a>
+</h4>
+<ul>
+<li><p><strong>Primary Use</strong>: To visually represent financial
+data in the form of a bar chart. This kind of visualization makes it
+easier to interpret and compare different categories of financial
+data.</p></li>
+<li><p><strong>Shiny Integration</strong>: While it’s designed for use
+in a Shiny application, it can also be used in other contexts where
+interactive visualizations are beneficial.</p></li>
+</ul>
+</div>
+<div class="section level4">
+<h4 id="parameters-1">Parameters<a class="anchor" aria-label="anchor" href="#parameters-1"></a>
+</h4>
+<ul>
+<li>
+<p><strong><code>data</code></strong>: A data frame that contains
+the data to be plotted. This data frame is expected to have at least two
+columns:</p>
+<ul>
+<li><p><strong><code>category</code></strong>: A column that contains
+the names of the categories (like “Income”, “Expenses”,
+“Savings”).</p></li>
+<li><p><strong><code>amount</code></strong>: A column that contains
+numerical values associated with each category.</p></li>
+</ul>
+</li>
+<li><p><strong><code>colorblind_switch</code></strong>: A logical flag
+(TRUE or FALSE) that, when set to TRUE, enables a colorblind-friendly
+color palette for the bar chart. This is important for accessibility,
+ensuring that the visualization is readable by individuals with color
+vision deficiencies.</p></li>
+</ul>
+</div>
+<div class="section level4">
+<h4 id="functionality-1">Functionality<a class="anchor" aria-label="anchor" href="#functionality-1"></a>
+</h4>
+<ul>
+<li>
+<p><strong>Bar Chart Creation</strong>:</p>
+<ul>
+<li><p>The function uses <strong><code>ggplot2</code></strong> to create
+a basic bar chart. The <strong><code>aes</code></strong> function
+specifies the aesthetics of the plot, mapping
+<strong><code>category</code></strong> to the x-axis and
+<strong><code>amount</code></strong> to the y-axis.</p></li>
+<li><p><strong><code>geom_bar(stat = "identity")</code></strong> tells
+<strong><code>ggplot2</code></strong> to create a bar chart where the
+heights of the bars represent the <strong><code>amount</code></strong>
+values in the data.</p></li>
+</ul>
+</li>
+<li>
+<p><strong>Color Palette</strong>:</p>
+<ul>
+<li>Depending on the <strong><code>colorblind_switch</code></strong>, it
+selects a color palette that is either standard or colorblind-friendly.
+This is done using
+<strong><code>scale_fill_manual(values = color_palette)</code></strong>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Styling and Labels</strong>:</p>
+<ul>
+<li>The chart is further styled with titles and labels using
+<strong><code>labs</code></strong>, and a minimal theme is applied for a
+clean, modern look (<strong><code>theme_minimal()</code></strong>). The
+legend is removed for simplicity.</li>
+</ul>
+</li>
+<li>
+<p><strong>Plotly Conversion</strong>:</p>
+<ul>
+<li>Finally, <strong><code>ggplotly(p)</code></strong> converts the
+<strong><code>ggplot</code></strong> object into a Plotly object. This
+step enhances the interactivity of the plot, allowing for features like
+hover effects in a web-based environment.</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section level4">
+<h4 id="example-usage">Example Usage<a class="anchor" aria-label="anchor" href="#example-usage"></a>
+</h4>
+<ul>
+<li>In a Shiny application, this plot can be rendered using
+<strong><code>renderPlotly()</code></strong> to make it
+interactive.</li>
+</ul>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Example expenses data</span></span>
-<span><span class="va">expenses</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>category <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Food"</span>, <span class="st">"Rent"</span><span class="op">)</span>, amount <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">500</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co"># Calculating financials based on an income of 2000</span></span>
-<span><span class="va">financials</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calculate_financials.html">calculate_financials</a></span><span class="op">(</span><span class="va">expenses</span>, <span class="fl">2000</span><span class="op">)</span></span></code></pre></div>
-</div>
-<div class="section level2">
-<h2 id="expense-comparison">Expense Comparison<a class="anchor" aria-label="anchor" href="#expense-comparison"></a>
-</h2>
-<p>Compare your spending to the average with
-<code>compare_to_average</code>.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># # User's expenses data</span></span>
-<span><span class="co"># user_expenses &lt;- data.frame(category = c("Groceries", "Rent", "Utilities"),</span></span>
-<span><span class="co">#                             amount = c(300, 1200, 150))</span></span>
-<span><span class="co"># # Average Swiss expenses for comparison</span></span>
-<span><span class="co"># swiss_averages &lt;- c(Groceries = 350, Rent = 1000, Utilities = 200)</span></span>
-<span><span class="co"># # Comparing and plotting</span></span>
-<span><span class="co"># comparison_plot &lt;- compare_to_average(user_expenses, swiss_averages)</span></span></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># User's expenses data</span></span>
-<span><span class="va">user_expenses</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>category <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Groceries"</span>, <span class="st">"Rent"</span>, <span class="st">"Utilities"</span><span class="op">)</span>,</span>
-<span>                            amount <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">300</span>, <span class="fl">1200</span>, <span class="fl">150</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co"># Average Swiss expenses for comparison</span></span>
-<span><span class="va">swiss_averages</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>Groceries <span class="op">=</span> <span class="fl">350</span>, Rent <span class="op">=</span> <span class="fl">1000</span>, Utilities <span class="op">=</span> <span class="fl">200</span><span class="op">)</span></span>
-<span><span class="co"># Categories to compare</span></span>
-<span><span class="va">selected_categories</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Groceries"</span>, <span class="st">"Rent"</span>, <span class="st">"Utilities"</span><span class="op">)</span></span>
-<span><span class="co"># Comparing and plotting</span></span>
-<span><span class="va">comparison_plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/compare_to_average.html">compare_to_average</a></span><span class="op">(</span><span class="va">user_expenses</span>, <span class="va">swiss_averages</span>, <span class="va">selected_categories</span><span class="op">)</span></span></code></pre></div>
-</div>
-<div class="section level2">
-<h2 id="visualizing-data">Visualizing Data<a class="anchor" aria-label="anchor" href="#visualizing-data"></a>
-</h2>
-<p>Visualize your financial data with <code>createBarChart</code> and
-<code>create_scatter_plot</code>.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Example test data (since we don't have user data in the vignette)</span></span>
-<span><span class="va">test_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="co"># Sample data</span></span>
+<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>  category <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Income"</span>, <span class="st">"Expenses"</span>, <span class="st">"Savings"</span><span class="op">)</span>,</span>
-<span>  amount <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1000</span>, <span class="fl">500</span>, <span class="fl">500</span><span class="op">)</span></span>
+<span>  amount <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1000</span>, <span class="fl">750</span>, <span class="fl">250</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Creating a bar chart of income, expenses, and savings</span></span>
-<span><span class="va">bar_chart</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/createBarChart.html">createBarChart</a></span><span class="op">(</span><span class="va">test_data</span><span class="op">)</span></span>
+<span><span class="co"># Generate and display the bar chart</span></span>
+<span><span class="va">bar_chart</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generate_bar_chart.html">generate_bar_chart</a></span><span class="op">(</span><span class="va">data</span>, colorblind_switch <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="va">bar_chart</span></span></code></pre></div>
+</div>
+<div class="section level4">
+<h4 id="output">Output<a class="anchor" aria-label="anchor" href="#output"></a>
+</h4>
+<ul>
+<li>The function returns a Plotly ggplot object, which is an interactive
+plot that can be rendered in a web browser, making it suitable for Shiny
+applications or R Markdown documents.</li>
+</ul>
+</div>
+</div>
+<div class="section level2">
+<h2 id="generate_comparison_plot">3. generate_comparison_plot<a class="anchor" aria-label="anchor" href="#generate_comparison_plot"></a>
+</h2>
+<div class="section level4">
+<h4 id="function-purpose-1">Function Purpose<a class="anchor" aria-label="anchor" href="#function-purpose-1"></a>
+</h4>
+<ul>
+<li>
+<strong>Primary Use</strong>: The main goal of this function is to
+visualize and compare two sets of financial data – the user’s expenses
+and the average expenses in Switzerland – in a scatter plot format. This
+helps in understanding how personal spending aligns with or differs from
+average spending patterns.</li>
+</ul>
+</div>
+<div class="section level4">
+<h4 id="parameters-2">Parameters<a class="anchor" aria-label="anchor" href="#parameters-2"></a>
+</h4>
+<ul>
+<li>
+<p><strong><code>user_vs_swiss</code></strong>: A data frame that
+contains the data for comparison. This data frame should have three
+columns:</p>
+<ul>
+<li><p><strong><code>category</code></strong>: Categories of expenses
+(like “Food”, “Transport”, “Utilities”).</p></li>
+<li><p><strong><code>user_amount</code></strong>: The amount of money
+spent by the user in each category.</p></li>
+<li><p><strong><code>swiss_amount</code></strong>: The average amount
+spent in each category in Switzerland.</p></li>
+</ul>
+</li>
+<li><p><strong><code>colorblind_switch</code></strong>: A logical flag
+that determines whether the plot should use a colorblind-friendly color
+palette. This enhances accessibility for users with color vision
+deficiencies.</p></li>
+</ul>
+</div>
+<div class="section level4">
+<h4 id="functionality-2">Functionality<a class="anchor" aria-label="anchor" href="#functionality-2"></a>
+</h4>
+<ul>
+<li>
+<p><strong>Data Visualization</strong>:</p>
+<ul>
+<li><p>The function uses <strong><code>ggplot2</code></strong> to create
+a scatter plot. It plots both <strong><code>user_amount</code></strong>
+and <strong><code>swiss_amount</code></strong> as points on the plot,
+where each point’s position is determined by its relative share in the
+total expenses and its absolute amount.</p></li>
+<li><p>The <strong><code>geom_point</code></strong> function is used
+twice to plot points for both user expenses and Swiss average expenses
+on the same graph, differentiated by shapes (“User”
+vs. “Swiss”).</p></li>
+</ul>
+</li>
+<li>
+<p><strong>Color Palette</strong>:</p>
+<ul>
+<li>Depending on the <strong><code>colorblind_switch</code></strong>, it
+selects an appropriate color palette
+(<strong><code>brewer.pal</code></strong>) that is either standard or
+friendly for colorblind users.</li>
+</ul>
+</li>
+<li>
+<p><strong>Styling and Labels</strong>:</p>
+<ul>
+<li><p>The chart is styled with titles, labels, and minimal themes for a
+clean appearance. The legend is positioned to the right for
+clarity.</p></li>
+<li><p>The x-axis represents the percentage share of each category’s
+expenses relative to the total, and the y-axis represents the actual
+amount spent.</p></li>
+</ul>
+</li>
+<li>
+<p><strong>Plotly Conversion</strong>:</p>
+<ul>
+<li>
+<strong><code>ggplotly(p)</code></strong> converts the
+<strong><code>ggplot</code></strong> object into a Plotly object, making
+the plot interactive. This interactivity enhances user engagement,
+allowing for features like tooltips on hover.</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section level4">
+<h4 id="example-usage-1">Example Usage<a class="anchor" aria-label="anchor" href="#example-usage-1"></a>
+</h4>
+<ul>
+<li>Just like the previous ones, this function is intended to be used
+within a Shiny server function.</li>
+</ul>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Sample data for user expenses vs. average expenses</span></span>
+<span><span class="va">user_vs_swiss</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>  category <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Food"</span>, <span class="st">"Transport"</span>, <span class="st">"Utilities"</span><span class="op">)</span>,</span>
+<span>  user_amount <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">200</span>, <span class="fl">150</span>, <span class="fl">100</span><span class="op">)</span>,</span>
+<span>  swiss_amount <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">250</span>, <span class="fl">180</span>, <span class="fl">120</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Creating a scatter plot of expenses</span></span>
-<span><span class="va">scatter_plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/create_scatter_plot.html">create_scatter_plot</a></span><span class="op">(</span><span class="va">expenses</span><span class="op">)</span></span></code></pre></div>
+<span><span class="co"># Generate and display the comparison scatter plot</span></span>
+<span><span class="va">comparison_scatter_plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generate_comparison_plot.html">generate_comparison_plot</a></span><span class="op">(</span><span class="va">user_vs_swiss</span>, colorblind_switch <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="va">comparison_scatter_plot</span></span></code></pre></div>
+</div>
+<div class="section level4">
+<h4 id="output-1">Output<a class="anchor" aria-label="anchor" href="#output-1"></a>
+</h4>
+<ul>
+<li>The function returns a Plotly ggplot object, which is an interactive
+plot suitable for web applications, particularly for Shiny.</li>
+</ul>
+</div>
+</div>
+<div class="section level2">
+<h2 id="generate_scatter_or_pie">4. generate_scatter_or_pie<a class="anchor" aria-label="anchor" href="#generate_scatter_or_pie"></a>
+</h2>
+<div class="section level4">
+<h4 id="purpose-1">Purpose<a class="anchor" aria-label="anchor" href="#purpose-1"></a>
+</h4>
+<p>Dynamically generate a visualization of expenses data, either as a
+scatter plot or a pie chart, based on user input.</p>
+<ul>
+<li>
+<strong>Adaptive Visualization</strong>: The function can switch
+between two types of plots, offering flexibility in how the data is
+presented.</li>
+</ul>
+</div>
+<div class="section level4">
+<h4 id="parameters-3">Parameters<a class="anchor" aria-label="anchor" href="#parameters-3"></a>
+</h4>
+<ul>
+<li>
+<p><strong><code>expenses_data_summary</code></strong>: A data frame
+containing summarized expense data. It should have at least two
+columns:</p>
+<ul>
+<li><p><strong><code>category</code></strong>: The names of expense
+categories.</p></li>
+<li><p><strong><code>percentage</code></strong>: The percentage share of
+each category in the total expenses.</p></li>
+<li><p>(The function seems to also use an
+<strong><code>amount</code></strong> column, as indicated in the scatter
+plot creation code.)</p></li>
+</ul>
+</li>
+<li><p><strong><code>scatter_plot_type</code></strong>: A character
+string that specifies the type of plot to generate. It can be either
+“Scatter Plot” or “Pie Chart”. This parameter allows the function to
+switch between plot types based on user preference.</p></li>
+<li><p><strong><code>colorblind_switch</code></strong>: A logical value
+that, when true, switches the color palette to a colorblind-friendly
+mode. This enhances accessibility for users with color vision
+deficiencies.</p></li>
+</ul>
+</div>
+<div class="section level4">
+<h4 id="functionality-3">Functionality<a class="anchor" aria-label="anchor" href="#functionality-3"></a>
+</h4>
+<ol style="list-style-type: decimal">
+<li>
+<p><strong>Color Palette Selection</strong>:</p>
+<ul>
+<li>Based on the <strong><code>colorblind_switch</code></strong>, the
+function selects a suitable color palette using
+<strong><code>brewer.pal</code></strong>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Creating the Scatter Plot</strong>:</p>
+<ul>
+<li><p>If <strong><code>scatter_plot_type</code></strong> is “Scatter
+Plot”, the function creates a scatter plot using
+<strong><code>ggplot2</code></strong>.</p></li>
+<li><p>The scatter plot represents each expense category as a point,
+with its position determined by the percentage share (x-axis) and the
+actual amount (y-axis).</p></li>
+<li><p>Additional features like point color, size, and labels are added
+for clarity and aesthetics.</p></li>
+<li><p>The scatter plot is then converted to an interactive Plotly plot
+using <strong><code>ggplotly</code></strong>.</p></li>
+</ul>
+</li>
+<li>
+<p><strong>Creating the Pie Chart</strong>:</p>
+<ul>
+<li><p>If <strong><code>scatter_plot_type</code></strong> is “Pie
+Chart”, the function uses Plotly’s <strong><code>plot_ly</code></strong>
+to create a pie chart.</p></li>
+<li><p>The pie chart shows the proportion of each expense category in
+the total expenses.</p></li>
+<li><p>It includes features like labels, percentages, and hover
+information.</p></li>
+</ul>
+</li>
+</ol>
+</div>
+<div class="section level4">
+<h4 id="output-2">Output<a class="anchor" aria-label="anchor" href="#output-2"></a>
+</h4>
+<ul>
+<li>The function returns a Plotly object, which is an interactive plot.
+This interactivity enhances the user experience, particularly in
+web-based applications like Shiny.</li>
+</ul>
+</div>
+<div class="section level4">
+<h4 id="example-usage-in-shiny-1">Example Usage in Shiny<a class="anchor" aria-label="anchor" href="#example-usage-in-shiny-1"></a>
+</h4>
+<ul>
+<li>The function can be called within a Shiny server function, where the
+user’s choice of plot type and colorblind mode can be passed as inputs.
+The resulting plot can be rendered in the UI using
+<strong><code>renderPlotly</code></strong>.</li>
+</ul>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Sample summarized expenses data</span></span>
+<span><span class="va">expenses_summary</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>  category <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Food"</span>, <span class="st">"Transport"</span>, <span class="st">"Utilities"</span><span class="op">)</span>,</span>
+<span>  amount <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">200</span>, <span class="fl">150</span>, <span class="fl">100</span><span class="op">)</span>,</span>
+<span>  percentage <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">40</span>, <span class="fl">30</span>, <span class="fl">30</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Generate and display the scatter plot</span></span>
+<span><span class="va">scatter_plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generate_scatter_or_pie.html">generate_scatter_or_pie</a></span><span class="op">(</span><span class="va">expenses_summary</span>, <span class="st">"Scatter Plot"</span>, colorblind_switch <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="va">scatter_plot</span></span>
+<span></span>
+<span><span class="co"># Generate and display the pie chart</span></span>
+<span><span class="va">pie_chart</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generate_scatter_or_pie.html">generate_scatter_or_pie</a></span><span class="op">(</span><span class="va">expenses_summary</span>, <span class="st">"Pie Chart"</span>, colorblind_switch <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="va">pie_chart</span></span></code></pre></div>
+</div>
 </div>
   </div>
 
