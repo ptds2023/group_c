@@ -1,10 +1,10 @@
 ---
-title: "Financial Tracking and Analysis"
+title: "Functions - How to use"
 output: rmarkdown::html_vignette
 description: >
   This vignette details how to use the budgetoverview package to manage financial data, create visualizations, and compare expenses to average spending.
 vignette: >
-  %\VignetteIndexEntry{Financial Tracking and Analysis}
+  %\VignetteIndexEntry{Functions - How to use}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -14,71 +14,202 @@ knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 library(budgetoverview)
 ```
 
-# Adding Expenses
+# 1. add_expense
 
-Begin by adding individual expenses using the add_expense function. This allows for tracking expenses by category.
+### Purpose
 
-```{r}
-# Starting with an empty data frame for expenses
-expenses <- data.frame(category = character(), amount = numeric())
-# Adding a Food expense
-expenses <- add_expense(expenses, "Food", 100)
+To add a new entry to a data frame that tracks expenses. It is designed to be interactive and reactive, fitting within the Shiny framework.
 
-```
+### Parameters
 
-# Financial Summary
+-   **`category`**: The category of the new expense. This is a string that describes what the expense is for (e.g., "Groceries", "Utilities").
+
+-   **`amount`**: The monetary value of the expense. This should be a non-negative number. The function includes a check to ensure that the amount is not negative or **`NA`** (missing).
+
+-   **`expenses_data`**: A reactive value that contains a data frame of expenses. In Shiny, reactive values are used to store and manage data that can change over time and trigger reactive updates in the app. This parameter expects the current state of expenses.
+
+-   **`selected_categories`**: Another reactive value that stores a list of categories that have already been used or selected. This helps in tracking which expense categories have been entered.
+
+-   **`session`**: The Shiny session object, used here for showing modal dialogues in the Shiny app.
+
+### Functionality
+
+1.  **Validate Amount**:
+
+    -   The function first checks if the **`amount`** is **`NA`** (not available/missing) or less than 0. If either is true, a modal dialog box is displayed to the user, indicating that the amount must be non-negative, and the function returns **`FALSE`**.
+
+2.  **Check Category and Update Data**:
+
+    -   The function then checks if the **`category`** is not already present in **`selected_categories`**. If it's a new category, the function proceeds to add the expense.
+
+    -   It appends the new expense data (category and amount) to the current **`expenses_data`** data frame using **`rbind`**.
+
+    -   The **`expenses_data`** reactive value is updated with this new data frame.
+
+    -   The **`selected_categories`** reactive value is also updated to include the new category.
+
+    -   The function returns **`TRUE`** to indicate that the expense was successfully added.
+
+3.  **Handle Duplicate Category**:
+
+    -   If the category already exists in **`selected_categories`**, the function does not add the expense and returns **`FALSE`**.
+
+### Example Usage in Shiny
+
+In a Shiny app, this function would be used within an **`observeEvent`** or similar reactive context. It would typically be triggered by a user action, such as pressing an "Add Expense" button. The function reads the category and amount from the user input, attempts to add the expense, and then you can take additional actions based on whether the expense was successfully added.
+
+# 2. generate_bar_chart
 
 Calculate your total expenses and how much you have saved with the calculate_financials function.
 
-```{r}
-# Example expenses data
-expenses <- data.frame(category = c("Food", "Rent"), amount = c(100, 500))
-# Calculating financials based on an income of 2000
-financials <- calculate_financials(expenses, 2000)
-```
+### Function Purpose
 
-# Expense Comparison
+-   **Primary Use**: To visually represent financial data in the form of a bar chart. This kind of visualization makes it easier to interpret and compare different categories of financial data.
 
-Compare your spending to the average with `compare_to_average`.
+-   **Shiny Integration**: While it's designed for use in a Shiny application, it can also be used in other contexts where interactive visualizations are beneficial.
 
-```{r}
-# # User's expenses data
-# user_expenses <- data.frame(category = c("Groceries", "Rent", "Utilities"),
-#                             amount = c(300, 1200, 150))
-# # Average Swiss expenses for comparison
-# swiss_averages <- c(Groceries = 350, Rent = 1000, Utilities = 200)
-# # Comparing and plotting
-# comparison_plot <- compare_to_average(user_expenses, swiss_averages)
+### Parameters
 
-```
+-   **`data`**: A data frame that contains the data to be plotted. This data frame is expected to have at least two columns:
 
-```{r}
-# User's expenses data
-user_expenses <- data.frame(category = c("Groceries", "Rent", "Utilities"),
-                            amount = c(300, 1200, 150))
-# Average Swiss expenses for comparison
-swiss_averages <- c(Groceries = 350, Rent = 1000, Utilities = 200)
-# Categories to compare
-selected_categories <- c("Groceries", "Rent", "Utilities")
-# Comparing and plotting
-comparison_plot <- compare_to_average(user_expenses, swiss_averages, selected_categories)
+    -   **`category`**: A column that contains the names of the categories (like "Income", "Expenses", "Savings").
 
-```
+    -   **`amount`**: A column that contains numerical values associated with each category.
 
-# Visualizing Data
+-   **`colorblind_switch`**: A logical flag (TRUE or FALSE) that, when set to TRUE, enables a colorblind-friendly color palette for the bar chart. This is important for accessibility, ensuring that the visualization is readable by individuals with color vision deficiencies.
 
-Visualize your financial data with `createBarChart` and `create_scatter_plot`.
+### Functionality
 
-```{r, message=FALSE,warning=FALSE}
-# Example test data (since we don't have user data in the vignette)
-test_data <- data.frame(
-  category = c("Income", "Expenses", "Savings"),
-  amount = c(1000, 500, 500)
-)
+-   **Bar Chart Creation**:
 
-# Creating a bar chart of income, expenses, and savings
-bar_chart <- createBarChart(test_data)
+    -   The function uses **`ggplot2`** to create a basic bar chart. The **`aes`** function specifies the aesthetics of the plot, mapping **`category`** to the x-axis and **`amount`** to the y-axis.
 
-# Creating a scatter plot of expenses
-scatter_plot <- create_scatter_plot(expenses)
-```
+    -   **`geom_bar(stat = "identity")`** tells **`ggplot2`** to create a bar chart where the heights of the bars represent the **`amount`** values in the data.
+
+-   **Color Palette**:
+
+    -   Depending on the **`colorblind_switch`**, it selects a color palette that is either standard or colorblind-friendly. This is done using **`scale_fill_manual(values = color_palette)`**.
+
+-   **Styling and Labels**:
+
+    -   The chart is further styled with titles and labels using **`labs`**, and a minimal theme is applied for a clean, modern look (**`theme_minimal()`**). The legend is removed for simplicity.
+
+-   **Plotly Conversion**:
+
+    -   Finally, **`ggplotly(p)`** converts the **`ggplot`** object into a Plotly object. This step enhances the interactivity of the plot, allowing for features like hover effects in a web-based environment.
+
+### Example Usage
+
+-   An example is provided in the documentation showing how to create a bar chart with a dataset containing categories "Income", "Expenses", and "Savings", and their corresponding amounts.
+
+-   In a Shiny application, this plot can be rendered using **`renderPlotly()`** to make it interactive.
+
+### Output
+
+-   The function returns a Plotly ggplot object, which is an interactive plot that can be rendered in a web browser, making it suitable for Shiny applications or R Markdown documents.
+
+This function is a great example of combining the strengths of **`ggplot2`** for data visualization and **`plotly`** for interactivity, specifically tailored for financial data in a user-friendly and accessible manner.
+
+# 3. generate_comparison_plot
+
+### Function Purpose
+
+-   **Primary Use**: The main goal of this function is to visualize and compare two sets of financial data -- the user's expenses and the average expenses in Switzerland -- in a scatter plot format. This helps in understanding how personal spending aligns with or differs from average spending patterns.
+
+### Parameters
+
+-   **`user_vs_swiss`**: A data frame that contains the data for comparison. This data frame should have three columns:
+
+    -   **`category`**: Categories of expenses (like "Food", "Transport", "Utilities").
+
+    -   **`user_amount`**: The amount of money spent by the user in each category.
+
+    -   **`swiss_amount`**: The average amount spent in each category in Switzerland.
+
+-   **`colorblind_switch`**: A logical flag that determines whether the plot should use a colorblind-friendly color palette. This enhances accessibility for users with color vision deficiencies.
+
+### Functionality
+
+-   **Data Visualization**:
+
+    -   The function uses **`ggplot2`** to create a scatter plot. It plots both **`user_amount`** and **`swiss_amount`** as points on the plot, where each point's position is determined by its relative share in the total expenses and its absolute amount.
+
+    -   The **`geom_point`** function is used twice to plot points for both user expenses and Swiss average expenses on the same graph, differentiated by shapes ("User" vs. "Swiss").
+
+-   **Color Palette**:
+
+    -   Depending on the **`colorblind_switch`**, it selects an appropriate color palette (**`brewer.pal`**) that is either standard or friendly for colorblind users.
+
+-   **Styling and Labels**:
+
+    -   The chart is styled with titles, labels, and minimal themes for a clean appearance. The legend is positioned to the right for clarity.
+
+    -   The x-axis represents the percentage share of each category's expenses relative to the total, and the y-axis represents the actual amount spent.
+    
+-   **Plotly Conversion**:
+
+    -   **`ggplotly(p)`** converts the **`ggplot`** object into a Plotly object, making the plot interactive. This interactivity enhances user engagement, allowing for features like tooltips on hover.
+
+### Example Usage
+
+-   The function is intended to be used within a Shiny server function. An example is provided in the documentation where the **`user_vs_swiss`** data frame is defined with categories and corresponding amounts. The function is then called within **`renderPlotly()`** to create an interactive plot in the Shiny app.
+
+### Output
+
+-   The function returns a Plotly ggplot object, which is an interactive plot suitable for web applications, particularly for Shiny.
+
+In summary, **`generate_comparison_plot`** is a specialized function for visualizing and comparing financial data interactively, with an emphasis on user-friendliness and accessibility. It provides insights into personal spending habits in comparison to a broader average, a useful feature for budgeting and financial planning applications.
+
+# 4. generate_scatter_or_pie
+
+### Purpose
+
+Dynamically generate a visualization of expenses data, either as a scatter plot or a pie chart, based on user input.
+
+-   **Adaptive Visualization**: The function can switch between two types of plots, offering flexibility in how the data is presented.
+
+### Parameters
+
+-   **`expenses_data_summary`**: A data frame containing summarized expense data. It should have at least two columns:
+
+    -   **`category`**: The names of expense categories.
+
+    -   **`percentage`**: The percentage share of each category in the total expenses.
+
+    -   (The function seems to also use an **`amount`** column, as indicated in the scatter plot creation code.)
+
+-   **`scatter_plot_type`**: A character string that specifies the type of plot to generate. It can be either "Scatter Plot" or "Pie Chart". This parameter allows the function to switch between plot types based on user preference.
+
+-   **`colorblind_switch`**: A logical value that, when true, switches the color palette to a colorblind-friendly mode. This enhances accessibility for users with color vision deficiencies.
+
+### Functionality
+
+1.  **Color Palette Selection**:
+
+    -   Based on the **`colorblind_switch`**, the function selects a suitable color palette using **`brewer.pal`**.
+
+2.  **Creating the Scatter Plot**:
+
+    -   If **`scatter_plot_type`** is "Scatter Plot", the function creates a scatter plot using **`ggplot2`**.
+
+    -   The scatter plot represents each expense category as a point, with its position determined by the percentage share (x-axis) and the actual amount (y-axis).
+
+    -   Additional features like point color, size, and labels are added for clarity and aesthetics.
+
+    -   The scatter plot is then converted to an interactive Plotly plot using **`ggplotly`**.
+
+3.  **Creating the Pie Chart**:
+
+    -   If **`scatter_plot_type`** is "Pie Chart", the function uses Plotly's **`plot_ly`** to create a pie chart.
+
+    -   The pie chart shows the proportion of each expense category in the total expenses.
+
+    -   It includes features like labels, percentages, and hover information.
+
+### Output
+
+-   The function returns a Plotly object, which is an interactive plot. This interactivity enhances the user experience, particularly in web-based applications like Shiny.
+
+### Example Usage in Shiny
+
+-   The function can be called within a Shiny server function, where the user's choice of plot type and colorblind mode can be passed as inputs. The resulting plot can be rendered in the UI using **`renderPlotly`**.
