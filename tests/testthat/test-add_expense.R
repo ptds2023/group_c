@@ -36,6 +36,9 @@
 #   expect_false(result)
 # })
 
+
+
+# Define the mock reactive value function
 mockReactiveVal <- function(initialValue) {
   value <- initialValue
   list(
@@ -48,8 +51,23 @@ test_that("add_expense handles valid input correctly", {
   expenses_data <- mockReactiveVal(data.frame(category = character(), amount = numeric()))
   selected_categories <- mockReactiveVal(character())
 
-  # Assuming add_expense modified to work without showModal and session
   result <- add_expense("Groceries", 100, expenses_data$get, expenses_data$set, selected_categories$get, selected_categories$set)
   expect_true(result)
   expect_equal(expenses_data$get(), data.frame(category = "Groceries", amount = 100))
+})
+
+test_that("add_expense handles invalid amount correctly", {
+  expenses_data <- mockReactiveVal(data.frame(category = character(), amount = numeric()))
+  selected_categories <- mockReactiveVal(character())
+
+  result <- add_expense("Groceries", -10, expenses_data$get, expenses_data$set, selected_categories$get, selected_categories$set)
+  expect_false(result)
+})
+
+test_that("add_expense handles duplicate category correctly", {
+  expenses_data <- mockReactiveVal(data.frame(category = "Groceries", amount = 100))
+  selected_categories <- mockReactiveVal("Groceries")
+
+  result <- add_expense("Groceries", 50, expenses_data$get, expenses_data$set, selected_categories$get, selected_categories$set)
+  expect_false(result)
 })
