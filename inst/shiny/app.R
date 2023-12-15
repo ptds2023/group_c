@@ -3,6 +3,7 @@ library(shiny)
 library(shinydashboard)
 library(plotly)
 library(DT)
+library(RColorBrewer)
 # Load data set
 swiss_budget <- read.csv(system.file("extdata", "swiss_budget.csv", package = "budgetoverview"))
 # Predefined list of categories
@@ -83,7 +84,7 @@ server <- function(input, output, session) {
 
     # Bar Chart
     output$bar_chart <- renderPlotly({
-      generate_bar_chart(data, input$colorblind_switch)
+      budgetoverview::generate_bar_chart(data, input$colorblind_switch)
     })
 
     expenses_data_summary <- expenses_data() %>%
