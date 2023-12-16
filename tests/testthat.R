@@ -8,5 +8,6 @@
 
 library(testthat)
 library(budgetoverview)
+library(RColorBrewer)
 
 test_check("budgetoverview")
