@@ -7,8 +7,7 @@ Authors@R: c(person("Konstantinos", "Kourlimpinis", email = "konstantinos.kourli
             person("Marc", "Bourleau", email = "marc.bourleau@unil.ch",
                   role = c("ctb")))
 Maintainer: The package maintainer <konstantinos.kourlimpinis@unil.ch>
-Description:
-This package, developed as part of our final project for the Programming Tools class, provides essential functions for our Shiny application. Designed to give users a detailed overview of their monthly budget, it enhances the interactive and user-friendly aspects of the application, making it easier for users to manage and visualize their financial data.
+Description: This package, developed as part of our final project for the Programming Tools class, provides essential functions for our Shiny application. Designed to give users a detailed overview of their monthly budget, it enhances the interactive and user-friendly aspects of the application, making it easier for users to manage and visualize their financial data.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
