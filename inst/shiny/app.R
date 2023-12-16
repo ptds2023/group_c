@@ -1,3 +1,10 @@
+if (!require("shiny")) install.packages("shiny")
+if (!require("shinydashboard")) install.packages("shinydashboard")
+if (!require("dplyr")) install.packages("dplyr")
+if (!require("plotly")) install.packages("plotly")
+if (!require("DT")) install.packages("DT")
+if (!require("RColorBrewer")) install.packages("RColorBrewer")
+
 library(budgetoverview)
 library(shiny)
 library(shinydashboard)
