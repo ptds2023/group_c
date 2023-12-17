@@ -169,12 +169,11 @@ runDemo <- function() {
       color_vector_2 <- if (input$colorblind_switch) brewer.pal(12, "Set1") else brewer.pal(12, "Pastel1")
 
       p <- ggplot(user_vs_swiss) +
-        geom_point(aes(x = user_amount / sum(user_amount) * 100, y = user_amount, shape = "User", color = category), size = user_vs_swiss$user_amount * 0.01, alpha = 0.5) +
-        geom_point(aes(x = swiss_amount / sum(swiss_amount) * 100, y = swiss_amount, shape = "Swiss", color = category),size = user_vs_swiss$user_amount * 0.01, alpha = 0.5)  +
+        geom_point(aes(x = amount / sum(amount) * 100, y = amount, shape = type, color = category), size = user_vs_swiss$amount * 0.01, alpha = 0.5) +
         labs(title = "Compare to the Average Swiss Expenses", x = "% Share of Expenses", y = "Amount") +
         theme_minimal() +
         theme(legend.position = "right") +
-        scale_color_manual(values = color_vector_2, breaks = unique(user_vs_swiss$category), name = "Category")
+        scale_color_manual(values = color_vector, breaks = unique(user_vs_swiss$category), name = "Category")
 
       output$compare_scatter_plot <- renderPlotly({
         ggplotly(p)

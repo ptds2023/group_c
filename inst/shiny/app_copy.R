@@ -4,7 +4,6 @@ if (!require("dplyr")) install.packages("dplyr")
 if (!require("plotly")) install.packages("plotly")
 if (!require("DT")) install.packages("DT")
 if (!require("RColorBrewer")) install.packages("RColorBrewer")
-if (!require("tidyr")) install.packages("tidyr")
 
 library(budgetoverview)
 library(shiny)
@@ -12,7 +11,6 @@ library(shinydashboard)
 library(plotly)
 library(DT)
 library(RColorBrewer)
-library(tidyr)
 
 # Load data set
 swiss_budget <- read.csv(system.file("extdata", "swiss_budget.csv", package = "budgetoverview"))
@@ -128,13 +126,12 @@ server <- function(input, output, session) {
       category = selected_categories(),
       user_amount = expenses_data()$amount,
       swiss_amount = swiss_expenses[match(selected_categories(), categories)]
-    ) %>% pivot_longer(cols = c(user_amount, swiss_amount),
-                       names_to = "type",
-                       values_to = "amount")
+    )
 
     # Comparison Scatter Plot
     output$compare_scatter_plot <- renderPlotly({
-      generate_comparison_plot(user_vs_swiss, input$colorblind_switch)
+      generate_comparison_plot(user_vs_swiss, input$colorblind_switch)%>%
+        layout(showlegend = TRUE)
     })
   })
 }
