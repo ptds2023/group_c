@@ -27,11 +27,11 @@ class: left
 
 #### Data Collection & Transformation
 
-#### Optimization & Package Creation
-
 #### Our Shiny App
 
-#### The Website & Video
+#### Optimization & Package Creation
+
+#### The Results
 
 #### Conclusion & Limitations
 ]
@@ -50,16 +50,6 @@ class: left, top
 knitr::include_graphics("pictures/marc.png")
 ```
 <p style="text-align:center; font-size:70%;">Bourleau Marc<br/>Team Manager</p>
-]
-
-.pull-right[
-```{r echo=FALSE, out.width='40%', fig.align='center'}
-knitr::include_graphics("pictures/eleonore.png")
-```
-<p style="text-align:center; font-size:70%;">Gillain Eléonore<br/>Marketing Developer</p>
-]
-
-.pull-left[
 ```{r echo=FALSE, out.width='40%', fig.align='center'}
 knitr::include_graphics("pictures/tina.png")
 ```
@@ -68,10 +58,15 @@ knitr::include_graphics("pictures/tina.png")
 
 .pull-right[
 ```{r echo=FALSE, out.width='40%', fig.align='center'}
+knitr::include_graphics("pictures/eleonore.png")
+```
+<p style="text-align:center; font-size:70%;">Gillain Eléonore<br/>Marketing Developer</p>
+```{r echo=FALSE, out.width='40%', fig.align='center'}
 knitr::include_graphics("pictures/kostas.png")
 ```
 <p style="text-align:center; font-size:70%;">Kourlimpinis Konstantinos<br/>Web Designer</p>
 ]
+
 ---
 
 class: left, middle
@@ -165,9 +160,63 @@ class: center, bottom, inverse
 # How can we help you ? 
 
 ---
+# Our Shiny App
+.pull-left[
+**Different outputs:**
+- Bar Chart for the Savings
+- Table of informations
+- Plots
+
+**Add your own information:**
+- Enter your income
+- Select a category & Add the amount
+- Plot the results
+
+**Compare with the swiss average**
+]
+
+.pull-right[
+![an image](pictures/Shiny.png)
+]
+
+---
 class: left
 
 # Optimization & Package Creation
+
+## Optimization
+
+.pull-left[
+From this...
+![an image](pictures/nonoptimization.png)
+]
+
+.pull-right[
+To this !
+
+![an image](pictures/optimization.png)
+]
+---
+class: left
+
+# Optimization & Package Creation
+
+## Optimization
+
+.pull-left[
+And from this...
+![an image](pictures/nonoptimization2.png)
+]
+
+.pull-right[
+To this !
+
+![an image](pictures/optimization2.png)
+]
+---
+# Optimization & Package Creation
+
+## Package Creation
 
 Install the **budgetoverview** package from [Github](https://github.com/budgetoverview):
 
@@ -196,33 +245,11 @@ You are recommended to use the [RStudio IDE](https://www.rstudio.com/products/rs
 ]
 
 ---
-
-# Our Shiny App
-.pull-left[
-**Different outputs:**
-- Bar Chart for the Savings
-- Table of informations
-- Plots
-
-**Add your own information:**
-- Enter your income
-- Select a category & Add the amount
-- Plot the results
-
-**Compare with the swiss average**
-]
-
-.pull-right[
-![an image](pictures/Shiny.png)
-]
----
 class: left, middle
 
-# The Website
+# The Results
 
-REPLACE THE IMAGE
-
-![an image](pictures/Shiny.png)
+![an image](pictures/results.png)
 
 ---
 class: left, middle
@@ -233,6 +260,11 @@ class: left, middle
 class: inverse, middle, center
 
 # Conclusion
+
+---
+class: inverse, middle, center
+
+THE END
 
 ---
 
