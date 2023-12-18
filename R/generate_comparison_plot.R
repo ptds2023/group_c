@@ -25,17 +25,22 @@ generate_comparison_plot <- function(user_vs_swiss, colorblind_switch) {
   color_vector <- if (colorblind_switch) brewer.pal(12, "Set1") else brewer.pal(12, "Pastel1")
 
   # Create a ggplot object
-  p <- ggplot(user_vs_swiss, aes(x = amount / sum(amount) * 100, y = amount, shape = category, color = type)) +
+  p <-  ggplot(data = user_vs_swiss, aes(x = amount / sum(amount) * 100,
+                                 y = amount,
+                                 shape = type,
+                                 color = category)) +
     geom_point(size = user_vs_swiss$amount * 0.01, alpha = 0.5) +
     labs(title = "Compare to the Average Swiss Expenses", x = "% Share of Expenses", y = "Amount") +
     theme_minimal() +
     theme(legend.position = "right") +
-    # Set color palette based on colorblind_switch
-    scale_color_manual(values = color_vector)
+    scale_color_manual(name = "Category", values = color_vector)+
+    scale_shape_manual(name = "Type", labels = c("user_amount", "swiss_amount"),
+                       values = c("user_amount" = 16, "swiss_amount" = 17))
 
   # Convert ggplot object to interactive plot using ggplotly
   ggplotly(p)
 }
+
 # Example usage:
 # generate_comparison_plot(your_data_frame, colorblind_switch = TRUE)
 

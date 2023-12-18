@@ -127,10 +127,11 @@ server <- function(input, output, session) {
     user_vs_swiss <- data.frame(
       category = selected_categories(),
       user_amount = expenses_data()$amount,
-      swiss_amount = swiss_expenses[match(selected_categories(), categories)]
-    ) %>% pivot_longer(cols = c(user_amount, swiss_amount),
+      swiss_amount = swiss_expenses[match(selected_categories(), categories)]) %>%
+      pivot_longer(cols = c(user_amount, swiss_amount),
                        names_to = "type",
-                       values_to = "amount")
+                       values_to = "amount") %>%
+      mutate(group = paste(category, type, sep = ""))
 
     # Comparison Scatter Plot
     output$compare_scatter_plot <- renderPlotly({
