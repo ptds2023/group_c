@@ -4,7 +4,7 @@
 
 ## Overview
 
-`budgetoverview` is a pacakge for managing personal finances, offering monthly analysis and comparisons with the average Swiss household's finances.
+`budgetoverview` is a package for managing personal finances, offering monthly analysis and comparisons with the average Swiss household's finances.
 
 Our Shiny app enables users to input their monthly income and expenses for visualization through interactive scatter plots or pie charts. It offers full interactivity for error correction and includes color-blind-friendly graph options.
 
@@ -55,7 +55,7 @@ There are two main places to get help with `budgetoverview`:
 -   **vignettes**: contains vignettes used in the `pkgdown` [website](https://ptds2023.github.io/group_c/)
 -   **tests**: tests are conducted on each function for validation
 -   **inst:** used to store non-R files and static content that should be included in the package, such as the presentation files.
--   renv: for managing project-specific dependencies - makes sure the environment is reproducible.
+-   **renv**: for managing project-specific dependencies - makes sure the environment is reproducible.
 
 ### Files:
 
