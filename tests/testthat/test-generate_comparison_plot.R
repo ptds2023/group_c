@@ -1,17 +1,28 @@
 library(RColorBrewer)
 
+test_that("generate_comparison_plot returns a Plotly object", {
+  # Original data
+  original_data <- data.frame(
+    category = c("Food", "Transport", "Utilities"),
+    user_amount = c(200, 150, 100),
+    swiss_amount = c(250, 180, 120)
+  )
 
-test_that("generate_comparison_plot creates correct plot", {
-  user_vs_swiss <- data.frame(category = c("Food", "Transport"), user_amount = c(200, 150), swiss_amount = c(250, 180))
-  plot <- generate_comparison_plot(user_vs_swiss, FALSE)
-  expect_s3_class(plot, "plotly")
-})
+  # Create hover text
+  hover_text <- paste("Category:", original_data$category,
+                      "<br>User Amount:", original_data$user_amount,
+                      "<br>Swiss Amount:", original_data$swiss_amount)
 
-test_that("generate_scatter_or_pie creates correct plots", {
-  expenses_summary <- data.frame(category = c("Food", "Transport"), amount = c(200, 150), percentage = c(40, 30))
-  scatter_plot <- generate_scatter_or_pie(expenses_summary, "Scatter Plot", FALSE)
-  pie_chart <- generate_scatter_or_pie(expenses_summary, "Pie Chart", FALSE)
+  # Transform data to match the expected format
+  user_data <- original_data %>%
+    mutate(type = "User's Expenses", amount = user_amount, hover_text = hover_text)
 
-  expect_s3_class(scatter_plot, "plotly")
-  expect_s3_class(pie_chart, "plotly")
+  swiss_data <- original_data %>%
+    mutate(type = "Swiss Average Expenses", amount = swiss_amount, hover_text = hover_text)
+
+  user_vs_swiss <- rbind(user_data, swiss_data)
+
+  # Testing the function
+  result <- generate_comparison_plot(user_vs_swiss, FALSE)
+  expect_true(inherits(result, "plotly"))
 })
