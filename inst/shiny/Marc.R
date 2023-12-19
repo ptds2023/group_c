@@ -30,7 +30,7 @@ ui <- shinydashboard::dashboardPage(
       tags$link(rel = "stylesheet", type = "text/css", href = "styles/styles.css")
     ),
     numericInput("income", "Enter Income:", value = NULL),
-    h4(class = "white-label", "Enter Expenses:"),  # Add class to the label
+    h4(class = "white-label", "Enter Expenses:"),
     selectInput("category", "Category:", categories),
     numericInput("expense", "Expense:", value = 0),
     actionButton("add_expense", "Add Expense"),
@@ -57,7 +57,6 @@ ui <- shinydashboard::dashboardPage(
     )
   )
 )
-
 server <- function(input, output, session) {
   # Initialize reactive values
   expenses_data <- reactiveVal(data.frame(category = character(), amount = numeric()))
@@ -65,6 +64,20 @@ server <- function(input, output, session) {
 
   # Add expense when button is clicked
   observeEvent(input$add_expense, {
+    expense_value <- as.numeric(input$expense)  # Convert to numeric
+
+    # Check if the expense is zero
+    if (expense_value == 0) {
+      showNotification("Expense value cannot be zero.", type = "error")
+      return()  # Stop further execution
+    }
+
+    # Convert negative values to positive
+    if (expense_value < 0) {
+      expense_value <- abs(expense_value)
+      showNotification("Negative expense value converted to positive.", type = "warning")
+    }
+
     if (input$category %in% expenses_data()$category) {
       showModal(modalDialog(
         title = "Category Already Selected",
@@ -72,13 +85,13 @@ server <- function(input, output, session) {
         easyClose = TRUE
       ))
     } else {
-      # Update the expenses_data with the new expense
-      new_data <- rbind(expenses_data(), data.frame(category = input$category, amount = input$expense))
+      new_data <- rbind(expenses_data(), data.frame(category = input$category, amount = expense_value))
       expenses_data(new_data)
       selected_categories(c(selected_categories(), input$category))
       updateNumericInput(session, "expense", value = 0)
     }
   })
+
 
   # Generate editable table for editing
   output$expense_table <- renderDT({
@@ -88,18 +101,12 @@ server <- function(input, output, session) {
   # Update graphs when the table is edited
   observeEvent(input$expense_table_cell_edit, {
     info <- input$expense_table_cell_edit
-    str(info) # For debugging purposes, you can remove this once you verify it's working
-    str(expenses_data()) # For debugging purposes, you can remove this once you verify it's working
-
-    # Safely coerce the input value to numeric
     new_value <- suppressWarnings(as.numeric(info$value))
     if (!is.na(new_value)) {
-      # Update the cell with the new value input by the user
       modified_data <- expenses_data()
       modified_data[info$row, info$col] <- new_value
-      expenses_data(modified_data) # Update the reactive value with the modified data
+      expenses_data(modified_data)
     } else {
-      # Optionally, handle the case where the value is not numeric
       showNotification("Please enter a valid numeric value.", type = "error")
     }
   })
@@ -108,8 +115,6 @@ server <- function(input, output, session) {
   observe({
     total_expenses <- sum(expenses_data()$amount)
     savings <- ifelse(is.null(input$income), 0, input$income) - total_expenses
-
-    # Create a data frame for the bar chart
     data <- data.frame(
       category = c("Income", "Expenses", "Savings"),
       amount = c(ifelse(is.null(input$income), 0, input$income), total_expenses, savings)
@@ -132,13 +137,22 @@ server <- function(input, output, session) {
     if (length(selected_categories()) > 0 && !any(is.na(match(selected_categories(), categories)))) {
       user_vs_swiss <- data.frame(
         category = selected_categories(),
-        user_amount = expenses_data()$amount,
+        user_amount = expenses_data()$amount[match(selected_categories(), expenses_data()$category)],
         swiss_amount = swiss_expenses[match(selected_categories(), categories)]
-      ) %>%
-        tidyr::pivot_longer(cols = c("user_amount", "swiss_amount"), names_to = "type", values_to = "amount") %>%
-        transform(type = ifelse(type == "user_amount", "User's Expenses", "Swiss Average Expenses"))
+      )
 
-      # Here we add a new column for the hover text which will be used in the plot
+      # Check if user_vs_swiss is created correctly
+      if (ncol(user_vs_swiss) < 3) {
+        showNotification("Error in creating user_vs_swiss data frame", type = "error")
+        return()
+      }
+
+      # Pivoting and transforming user_vs_swiss
+      user_vs_swiss <- user_vs_swiss %>%
+        tidyr::pivot_longer(cols = c("user_amount", "swiss_amount"), names_to = "type", values_to = "amount") %>%
+        dplyr::mutate(type = ifelse(type == "user_amount", "User's Expenses", "Swiss Average Expenses"))
+
+      # Adding hover text
       user_vs_swiss$hover_text <- paste(
         "Category: ", user_vs_swiss$category,
         "<br>Percentage: ", round(user_vs_swiss$amount / sum(user_vs_swiss$amount) * 100, 2), "%",
@@ -146,9 +160,11 @@ server <- function(input, output, session) {
         sep = ""
       )
 
+      # Creating the scatter plot
       output$compare_scatter_plot <- renderPlotly({
         generate_comparison_plot(user_vs_swiss, input$colorblind_switch)
       })
+
     }
   })
 }
