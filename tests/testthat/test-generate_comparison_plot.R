@@ -1,5 +1,6 @@
 library(RColorBrewer)
 
+#Test 1
 test_that("generate_comparison_plot returns a Plotly object", {
   # Original data
   original_data <- data.frame(
@@ -26,3 +27,16 @@ test_that("generate_comparison_plot returns a Plotly object", {
   result <- generate_comparison_plot(user_vs_swiss, FALSE)
   expect_true(inherits(result, "plotly"))
 })
+
+
+#Test 2
+test_that("generate_comparison_plot handles empty data appropriately", {
+  empty_data <- data.frame(category = character(), amount = numeric(), type = character(), hover_text = character())
+
+  result <- generate_comparison_plot(empty_data, FALSE)
+
+  # Depending on your function's design, you can check if it returns an empty plot or an error
+  expect_true(is.null(result) || inherits(result, "plotly"))
+})
+
+
