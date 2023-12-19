@@ -7,28 +7,29 @@ Authors@R: c(person("Konstantinos", "Kourlimpinis", email = "konstantinos.kourli
             person("Marc", "Bourleau", email = "marc.bourleau@unil.ch",
                   role = c("ctb")))
 Maintainer: The package maintainer <konstantinos.kourlimpinis@unil.ch>
-Description: This package, developed as part of our final project for the Programming Tools class, provides essential functions for our Shiny application. Designed to give users a detailed overview of their monthly budget, it enhances the interactive and user-friendly aspects of the application, making it easier for users to manage and visualize their financial data.
+Description: Developed as part of our final project for the Programming Tools class, the package provides functions to help users track their financial data. Allow users to generate insights of their income, savings and expenses per category compared to the Swiss average. 
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.2.3
 Imports:
-    shiny,
-    shinydashboard,
-    dplyr,
-    plotly,
-    DT,
-    ggplot2,
-    rvest,
-    kableExtra,
-    tidyverse,
-    RColorBrewer,
-    here,
-    scales,
-    magrittr
+    shiny (>= 1.8.0),
+    shinydashboard  (>= 0.7.2),
+    dplyr  (>= 1.1.4),
+    plotly (>= 4.10.3),
+    DT (>= 0.31),
+    ggplot2  (>= 3.4.4),
+    rvest (>= 1.0.3),
+    kableExtra (>= 1.3.4),
+    tidyverse (>= 2.0.0),
+    RColorBrewer (>= 1.1-3),
+    here (>= 1.0.1),
+    scales (>= 1.3.0),
+    magrittr  (>= 2.0.3),
+    renv  (>= 1.0.3)
 Suggests: 
-    knitr,
-    rmarkdown,
+    knitr (>= 1.45),
+    rmarkdown (>= 2.25),
     testthat (>= 3.0.0)
 VignetteBuilder: knitr
 Config/testthat/edition: 3

@@ -1,19 +1,20 @@
-
 #' @title Generate Comparison Scatter Plot
 #' @name generate_comparison_plot
-#' @description Creates a scatter plot for comparing user expenses with Swiss average expenses. This function is designed for use within a Shiny application, particularly for financial comparison visualizations. It supports a colorblind-friendly mode by altering the color palette.
-#' @author Group C composed of Marc Bourleau, Eleonore Gillain, Khrystyna Khmilovska and Konstantinos Kourlimpinis.
-#' @param user_vs_swiss A data frame containing the user's expenses and Swiss average expenses for comparison. The data frame should have columns 'category', 'user_amount', and 'swiss_amount'.
+#' @description Creates an interactive scatter plot for comparing user expenses with Swiss average expenses using Plotly. The plot is designed for use within a Shiny application and features a comparison between user and Swiss average expenses across various categories. It supports a colorblind-friendly mode by altering the color palette and includes interactive hover text with detailed expense information.
+#' @author Group C composed of Marc Bourleau, Eleonore Gillain, Khrystyna Khmilovska, and Konstantinos Kourlimpinis.
+#' @param user_vs_swiss A data frame containing the user's and Swiss average expenses for comparison. The data frame should have columns 'category', 'user_amount', and 'swiss_amount'. It should also have 'type' and 'hover_text' for plot aesthetics and interactivity.
 #' @param colorblind_switch Logical flag indicating whether to use a colorblind-friendly color palette.
-#' @return A Plotly ggplot object representing the comparison scatter plot.
-#' @importFrom ggplot2 ggplot aes geom_point labs theme_minimal scale_color_manual
-#' @importFrom plotly ggplotly
+#' @return A Plotly interactive scatter plot object representing the comparison of expenses.
+#' @importFrom ggplot2 ggplot aes geom_point labs theme_minimal scale_color_manual scale_shape_manual
+#' @importFrom plotly ggplotly layout
 #' @examples
 #' # Example usage within a Shiny server function:
 #' user_vs_swiss <- data.frame(
 #'   category = c("Food", "Transport", "Utilities"),
 #'   user_amount = c(200, 150, 100),
-#'   swiss_amount = c(250, 180, 120)
+#'   swiss_amount = c(250, 180, 120),
+#'   type = c("User's Expenses", "User's Expenses", "User's Expenses"),
+#'   hover_text = c("Food: 200", "Transport: 150", "Utilities: 100")
 #' )
 #' # Assume colorblind_switch is a boolean input from Shiny
 #' output$comparisonPlot <- renderPlotly({

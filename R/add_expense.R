@@ -2,22 +2,21 @@
 #' @name add_expense
 #' @description This function adds a new expense entry to the given data frame of expenses. It checks for the validity of the category and amount before adding.
 #' @author Group C composed of Marc Bourleau, Eleonore Gillain, Khrystyna Khmilovska and Konstantinos Kourlimpinis.
+#' @param category A string specifying the category of the expense.
+#' @param amount A numeric value representing the amount of the expense. Must be non-negative.
 #' @param expenses_data A reactive value containing a data frame of expenses.
 #' @param selected_categories A reactive value storing the list of already selected categories.
-#' @param amount The amount of the new expense, must be non-negative.
-#' @return Logical indicating whether the expense was successfully added (TRUE) or not (FALSE).
-#' @export
+#' @param session The Shiny session object passed to showModal for displaying modals.
+#' @return Logical TRUE if the expense is successfully added, FALSE otherwise.
+#' @importFrom shiny showModal
+#' @importFrom shiny modalDialog
 #' @examples
-#' # In a Shiny server function:
-#' expenses_data <- reactiveVal(data.frame(category = character(), amount = numeric()))
-#' selected_categories <- reactiveVal(character())
+#' # Assuming existing reactive values expenses_data and selected_categories, and a Shiny session:
+#' add_expense("Food", 50, expenses_data, selected_categories, session)
+#' add_expense("Transport", -10, expenses_data, selected_categories, session) # Invalid amount
+#' add_expense("Food", 30, expenses_data, selected_categories, session) # Category already exists
 #'
-#' observeEvent(input$add_expense, {
-#'   result <- add_expense(input$category, input$expense, expenses_data, selected_categories)
-#'   if (result) {
-#'     # Update UI or perform other actions
-#'   }
-#' })
+#' @export
 add_expense <- function(category, amount, expenses_data, selected_categories, session) {
   if (is.na(amount) || amount < 0) {
     showModal(modalDialog(
@@ -38,4 +37,3 @@ add_expense <- function(category, amount, expenses_data, selected_categories, se
     return(FALSE)
   }
 }
-
