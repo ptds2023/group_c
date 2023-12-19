@@ -1,16 +1,16 @@
 #' @title Generate Scatter Plot or Pie Chart
 #' @name generate_scatter_or_pie
-#' @description This function creates either a scatter plot or a pie chart based on user input. It is designed to be used within a Shiny application.
-#' @author Group C composed of Marc Bourleau, Eleonore Gillain, Khrystyna Khmilovska and Konstantinos Kourlimpinis.
-#' @param expenses_data_summary A data frame summarizing expenses data. It should contain at least two columns: 'category' for the expense categories and 'percentage' for the percentage share of each category.
+#' @description This function dynamically creates either a scatter plot or a pie chart based on the user's choice in a Shiny application. The function adapts the plot type depending on the input provided: 'Scatter Plot' or 'Pie Chart'. The plots are designed to provide insights into the distribution of expenses across different categories, represented both in amounts and percentages.
+#' @author Group C composed of Marc Bourleau, Eleonore Gillain, Khrystyna Khmilovska, and Konstantinos Kourlimpinis.
+#' @param expenses_data_summary A data frame summarizing expenses data. It should contain at least the columns 'category', 'amount', and 'percentage', where 'percentage' represents the percentage share of each category in the total expenses.
 #' @param scatter_plot_type A character string specifying the type of plot to generate. Expected values are "Scatter Plot" or "Pie Chart".
-#' @param colorblind_switch A logical value indicating whether to use a colorblind-friendly palette.
-#' @return A Plotly object representing the specified type of plot (scatter plot or pie chart).
+#' @param colorblind_switch A logical value indicating whether to use a colorblind-friendly color palette. The palette changes based on the value of this parameter.
+#' @return A Plotly object representing the specified type of plot (either a scatter plot or a pie chart). The function returns NULL if there is no data to plot.
 #' @import ggplot2
 #' @import dplyr
 #' @import plotly
 #' @importFrom magrittr %>%
-#' @export
+#' @importFrom RColorBrewer brewer.pal
 #' @examples
 #' # Example usage within a Shiny server function:
 #' expenses_summary <- data.frame(
@@ -21,6 +21,7 @@
 #' output$myPlot <- renderPlotly({
 #'   generate_scatter_or_pie(expenses_summary, input$plotType, input$colorblindSwitch)
 #' })
+#' @export
 
 generate_scatter_or_pie <- function(expenses_data_summary, scatter_plot_type, colorblind_switch) {
   color_vector <- if (colorblind_switch) brewer.pal(3, "Set1") else brewer.pal(3, "Pastel1")
