@@ -25,20 +25,41 @@
 generate_scatter_or_pie <- function(expenses_data_summary, scatter_plot_type, colorblind_switch) {
   color_vector <- if (colorblind_switch) brewer.pal(3, "Set1") else brewer.pal(3, "Pastel1")
 
-  if (scatter_plot_type == "Scatter Plot") {
-    p <- ggplot(expenses_data_summary, aes(x = percentage, y = amount, label = category)) +
-      geom_point(color = color_vector[1], size = expenses_data_summary$amount * 0.01, alpha = 0.5) +
-      geom_text(size = 2) +
-      labs(title = "Expenses by Category", x = "% Share of Expenses", y = "Amount") +
-      theme_minimal()
+  if (nrow(expenses_data_summary) > 0) {
+    if (scatter_plot_type == "Scatter Plot") {
+      expenses_data_summary$hover_text <- paste(
+        "Category: ", expenses_data_summary$category,
+        "<br>Percentage: ", round(expenses_data_summary$percentage, 2), "%",
+        "<br>Amount: ", round(expenses_data_summary$amount, 2),
+        sep = ""
+      )
 
-    ggplotly(p)
+      p <- ggplot(expenses_data_summary, aes(x = percentage, y = amount, text = hover_text)) +
+        geom_point(color = color_vector[1], size = 4, alpha = 0.5) +
+        geom_text(aes(label = category), size = 2, hjust = 1.1, vjust = 1.1) +
+        labs(title = "Expenses by Category", x = "% Share of Expenses", y = "Amount") +
+        theme_minimal()
+
+      gg <- ggplotly(p, tooltip = "text")
+      gg$data[[1]]$hoverinfo <- 'text'
+      gg$data[[1]]$hovertemplate <- '%{text}<extra></extra>'
+
+      return(gg)
+    } else {
+      expenses_data_summary$hover_text <- paste(
+        "Category: ", expenses_data_summary$category,
+        "<br>Percentage: ", round(expenses_data_summary$percentage, 2), "%",
+        "<br>Amount: ", round(expenses_data_summary$amount, 2),
+        sep = ""
+      )
+
+      plot_ly(expenses_data_summary, labels = ~category, values = ~amount, type = 'pie',
+              textinfo = 'label+percent', insidetextorientation = 'radial',
+              hoverinfo = 'label+percent+value', marker = list(colors = color_vector)) %>%
+        layout(title = "Expenses by Category", showlegend = FALSE) %>%
+        add_trace(text = ~hover_text, hoverinfo = "text", hovertemplate = ~hover_text)
+    }
   } else {
-    plot_ly(labels = expenses_data_summary$category, values = expenses_data_summary$amount, type = 'pie',
-            textinfo = 'label+percent', insidetextorientation = 'radial') %>%
-      layout(title = "Expenses by Category", showlegend = FALSE) %>%
-      add_trace(marker = list(colors = color_vector),
-                hoverinfo = "label+percent+value",
-                textposition = "outside")
+    return(NULL) # Return NULL if there is no data to plot
   }
 }

@@ -38,3 +38,4 @@ add_expense <- function(category, amount, expenses_data, selected_categories, se
     return(FALSE)
   }
 }
+

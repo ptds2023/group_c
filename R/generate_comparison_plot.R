@@ -1,3 +1,4 @@
+
 #' @title Generate Comparison Scatter Plot
 #' @name generate_comparison_plot
 #' @description Creates a scatter plot for comparing user expenses with Swiss average expenses. This function is designed for use within a Shiny application, particularly for financial comparison visualizations. It supports a colorblind-friendly mode by altering the color palette.
@@ -21,31 +22,36 @@
 #'
 #' @export
 generate_comparison_plot <- function(user_vs_swiss, colorblind_switch) {
-  # Choose color palette based on colorblind_switch
-  color_vector <- if (colorblind_switch) brewer.pal(12, "Set1") else brewer.pal(12, "Pastel1")
+  # Define colors for each type of expense
+  color_vector <- c("User's Expenses" = "blue", "Swiss Average Expenses" = "red")
 
   # Create a ggplot object
-  p <-  ggplot(data = user_vs_swiss, aes(x = amount / sum(amount) * 100,
-                                 y = amount,
-                                 shape = type,
-                                 color = category)) +
-    geom_point(size = user_vs_swiss$amount * 0.01, alpha = 0.5) +
+  p <- ggplot(user_vs_swiss, aes(x = amount / sum(amount) * 100, y = amount, color = type, text = hover_text, shape = type)) +
+    geom_point(size = 4, alpha = 0.5) +
     labs(title = "Compare to the Average Swiss Expenses", x = "% Share of Expenses", y = "Amount") +
     theme_minimal() +
     theme(legend.position = "right") +
-    scale_color_manual(name = "Category", values = color_vector)+
-    scale_shape_manual(name = "Type", labels = c("user_amount", "swiss_amount"),
-                       values = c("user_amount" = 16, "swiss_amount" = 17))
+    scale_shape_manual(values = c("User's Expenses" = 17, "Swiss Average Expenses" = 16)) + # 17 is triangle, 16 is circle
+    scale_color_manual(values = color_vector)
 
   # Convert ggplot object to interactive plot using ggplotly
-  ggplotly(p)
+  gg <- ggplotly(p, tooltip = "text") %>%
+    layout(legend = list(
+      title = "",
+      labels = c("User's expenses", "Swiss average expenses")
+    ))
+
+  # Here we ensure each point has the correct hover text
+  for (i in seq_along(gg$data)) {
+    gg$data[[i]]$hoverinfo <- 'text'
+    gg$data[[i]]$hovertemplate <- paste(
+      'Category: %{meta}<br>',
+      'Percentage: %{x:.2f}%<br>',
+      'Amount: %{y:.2f}<extra></extra>'
+    )
+    gg$data[[i]]$meta <- user_vs_swiss$category
+  }
+
+  return(gg)
 }
-
-# Example usage:
-# generate_comparison_plot(your_data_frame, colorblind_switch = TRUE)
-
-
-
-
-
 

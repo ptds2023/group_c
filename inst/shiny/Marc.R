@@ -4,8 +4,6 @@ if (!require("dplyr")) install.packages("dplyr")
 if (!require("plotly")) install.packages("plotly")
 if (!require("DT")) install.packages("DT")
 if (!require("RColorBrewer")) install.packages("RColorBrewer")
-if (!require("tidyr")) install.packages("tidyr")
-
 
 library(budgetoverview)
 library(shiny)
