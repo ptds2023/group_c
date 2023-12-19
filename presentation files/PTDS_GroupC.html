@@ -38,11 +38,10 @@ class: center, middle, inverse, title-slide
 ### Unil - Programming Tools in Data Science
 ]
 .date[
-### 17 December, 2023
+### 19 December, 2023
 ]
 
 ---
-
 
 class: left
 
@@ -96,9 +95,7 @@ class: left, middle
 
 ## Motivation
 
-.center[
-&gt; As independent students, we want to manage our day-to-day expenses better and help Swiss families to do the same [@Group]
-]
+&gt; As independent students, we want to manage our day-to-day expenses better and help Swiss families to do the same [@group]
 
 **This includes:**
 
@@ -166,7 +163,7 @@ class: left, middle
 **Type of transformation:**
 - Grouping into comprehensible categories
 - Recalculation of amounts and percentages
-- Creation of a data base for the shiny app
+- Creation of a database for the shiny app
 ]
 
 .pull-right[
@@ -181,19 +178,21 @@ class: center, bottom, inverse
 # How can we help you ? 
 
 ---
+class: left, middle
+
 # Our Shiny App
 .pull-left[
-**Different outputs:**
+#### Different outputs:
 - Bar Chart for the Savings
 - Table of informations
 - Plots
 
-**Add your own information:**
+#### Add your own information:
 - Enter your income
 - Select a category &amp; Add the amount
 - Plot the results
 
-**Compare with the swiss average**
+#### Compare with the swiss average
 ]
 
 .pull-right[
@@ -274,14 +273,24 @@ class: left, middle
 ![an image](pictures/results.png)
 
 ---
-class: left, middle
+class: inverse, left, middle
 
 # Limitations
 
----
-class: inverse, middle, center
+- Limited time (3 weeks to set up the project)
 
-# Conclusion
+- Limited number of functionalities due to time constraints (only the essentials)
+
+- Code optimization: some performances may be less efficient.
+
+- Limited data integration: webscraping was used, but larger databases could have been used.
+
+- Interface customization: we'd have liked to do even more.
+
+---
+background-image: url(pictures/thankyou.png)
+background-position: 50% 50%
+class: center, bottom, inverse
 
 ---
 class: inverse, middle, center
@@ -448,8 +457,8 @@ library(leaflet)
 leaflet() %&gt;% addTiles() %&gt;% setView(-93.65, 42.0285, zoom = 17)
 ```
 
-<div class="leaflet html-widget html-fill-item" id="htmlwidget-7c335d5306083c62f2f2" style="width:100%;height:432px;"></div>
-<script type="application/json" data-for="htmlwidget-7c335d5306083c62f2f2">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org/copyright/\">OpenStreetMap<\/a>,  <a href=\"https://opendatacommons.org/licenses/odbl/\">ODbL<\/a>"}]}],"setView":[[42.0285,-93.65000000000001],17,[]]},"evals":[],"jsHooks":[]}</script>
+<div class="leaflet html-widget html-fill-item" id="htmlwidget-cc00da17bbff7e6451c5" style="width:100%;height:432px;"></div>
+<script type="application/json" data-for="htmlwidget-cc00da17bbff7e6451c5">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org/copyright/\">OpenStreetMap<\/a>,  <a href=\"https://opendatacommons.org/licenses/odbl/\">ODbL<\/a>"}]}],"setView":[[42.0285,-93.65000000000001],17,[]]},"evals":[],"jsHooks":[]}</script>
 
 ---
 
@@ -461,8 +470,8 @@ DT::datatable(
 )
 ```
 
-<div class="datatables html-widget html-fill-item" id="htmlwidget-6d3957b39ef23730d240" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-6d3957b39ef23730d240">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["1","2","3","4","5","6","7","8","9","10"],[5.1,4.9,4.7,4.6,5,5.4,4.6,5,4.4,4.9],[3.5,3,3.2,3.1,3.6,3.9,3.4,3.4,2.9,3.1],[1.4,1.4,1.3,1.5,1.4,1.7,1.4,1.5,1.4,1.5],[0.2,0.2,0.2,0.2,0.2,0.4,0.3,0.2,0.2,0.1],["setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Sepal.Length<\/th>\n      <th>Sepal.Width<\/th>\n      <th>Petal.Length<\/th>\n      <th>Petal.Width<\/th>\n      <th>Species<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":8,"columnDefs":[{"className":"dt-right","targets":[1,2,3,4]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Sepal.Length","targets":1},{"name":"Sepal.Width","targets":2},{"name":"Petal.Length","targets":3},{"name":"Petal.Width","targets":4},{"name":"Species","targets":5}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[8,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-e9f8ac2ba8caddfaf75d" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-e9f8ac2ba8caddfaf75d">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["1","2","3","4","5","6","7","8","9","10"],[5.1,4.9,4.7,4.6,5,5.4,4.6,5,4.4,4.9],[3.5,3,3.2,3.1,3.6,3.9,3.4,3.4,2.9,3.1],[1.4,1.4,1.3,1.5,1.4,1.7,1.4,1.5,1.4,1.5],[0.2,0.2,0.2,0.2,0.2,0.4,0.3,0.2,0.2,0.1],["setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Sepal.Length<\/th>\n      <th>Sepal.Width<\/th>\n      <th>Petal.Length<\/th>\n      <th>Petal.Width<\/th>\n      <th>Species<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":8,"columnDefs":[{"className":"dt-right","targets":[1,2,3,4]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Sepal.Length","targets":1},{"name":"Sepal.Width","targets":2},{"name":"Petal.Length","targets":3},{"name":"Petal.Width","targets":4},{"name":"Species","targets":5}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[8,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 
 ---
 
