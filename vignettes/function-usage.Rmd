@@ -80,7 +80,6 @@ observeEvent(input$add_expense, {
 })
 ```
 
-
 # 2. generate_bar_chart
 
 Calculate your total expenses and how much you have saved with the calculate_financials function.
@@ -137,7 +136,6 @@ bar_chart <- generate_bar_chart(data, colorblind_switch = FALSE)
 bar_chart
 ```
 
-
 ### Output
 
 -   The function returns a Plotly ggplot object, which is an interactive plot that can be rendered in a web browser, making it suitable for Shiny applications or R Markdown documents.
@@ -177,7 +175,7 @@ bar_chart
     -   The chart is styled with titles, labels, and minimal themes for a clean appearance. The legend is positioned to the right for clarity.
 
     -   The x-axis represents the percentage share of each category's expenses relative to the total, and the y-axis represents the actual amount spent.
-    
+
 -   **Plotly Conversion**:
 
     -   **`ggplotly(p)`** converts the **`ggplot`** object into a Plotly object, making the plot interactive. This interactivity enhances user engagement, allowing for features like tooltips on hover.
@@ -273,4 +271,3 @@ scatter_plot
 pie_chart <- generate_scatter_or_pie(expenses_summary, "Pie Chart", colorblind_switch = FALSE)
 pie_chart
 ```
-

@@ -2,11 +2,40 @@
 
 # Welcome to our project "BudgetOverview" !
 
-## What is this project about? 
+## About:  
 
 **budgetoverview** is a comprehensive tool for managing and analyzing monthly personal finances, as well as comparing his finances to the average Swiss household.
 
 With the help of our R-Shiny app, the user can input his monthly Income and expenses, and can then visualize them using a scatter plot or a pie chart. The Shiny is interactive in every way possible, allowing the user to edit input errors and view color-blind friendly graphs. 
+
+## Installation 
+
+Use the following command in the console: 
+
+```r
+devtools::install_github("ptds/group_c")
+library(budgetoverview)
+
+```
+
+## Shiny - How to launch
+
+1. Website 
+
+https://ptnsy6-marc-bourleau.shinyapps.io/shiny/
+
+
+2. Console 
+
+```r
+budgetoverview::launchMyApp()
+
+```
+
+## Documentation
+
+Click here for viewing our documentation: 
+
 
 ### Key Features:
 
@@ -17,24 +46,31 @@ Here's what the our Shiny app does in more detail:
 - Comparative Analysis: Enables comparison of personal spending against the average expenses of a Swiss household. 
 - Visual Representations: Provides insightful bar charts and scatter plots for financial data.
 
-### Installation: Simple steps to install the package from CRAN or GitHub.
+## Getting help
 
-- Quick Start: Guidelines to quickly begin using the app and package functionalities.
-- Contributing: Open invitation for feedback and contributions to enhance the package.
-- License: Details of the package's licensing agreement.
+**FIX THIS**
 
+There are two main places to get help with ggplot2:
 
-## How are the files organized in this project? 
+1. The RStudio community is a friendly place to ask any questions about ggplot2.
+
+2. Stack Overflow is a great source of answers to common ggplot2 questions. It is also a great place to get help, once you have created a reproducible example that illustrates your problem.
+
+## File Organization
 
 There's many different folders & files in our package directory and here's what you can find in each of them. 
 
 ### Folders: 
 
-- R: In this directory you can find all the R script files (.R) with functions that the package/Shiny uses (example: graph creation based on the user's data)
-- man: In this directory you can find the documentation files. Every function in our package has a description which is found here. These were all automatically generated using ROxygen.
-- data: This directory is where all the user's data can be found. This is where they are stored once the user inputs them through the shiny app. 
+- **R**: Contains R script files (.R) with functions that the package/Shiny uses (example: graph creation based on the user's data)
+- **man**: Contains documentation files. Every function in our package has a description which is found here. These were all automatically generated using ROxygen.
+- **data**: This directory is where all the user's data can be found. This is where they are stored once the user inputs them through the shiny app.
+- **raw-data**: Web scrapped data.
+- **vignettes**: Here you can find the vignettes we built for explaining the functions of our package and displaying their usage with some examples
+- **tests**: Here there are tests for each function that are performed whenever the package is used, to ensure everything is working correctly before the functions are called in the shiny app.
+- **presentation files**: In here you can see our presentation code and HTML file. 
 
 ### Files: 
 
-- DESCRIPTION: This metadata file includes information about our package name, version, author and dependencies on other packages. 
+- **DESCRIPTION**: This metadata file includes information about our package name, version, author and dependencies on other packages. 
 
