@@ -1,5 +1,11 @@
 [![R-CMD-check](https://github.com/ptds2023/pkgTest/actions/workflows/R-CMD-check.yaml/badge.svg?branch=main)](https://github.com/ptds2023/pkgTest/actions/workflows/R-CMD-check.yaml)
 
+
+<p align="center">
+  <img src="man/figures/logo.png" width="300">
+</p>
+
+
 # Welcome to our project "BudgetOverview" !
 
 ## About:  

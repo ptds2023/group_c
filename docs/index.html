@@ -89,14 +89,42 @@
   <div class="contents col-md-9">
 
 
+<p align="center">
+<img src="reference/figures/logo.png" width="300"></p>
 <div class="section level1">
 <div class="page-header"><h1 id="welcome-to-our-project-budgetoverview-">Welcome to our project “BudgetOverview” !<a class="anchor" aria-label="anchor" href="#welcome-to-our-project-budgetoverview-"></a>
 </h1></div>
 <div class="section level2">
-<h2 id="what-is-this-project-about">What is this project about?<a class="anchor" aria-label="anchor" href="#what-is-this-project-about"></a>
+<h2 id="about">About:<a class="anchor" aria-label="anchor" href="#about"></a>
 </h2>
 <p><strong>budgetoverview</strong> is a comprehensive tool for managing and analyzing monthly personal finances, as well as comparing his finances to the average Swiss household.</p>
 <p>With the help of our R-Shiny app, the user can input his monthly Income and expenses, and can then visualize them using a scatter plot or a pie chart. The Shiny is interactive in every way possible, allowing the user to edit input errors and view color-blind friendly graphs.</p>
+</div>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
+<p>Use the following command in the console:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"ptds/group_c"</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">budgetoverview</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="shiny---how-to-launch">Shiny - How to launch<a class="anchor" aria-label="anchor" href="#shiny---how-to-launch"></a>
+</h2>
+<ol style="list-style-type: decimal">
+<li>Website</li>
+</ol>
+<p><a href="https://ptnsy6-marc-bourleau.shinyapps.io/shiny/" class="external-link uri">https://ptnsy6-marc-bourleau.shinyapps.io/shiny/</a></p>
+<ol start="2" style="list-style-type: decimal">
+<li>Console</li>
+</ol>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">budgetoverview</span><span class="fu">::</span><span class="fu"><a href="reference/launchMyApp.html">launchMyApp</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="documentation">Documentation<a class="anchor" aria-label="anchor" href="#documentation"></a>
+</h2>
+<p>Click here for viewing our documentation:</p>
 <div class="section level3">
 <h3 id="key-features">Key Features:<a class="anchor" aria-label="anchor" href="#key-features"></a>
 </h3>
@@ -108,34 +136,47 @@
 <li>Visual Representations: Provides insightful bar charts and scatter plots for financial data.</li>
 </ul>
 </div>
-<div class="section level3">
-<h3 id="installation-simple-steps-to-install-the-package-from-cran-or-github">Installation: Simple steps to install the package from CRAN or GitHub.<a class="anchor" aria-label="anchor" href="#installation-simple-steps-to-install-the-package-from-cran-or-github"></a>
-</h3>
-<ul>
-<li>Quick Start: Guidelines to quickly begin using the app and package functionalities.</li>
-<li>Contributing: Open invitation for feedback and contributions to enhance the package.</li>
-<li>License: Details of the package’s licensing agreement.</li>
-</ul>
-</div>
 </div>
 <div class="section level2">
-<h2 id="how-are-the-files-organized-in-this-project">How are the files organized in this project?<a class="anchor" aria-label="anchor" href="#how-are-the-files-organized-in-this-project"></a>
+<h2 id="getting-help">Getting help<a class="anchor" aria-label="anchor" href="#getting-help"></a>
+</h2>
+<p><strong>FIX THIS</strong></p>
+<p>There are two main places to get help with ggplot2:</p>
+<ol style="list-style-type: decimal">
+<li><p>The RStudio community is a friendly place to ask any questions about ggplot2.</p></li>
+<li><p>Stack Overflow is a great source of answers to common ggplot2 questions. It is also a great place to get help, once you have created a reproducible example that illustrates your problem.</p></li>
+</ol>
+</div>
+<div class="section level2">
+<h2 id="file-organization">File Organization<a class="anchor" aria-label="anchor" href="#file-organization"></a>
 </h2>
 <p>There’s many different folders &amp; files in our package directory and here’s what you can find in each of them.</p>
 <div class="section level3">
 <h3 id="folders">Folders:<a class="anchor" aria-label="anchor" href="#folders"></a>
 </h3>
 <ul>
-<li>R: In this directory you can find all the R script files (.R) with functions that the package/Shiny uses (example: graph creation based on the user’s data)</li>
-<li>man: In this directory you can find the documentation files. Every function in our package has a description which is found here. These were all automatically generated using ROxygen.</li>
-<li>data: This directory is where all the user’s data can be found. This is where they are stored once the user inputs them through the shiny app.</li>
+<li>
+<strong>R</strong>: Contains R script files (.R) with functions that the package/Shiny uses (example: graph creation based on the user’s data)</li>
+<li>
+<strong>man</strong>: Contains documentation files. Every function in our package has a description which is found here. These were all automatically generated using ROxygen.</li>
+<li>
+<strong>data</strong>: This directory is where all the user’s data can be found. This is where they are stored once the user inputs them through the shiny app.</li>
+<li>
+<strong>raw-data</strong>: Web scrapped data.</li>
+<li>
+<strong>vignettes</strong>: Here you can find the vignettes we built for explaining the functions of our package and displaying their usage with some examples</li>
+<li>
+<strong>tests</strong>: Here there are tests for each function that are performed whenever the package is used, to ensure everything is working correctly before the functions are called in the shiny app.</li>
+<li>
+<strong>presentation files</strong>: In here you can see our presentation code and HTML file.</li>
 </ul>
 </div>
 <div class="section level3">
 <h3 id="files">Files:<a class="anchor" aria-label="anchor" href="#files"></a>
 </h3>
 <ul>
-<li>DESCRIPTION: This metadata file includes information about our package name, version, author and dependencies on other packages.</li>
+<li>
+<strong>DESCRIPTION</strong>: This metadata file includes information about our package name, version, author and dependencies on other packages.</li>
 </ul>
 </div>
 </div>
