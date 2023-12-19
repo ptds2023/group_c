@@ -125,7 +125,7 @@ Calculate your total expenses and how much you have saved with the calculate_fin
 
 -   In a Shiny application, this plot can be rendered using **`renderPlotly()`** to make it interactive.
 
-```{r}
+```{r, eval = TRUE}
 # Sample data
 data <- data.frame(
   category = c("Income", "Expenses", "Savings"),
