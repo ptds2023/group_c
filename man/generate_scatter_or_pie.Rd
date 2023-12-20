@@ -24,15 +24,20 @@ A Plotly object representing the specified type of plot (either a scatter plot o
 This function dynamically creates either a scatter plot or a pie chart based on the user's choice in a Shiny application. The function adapts the plot type depending on the input provided: 'Scatter Plot' or 'Pie Chart'. The plots are designed to provide insights into the distribution of expenses across different categories, represented both in amounts and percentages.
 }
 \examples{
-# Example usage within a Shiny server function:
+# Create a sample data frame
 expenses_summary <- data.frame(
   category = c("Food", "Transport", "Utilities"),
   amount = c(200, 150, 100),
   percentage = c(40, 30, 30)
 )
-output$myPlot <- renderPlotly({
-  generate_scatter_or_pie(expenses_summary, input$plotType, input$colorblindSwitch)
-})
+
+# Generate a scatter plot
+scatter_plot <- generate_scatter_or_pie(expenses_summary, "Scatter Plot", FALSE)
+print(scatter_plot)
+
+# Generate a pie chart
+pie_chart <- generate_scatter_or_pie(expenses_summary, "Pie Chart", FALSE)
+print(pie_chart)
 }
 \author{
 Group C composed of Marc Bourleau, Eleonore Gillain, Khrystyna Khmilovska, and Konstantinos Kourlimpinis.

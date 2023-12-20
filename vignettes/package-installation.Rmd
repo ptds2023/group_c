@@ -11,27 +11,13 @@ vignette: >
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 ```
 
-## Installation Guide for budgetoverview
-
-This vignette guides you through the installation process of the budgetoverview package.
-
-# Installing from CRAN
-
-If budgetoverview is available on CRAN, you can install it by running:
-
-```{r, eval=FALSE}
-install.packages("budgetoverview")
-```
-
-# Installing from GitHub
-
-To install the development version from GitHub, use:
+# Installing using GitHub
 
 ```{r,eval=FALSE}
-devtools::install_github("ptds2023/group_c/budgetoverview")
+devtools::install_github("ptds2023/group_c")
+library(budgetoverview)
 ```
 
-After installation, load budgetoverview with library(budgetoverview).
 
 # Troubleshooting
 

@@ -5,5 +5,6 @@ articles:
   function-usage: function-usage.html
   package-installation: package-installation.html
   shiny-usage: shiny-usage.html
-last_built: 2023-12-20T08:07Z
+  tutorial: tutorial.html
+last_built: 2023-12-20T13:10Z
 

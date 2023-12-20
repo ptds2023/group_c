@@ -1,0 +1,14 @@
+---
+title: "Tutorial"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Tutorial}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+description: "Tutorial on how to install the package and use it."
+---
+## Video Tutorial
+
+For a detailed walkthrough, watch the tutorial video on YouTube by clicking on the image: 
+
+[![budgetoverview tutorial](http://img.youtube.com/vi/xnLOWzq-Ftw/0.jpg)](https://youtu.be/xnLOWzq-Ftw)
