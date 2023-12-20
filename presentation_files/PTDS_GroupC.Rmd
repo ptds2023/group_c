@@ -330,15 +330,13 @@ class: inverse, left, middle
 
 # Limitations
 
-- Limited time (3 weeks to set up the project)
-
-- Limited number of functionalities due to time constraints (only the essentials)
-
-- Code optimization: some performances may be less efficient.
+- Limited time (3 weeks to set up the project) - limited number of functionalities 
 
 - Limited data integration: webscraping was used, but larger databases could have been used.
 
-- Interface customization: more/better visualizations
+- Interface customization: more/better visualizations, more comprehensive legend for the comparison between the user's and swiss average expense
+
+- Next steps: users could log in every month with their account and compare their financial status compared to previous months ; allow users to download dashboard as an Excel file 
 
 ---
 background-image: url(pictures/thankyou.png)

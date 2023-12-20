@@ -87,7 +87,7 @@
 <p>Our Shiny app enables users to input their monthly income and expenses for visualization through interactive scatter plots or pie charts. It offers full interactivity for error correction and includes color-blind-friendly graph options.</p>
 </div>
 <div class="section level2">
-<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+<h2 id="package---how-to-install">Package - How to install<a class="anchor" aria-label="anchor" href="#package---how-to-install"></a>
 </h2>
 <p>Use the following command in the console:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
@@ -112,21 +112,12 @@
 <h3 id="key-features">Key Features:<a class="anchor" aria-label="anchor" href="#key-features"></a>
 </h3>
 <ul>
-<li>Expense Logging: easy categorization and recording of personal expenses.</li>
-<li>Financial Calculations: automatically computes total expenses and savings.</li>
-<li>Comparative Analysis: enables comparison of personal spending against the average expenses of a Swiss household.</li>
-<li>Visual Representations: provides insightful bar charts and scatter plots for financial data.</li>
+<li>Expense Logging: Easy categorization and recording of personal expenses.</li>
+<li>Financial Calculations: Automatic calculation of total expenses and savings.</li>
+<li>Comparative Analysis: Comparison of personal expenses against the average expenses of a Swiss household.</li>
+<li>Visual Representations: Creation of insightful bar charts and scatter plots for financial data.</li>
 </ul>
 </div>
-</div>
-<div class="section level2">
-<h2 id="getting-help">Getting help<a class="anchor" aria-label="anchor" href="#getting-help"></a>
-</h2>
-<p>There are two main places to get help with <code>budgetoverview</code>:</p>
-<ol style="list-style-type: decimal">
-<li><p>The RStudio community is a friendly place to ask any questions.</p></li>
-<li><p>Stack Overflow is a great source of answers to common R programming questions. It is also a great place to get help, once you have created a reproducible example that illustrates your problem.</p></li>
-</ol>
 </div>
 <div class="section level2">
 <h2 id="file-organization">File Organization<a class="anchor" aria-label="anchor" href="#file-organization"></a>
@@ -147,7 +138,7 @@
 <li>
 <strong>tests</strong>: tests are conducted on each function for validation</li>
 <li>
-<strong>inst:</strong> used to store non-R files and static content that should be included in the package, such as the presentation files.</li>
+<strong>inst:</strong> used to store some non-R files and static content that should be included in the package, such as the <u>presentation</u> files, as well as the <u>shiny</u> app.</li>
 <li>
 <strong>renv</strong>: for managing project-specific dependencies - makes sure the environment is reproducible.</li>
 </ul>
@@ -158,8 +149,21 @@
 <ul>
 <li>
 <strong>DESCRIPTION</strong>: metadata file including information about our package name, version, authors and dependencies of other packages.</li>
+<li>
+<strong>LICENSE</strong> : information about the license of this package.</li>
+<li>
+<strong>group_c.Rpoj</strong>: Use this to load the package and set up the R working directory.</li>
 </ul>
 </div>
+</div>
+<div class="section level2">
+<h2 id="getting-help">Getting help<a class="anchor" aria-label="anchor" href="#getting-help"></a>
+</h2>
+<p>There are two main places to get help with <code>budgetoverview</code>:</p>
+<ol style="list-style-type: decimal">
+<li><p>The RStudio community is a friendly place to ask any questions.</p></li>
+<li><p>Stack Overflow is a great source of answers to common R programming questions. It is also a great place to get help, once you have created a reproducible example that illustrates your problem.</p></li>
+</ol>
 </div>
 </div>
 
