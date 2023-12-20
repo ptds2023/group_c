@@ -18,19 +18,20 @@ A Plotly interactive scatter plot object representing the comparison of expenses
 Creates an interactive scatter plot for comparing user expenses with Swiss average expenses using Plotly. The plot is designed for use within a Shiny application and features a comparison between user and Swiss average expenses across various categories. It supports a colorblind-friendly mode by altering the color palette and includes interactive hover text with detailed expense information.
 }
 \examples{
-# Example usage within a Shiny server function:
-user_vs_swiss <- data.frame(
-  category = c("Food", "Transport", "Utilities"),
-  user_amount = c(200, 150, 100),
-  swiss_amount = c(250, 180, 120),
-  type = c("User's Expenses", "User's Expenses", "User's Expenses"),
-  hover_text = c("Food: 200", "Transport: 150", "Utilities: 100")
-)
-# Assume colorblind_switch is a boolean input from Shiny
-output$comparisonPlot <- renderPlotly({
-  generate_comparison_plot(user_vs_swiss, colorblind_switch)
-})
+\dontrun{
+  # Sample data in the expected format
+  user_vs_swiss <- data.frame(
+    category = rep(c("Food", "Transport", "Utilities"), 2),
+    amount = c(200, 150, 100, 250, 180, 120),
+    type = c(rep("User's Expenses", 3), rep("Swiss Average Expenses", 3)),
+    hover_text = c("Food: 200", "Transport: 150", "Utilities: 100", "Food: 250", "Transport: 180", "Utilities: 120")
+  )
 
+  # Assume colorblind_switch is a boolean input from Shiny
+  output$comparisonPlot <- renderPlotly({
+    generate_comparison_plot(user_vs_swiss, colorblind_switch = FALSE)
+  })
+}
 }
 \author{
 Group C composed of Marc Bourleau, Eleonore Gillain, Khrystyna Khmilovska, and Konstantinos Kourlimpinis.
