@@ -35,7 +35,7 @@ test_that("generate_comparison_plot handles empty data appropriately", {
 
   result <- generate_comparison_plot(empty_data, FALSE)
 
-  # Depending on your function's design, you can check if it returns an empty plot or an error
+  # Checking if it returns an empty plot or an error
   expect_true(is.null(result) || inherits(result, "plotly"))
 })
 
