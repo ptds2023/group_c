@@ -11,17 +11,17 @@ generate_scatter_or_pie(
 )
 }
 \arguments{
-\item{expenses_data_summary}{A data frame summarizing expenses data. It should contain at least two columns: 'category' for the expense categories and 'percentage' for the percentage share of each category.}
+\item{expenses_data_summary}{A data frame summarizing expenses data. It should contain at least the columns 'category', 'amount', and 'percentage', where 'percentage' represents the percentage share of each category in the total expenses.}
 
 \item{scatter_plot_type}{A character string specifying the type of plot to generate. Expected values are "Scatter Plot" or "Pie Chart".}
 
-\item{colorblind_switch}{A logical value indicating whether to use a colorblind-friendly palette.}
+\item{colorblind_switch}{A logical value indicating whether to use a colorblind-friendly color palette. The palette changes based on the value of this parameter.}
 }
 \value{
-A Plotly object representing the specified type of plot (scatter plot or pie chart).
+A Plotly object representing the specified type of plot (either a scatter plot or a pie chart). The function returns NULL if there is no data to plot.
 }
 \description{
-This function creates either a scatter plot or a pie chart based on user input. It is designed to be used within a Shiny application.
+This function dynamically creates either a scatter plot or a pie chart based on the user's choice in a Shiny application. The function adapts the plot type depending on the input provided: 'Scatter Plot' or 'Pie Chart'. The plots are designed to provide insights into the distribution of expenses across different categories, represented both in amounts and percentages.
 }
 \examples{
 # Example usage within a Shiny server function:
@@ -35,5 +35,5 @@ output$myPlot <- renderPlotly({
 })
 }
 \author{
-Group C composed of Marc Bourleau, Eleonore Gillain, Khrystyna Khmilovska and Konstantinos Kourlimpinis.
+Group C composed of Marc Bourleau, Eleonore Gillain, Khrystyna Khmilovska, and Konstantinos Kourlimpinis.
 }
