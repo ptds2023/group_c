@@ -8,19 +8,20 @@
 #' @importFrom ggplot2 ggplot aes geom_point labs theme_minimal scale_color_manual scale_shape_manual
 #' @importFrom plotly ggplotly layout
 #' @examples
-#' # Example usage within a Shiny server function:
-#' user_vs_swiss <- data.frame(
-#'   category = c("Food", "Transport", "Utilities"),
-#'   user_amount = c(200, 150, 100),
-#'   swiss_amount = c(250, 180, 120),
-#'   type = c("User's Expenses", "User's Expenses", "User's Expenses"),
-#'   hover_text = c("Food: 200", "Transport: 150", "Utilities: 100")
-#' )
-#' # Assume colorblind_switch is a boolean input from Shiny
-#' output$comparisonPlot <- renderPlotly({
-#'   generate_comparison_plot(user_vs_swiss, colorblind_switch)
-#' })
+#' \dontrun{
+#'   # Sample data in the expected format
+#'   user_vs_swiss <- data.frame(
+#'     category = rep(c("Food", "Transport", "Utilities"), 2),
+#'     amount = c(200, 150, 100, 250, 180, 120),
+#'     type = c(rep("User's Expenses", 3), rep("Swiss Average Expenses", 3)),
+#'     hover_text = c("Food: 200", "Transport: 150", "Utilities: 100", "Food: 250", "Transport: 180", "Utilities: 120")
+#'   )
 #'
+#'   # Assume colorblind_switch is a boolean input from Shiny
+#'   output$comparisonPlot <- renderPlotly({
+#'     generate_comparison_plot(user_vs_swiss, colorblind_switch = FALSE)
+#'   })
+#' }
 #' @export
 generate_comparison_plot <- function(user_vs_swiss, colorblind_switch) {
   # Define colors for each type of expense

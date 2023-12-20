@@ -12,15 +12,20 @@
 #' @importFrom magrittr %>%
 #' @importFrom RColorBrewer brewer.pal
 #' @examples
-#' # Example usage within a Shiny server function:
+#' # Create a sample data frame
 #' expenses_summary <- data.frame(
 #'   category = c("Food", "Transport", "Utilities"),
 #'   amount = c(200, 150, 100),
 #'   percentage = c(40, 30, 30)
 #' )
-#' output$myPlot <- renderPlotly({
-#'   generate_scatter_or_pie(expenses_summary, input$plotType, input$colorblindSwitch)
-#' })
+#'
+#' # Generate a scatter plot
+#' scatter_plot <- generate_scatter_or_pie(expenses_summary, "Scatter Plot", FALSE)
+#' print(scatter_plot)
+#'
+#' # Generate a pie chart
+#' pie_chart <- generate_scatter_or_pie(expenses_summary, "Pie Chart", FALSE)
+#' print(pie_chart)
 #' @export
 
 generate_scatter_or_pie <- function(expenses_data_summary, scatter_plot_type, colorblind_switch) {
