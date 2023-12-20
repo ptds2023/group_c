@@ -16,10 +16,10 @@ test_that("generate_comparison_plot returns a Plotly object", {
 
   # Transform data to match the expected format
   user_data <- original_data %>%
-    mutate(type = "User's Expenses", amount = user_amount, hover_text = hover_text)
+    dplyr::mutate(type = "User's Expenses", amount = user_amount, hover_text = hover_text)
 
   swiss_data <- original_data %>%
-    mutate(type = "Swiss Average Expenses", amount = swiss_amount, hover_text = hover_text)
+    dplyr::mutate(type = "Swiss Average Expenses", amount = swiss_amount, hover_text = hover_text)
 
   user_vs_swiss <- rbind(user_data, swiss_data)
 

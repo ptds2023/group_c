@@ -7,8 +7,6 @@
 #' @param colorblind_switch A logical value indicating whether to use a colorblind-friendly color palette. The palette changes based on the value of this parameter.
 #' @return A Plotly object representing the specified type of plot (either a scatter plot or a pie chart). The function returns NULL if there is no data to plot.
 #' @import ggplot2
-#' @import dplyr
-#' @import plotly
 #' @importFrom magrittr %>%
 #' @importFrom RColorBrewer brewer.pal
 #' @examples
@@ -29,7 +27,7 @@
 #' @export
 
 generate_scatter_or_pie <- function(expenses_data_summary, scatter_plot_type, colorblind_switch) {
-  color_vector <- if (colorblind_switch) brewer.pal(3, "Set1") else brewer.pal(3, "Pastel1")
+  color_vector <- if (colorblind_switch) RColorBrewer::brewer.pal(3, "Set1") else RColorBrewer::brewer.pal(3, "Pastel1")
 
   if (nrow(expenses_data_summary) > 0) {
     if (scatter_plot_type == "Scatter Plot") {
@@ -40,13 +38,13 @@ generate_scatter_or_pie <- function(expenses_data_summary, scatter_plot_type, co
         sep = ""
       )
 
-      p <- ggplot(expenses_data_summary, aes(x = percentage, y = amount, text = hover_text)) +
-        geom_point(color = color_vector[1], size = 4, alpha = 0.5) +
-        geom_text(aes(label = category), size = 2, hjust = 1.1, vjust = 1.1) +
-        labs(title = "Expenses by Category", x = "% Share of Expenses", y = "Amount") +
-        theme_minimal()
+      p <- ggplot2::ggplot(expenses_data_summary, ggplot2::aes(x = percentage, y = amount, text = hover_text)) +
+        ggplot2::geom_point(color = color_vector[1], size = 4, alpha = 0.5) +
+        ggplot2::geom_text(ggplot2::aes(label = category), size = 2, hjust = 1.1, vjust = 1.1) +
+        ggplot2::labs(title = "Expenses by Category", x = "% Share of Expenses", y = "Amount") +
+        ggplot2::theme_minimal()
 
-      gg <- ggplotly(p, tooltip = "text")
+      gg <- plotly::ggplotly(p, tooltip = "text")
       gg$data[[1]]$hoverinfo <- 'text'
       gg$data[[1]]$hovertemplate <- '%{text}<extra></extra>'
 
@@ -59,11 +57,13 @@ generate_scatter_or_pie <- function(expenses_data_summary, scatter_plot_type, co
         sep = ""
       )
 
-      plot_ly(expenses_data_summary, labels = ~category, values = ~amount, type = 'pie',
-              textinfo = 'label+percent', insidetextorientation = 'radial',
-              hoverinfo = 'label+percent+value', marker = list(colors = color_vector)) %>%
-        layout(title = "Expenses by Category", showlegend = FALSE) %>%
-        add_trace(text = ~hover_text, hoverinfo = "text", hovertemplate = ~hover_text)
+      plot <- plotly::plot_ly(expenses_data_summary, labels = ~category, values = ~amount, type = 'pie',
+                              textinfo = 'label+percent', insidetextorientation = 'radial',
+                              hoverinfo = 'label+percent+value', marker = list(colors = color_vector)) %>%
+        plotly::layout(title = "Expenses by Category", showlegend = FALSE) %>%
+        plotly::add_trace(text = ~hover_text, hoverinfo = "text", hovertemplate = ~hover_text)
+
+      return(plot)
     }
   } else {
     return(NULL) # Return NULL if there is no data to plot

@@ -24,7 +24,8 @@ Creates an interactive scatter plot for comparing user expenses with Swiss avera
     category = rep(c("Food", "Transport", "Utilities"), 2),
     amount = c(200, 150, 100, 250, 180, 120),
     type = c(rep("User's Expenses", 3), rep("Swiss Average Expenses", 3)),
-    hover_text = c("Food: 200", "Transport: 150", "Utilities: 100", "Food: 250", "Transport: 180", "Utilities: 120")
+    hover_text = c("Food: 200", "Transport: 150", "Utilities: 100",
+                  "Food: 250", "Transport: 180", "Utilities: 120")
   )
 
   # Assume colorblind_switch is a boolean input from Shiny
