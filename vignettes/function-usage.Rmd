@@ -17,7 +17,7 @@ library(budgetoverview)
 
 # 1. `add_expense`
 
-### Purpose:  add a new entry to the data frame that tracks expenses. 
+### Purpose: add a new entry to the data frame that tracks expenses.
 
 ### Parameters
 
@@ -53,7 +53,7 @@ library(budgetoverview)
 
     -   If the category already exists in **`selected_categories`**, the function does not add the expense and returns **`FALSE`**.
 
-### Example 
+### Example
 
 In a Shiny app, this function would be used within an **`observeEvent`** or similar reactive context. It is triggered by a user action, specifically pressing an "Add Expense" button. The function reads the category and amount from the user input, attempts to add the expense, and then you can take additional actions based on whether the expense was successfully added.
 
@@ -83,7 +83,7 @@ observeEvent(input$add_expense, {
 
 # 2. `generate_bar_chart`
 
-### Purpose:  creates a bar chart for visualizing data such as income, expenses, and savings.
+### Purpose: creates a bar chart for visualizing data such as income, expenses, and savings.
 
 ### Parameters
 
@@ -242,16 +242,19 @@ comparison_plot
 
     -   It includes features like labels, percentages, and hover information.
 
-### Example 
+### Example
 
 -   The function can be called within a Shiny server function, where the user's choice of plot type and colorblind mode can be passed as inputs. The resulting plot can be rendered in the UI using **`renderPlotly`**.
 
 ```{r, warning = FALSE}
 # Packages
-library(ggplot2)
-library(plotly)
-library(RColorBrewer)
-library(magrittr)
+suppressPackageStartupMessages({
+  library(ggplot2)
+  library(plotly)
+  library(RColorBrewer)
+  library(magrittr)
+})
+
 
 # Dataframe
 expenses_summary <- data.frame(
@@ -261,7 +264,7 @@ expenses_summary <- data.frame(
 
 # Generate a pie chart
 pie_chart <- generate_scatter_or_pie(expenses_summary, "Pie Chart", FALSE)
-print(pie_chart)
+pie_chart
 
 
 
