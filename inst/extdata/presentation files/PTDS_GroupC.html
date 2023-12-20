@@ -199,70 +199,52 @@ class: center, bottom, inverse
 class: left, middle
 
 # Our Shiny App
-.pull-left[
 
-#### The User's Input:
+.pull-left[
+## The User's Input:
+
 - Enter your income
+
 - Enter your expenses
   - Select a category &amp; Add the amount
+  
 - Choose Visualization
+
 - Colorblind mode
-
-#### The Output:
-- Bar Chart for the Savings
-- Table of Expenses
-- Scatter Plot &amp; Pie Chart
-
-
-#### Compare with the swiss average
 ]
 
 .pull-right[
-![shiny example](pictures/Shiny.png)
-]
-
----
-class: left
-
-# Optimization &amp; Package Creation
-
-## Optimization
-
-.pull-left[
-From this...
-![messy finances](pictures/nonoptimization.png)
-]
-
-.pull-right[
-To this !
 
 ![example shiny](pictures/optimization.png)
 ]
+
 ---
-class: left
+class: left, middle
 
-# Optimization &amp; Package Creation
-
-## Optimization
+# Our Shiny App
 
 .pull-left[
-And from this...
-![empty wallet](pictures/nonoptimization2.png)
+## The User's Output:
+
+- Bar Chart for the Savings
+
+- Table of Expenses
+
+- Scatter Plot &amp; Pie Chart
+
+- Compare with the swiss average
 ]
 
 .pull-right[
-To this !
-
 ![example shiny](pictures/optimization2.png)
-]
+] 
 ---
 
-# Our Shiny app &amp; Key features
+# The Key features 
 
 ![our shiny app](pictures/Shiny.png)
 - User can edit any input
 - Error prevention (negative, non-numerical)
-
 
 ---
 # Optimization &amp; Package Creation
@@ -273,22 +255,21 @@ Install the **budgetoverview** package from [Github](https://github.com/budgetov
 
 
 ```r
-remotes::install_github("budgetoverview")
+devtools::install_github("ptds2023/group_c")
+library(budgetoverview)
+```
+--
+
+- Launch the Shiny
+
+
+```r
+budgetoverview::launchMyApp()
 ```
 
 --
 
-You are recommended to use the [RStudio IDE](https://www.rstudio.com/products/rstudio/), but you do not have to.
-
-- Create a new R Markdown document from the menu `File -&gt; New File -&gt; R Markdown -&gt; From Template -&gt; Ninja Presentation`;&lt;sup&gt;1&lt;/sup&gt;
-
---
-
-- Click the `Knit` button to compile it;
-
---
-
-- or use the [RStudio Addin](https://rstudio.github.io/rstudioaddins/)&lt;sup&gt;2&lt;/sup&gt; "Infinite Moon Reader" to live preview the slides (every time you update and save the Rmd document, the slides will be automatically reloaded in RStudio Viewer.
+- Use the [documentation](https://ptds2023.github.io/group_c/articles/function-usage.html) to get used to the package and use it on your own.
 
 ---
 # Functions &amp; Testing 
@@ -346,9 +327,13 @@ expect_true(is.null(result) || inherits(result, "plotly"))
 ---
 class: left, middle
 
-# The Final product
+# The Final product&lt;sup&gt;1&lt;/sup&gt;
 
-![an image](pictures/results.png)
+![results image](pictures/results.png)
+
+.footnote[
+    &lt;small&gt;[1] Click [here](https://ptnsy6-marc-bourleau.shinyapps.io/shiny/) to access the shiny app.&lt;/small&gt;
+]
 
 ---
 class: inverse, left, middle
@@ -363,7 +348,7 @@ class: inverse, left, middle
 
 - Limited data integration: webscraping was used, but larger databases could have been used.
 
-- Interface customization: we'd have liked to do even more.
+- Interface customization: more/better visualizations
 
 ---
 background-image: url(pictures/thankyou.png)
