@@ -259,10 +259,6 @@ expenses_summary <- data.frame(
   amount = c(200, 150, 100),
   percentage = c(40, 30, 30))
 
-# Generate a scatter plot
-scatter_plot <- generate_scatter_or_pie(expenses_summary, "Scatter Plot", FALSE)
-print(scatter_plot)
-
 # Generate a pie chart
 pie_chart <- generate_scatter_or_pie(expenses_summary, "Pie Chart", FALSE)
 print(pie_chart)

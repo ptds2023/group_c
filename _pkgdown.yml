@@ -1,0 +1,6 @@
+title: budgetoverview
+template:
+  bootstrap: 5
+  bootswatch: cerulean
+  bslib:
+    pkgdown-nav-height: 50px

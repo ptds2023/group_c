@@ -3,7 +3,7 @@
 ######## INSTALLATION #########
 
 
-- devtools::install_github("ptds2023/group_c")
+devtools::install_github("ptds2023/group_c")
 
 
 ####### CHECK ###########

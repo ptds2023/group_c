@@ -4,7 +4,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="This vignette details how to use the budgetoverview package to manage financial data, create visualizations, and compare expenses to average spending.
+">
 <title>Functions - How to use • budgetoverview</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
@@ -12,12 +14,11 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
-<script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Functions - How to use">
+<!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Functions - How to use">
 <meta property="og:description" content="This vignette details how to use the budgetoverview package to manage financial data, create visualizations, and compare expenses to average spending.
 ">
 <meta property="og:image" content="/logo.png">
@@ -26,113 +27,90 @@
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
-<body data-spy="scroll" data-target="#toc">
+<body>
+    <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
-    <div class="container template-article">
-      <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">budgetoverview</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0</span>
-      </span>
-    </div>
+    <nav class="navbar fixed-top navbar-dark navbar-expand-lg bg-primary"><div class="container">
+    
+    <a class="navbar-brand me-2" href="../index.html">budgetoverview</a>
 
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-<li>
-  <a href="../reference/index.html">Reference</a>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+
+    
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar" class="collapse navbar-collapse ms-3">
+      <ul class="navbar-nav me-auto">
+<li class="nav-item">
+  <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-<li>
-      <a href="../articles/function-usage.html">Functions - How to use</a>
-    </li>
-    <li>
-      <a href="../articles/package-installation.html">Package - How to Install</a>
-    </li>
-    <li>
-      <a href="../articles/shiny-usage.html">Shiny - How to use</a>
-    </li>
-  </ul>
-</li>
-      </ul>
-<ul class="nav navbar-nav navbar-right">
-<li>
-  <a href="https://github.com/ptds2023/group_c/" class="external-link">
-    <span class="fab fa-github fa-lg"></span>
-     
-  </a>
-</li>
-      </ul>
-</div>
-<!--/.nav-collapse -->
+<li class="active nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/function-usage.html">Functions - How to use</a>
+    <a class="dropdown-item" href="../articles/package-installation.html">Package - How to Install</a>
+    <a class="dropdown-item" href="../articles/shiny-usage.html">Shiny - How to use</a>
   </div>
-<!--/.container -->
+</li>
+      </ul>
+<form class="form-inline my-2 my-lg-0" role="search">
+        <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off">
+</form>
+
+      <ul class="navbar-nav">
+<li class="nav-item">
+  <a class="external-link nav-link" href="https://github.com/ptds2023/group_c/" aria-label="github">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
 </div>
-<!--/.navbar -->
 
-      
+    
+  </div>
+</nav><div class="container template-article">
 
-      </header><script src="function-usage_files/htmlwidgets-1.6.4/htmlwidgets.js"></script><script src="function-usage_files/plotly-binding-4.10.3/plotly.js"></script><script src="function-usage_files/typedarray-0.1/typedarray.min.js"></script><link href="function-usage_files/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
+
+
+<script src="function-usage_files/htmlwidgets-1.6.4/htmlwidgets.js"></script><script src="function-usage_files/plotly-binding-4.10.3/plotly.js"></script><script src="function-usage_files/typedarray-0.1/typedarray.min.js"></script><link href="function-usage_files/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
 <script src="function-usage_files/crosstalk-1.2.1/js/crosstalk.min.js"></script><link href="function-usage_files/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet">
 <script src="function-usage_files/plotly-main-2.11.1/plotly-latest.min.js"></script><div class="row">
-  <div class="col-md-9 contents">
-    <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Functions - How to use</h1>
+  <main id="main" class="col-md-9"><div class="page-header">
+      <img src="../logo.png" class="logo" alt=""><h1>Functions - How to use</h1>
             
       
       <small class="dont-index">Source: <a href="https://github.com/ptds2023/group_c/blob/HEAD/vignettes/function-usage.Rmd" class="external-link"><code>vignettes/function-usage.Rmd</code></a></small>
-      <div class="hidden name"><code>function-usage.Rmd</code></div>
-
+      <div class="d-none name"><code>function-usage.Rmd</code></div>
     </div>
 
     
     
 <div class="section level2">
-<h2 id="add_expense">1. add_expense<a class="anchor" aria-label="anchor" href="#add_expense"></a>
+<h2 id="add_expense">1. <code>add_expense</code><a class="anchor" aria-label="anchor" href="#add_expense"></a>
 </h2>
 <div class="section level4">
-<h4 id="purpose">Purpose<a class="anchor" aria-label="anchor" href="#purpose"></a>
+<h4 id="purpose-add-a-new-entry-to-the-data-frame-that-tracks-expenses-">Purpose: add a new entry to the data frame that tracks
+expenses.<a class="anchor" aria-label="anchor" href="#purpose-add-a-new-entry-to-the-data-frame-that-tracks-expenses-"></a>
 </h4>
-<p>To add a new entry to a data frame that tracks expenses. It is
-designed to be interactive and reactive, fitting within the Shiny
-framework.</p>
 </div>
 <div class="section level4">
 <h4 id="parameters">Parameters<a class="anchor" aria-label="anchor" href="#parameters"></a>
 </h4>
 <ul>
-<li><p><strong><code>category</code></strong>: The category of the new
-expense. This is a string that describes what the expense is for (e.g.,
-“Groceries”, “Utilities”).</p></li>
-<li><p><strong><code>amount</code></strong>: The monetary value of the
-expense. This should be a non-negative number. The function includes a
-check to ensure that the amount is not negative or
-<strong><code>NA</code></strong> (missing).</p></li>
-<li><p><strong><code>expenses_data</code></strong>: A reactive value
-that contains a data frame of expenses. In Shiny, reactive values are
-used to store and manage data that can change over time and trigger
-reactive updates in the app. This parameter expects the current state of
-expenses.</p></li>
-<li><p><strong><code>selected_categories</code></strong>: Another
-reactive value that stores a list of categories that have already been
-used or selected. This helps in tracking which expense categories have
-been entered.</p></li>
-<li><p><strong><code>session</code></strong>: The Shiny session object,
-used here for showing modal dialogues in the Shiny app.</p></li>
+<li><p><strong><code>category</code></strong>: string describing the
+type of expense (e.g., “Groceries”, “Utilities”).</p></li>
+<li><p><strong><code>amount</code></strong>: monetary value of the
+expense.</p></li>
+<li><p><strong><code>expenses_data</code></strong>: reactive value that
+contains a data frame of expenses.</p></li>
+<li><p><strong><code>selected_categories</code></strong>: reactive value
+storing a list of categories that have already been selected.</p></li>
+<li><p><strong><code>session</code></strong>: Shiny session object, used
+for showing modal dialogues in the Shiny app.</p></li>
 </ul>
 </div>
 <div class="section level4">
@@ -179,7 +157,7 @@ add the expense and returns <strong><code>FALSE</code></strong>.</li>
 </ol>
 </div>
 <div class="section level4">
-<h4 id="example-usage-in-shiny">Example Usage in Shiny<a class="anchor" aria-label="anchor" href="#example-usage-in-shiny"></a>
+<h4 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
 </h4>
 <p>In a Shiny app, this function would be used within an
 <strong><code>observeEvent</code></strong> or similar reactive context.
@@ -214,30 +192,20 @@ based on whether the expense was successfully added.</p>
 </div>
 </div>
 <div class="section level2">
-<h2 id="generate_bar_chart">2. generate_bar_chart<a class="anchor" aria-label="anchor" href="#generate_bar_chart"></a>
+<h2 id="generate_bar_chart">2. <code>generate_bar_chart</code><a class="anchor" aria-label="anchor" href="#generate_bar_chart"></a>
 </h2>
-<p>Calculate your total expenses and how much you have saved with the
-calculate_financials function.</p>
 <div class="section level4">
-<h4 id="function-purpose">Function Purpose<a class="anchor" aria-label="anchor" href="#function-purpose"></a>
+<h4 id="purpose-creates-a-bar-chart-for-visualizing-data-such-as-income-expenses-and-savings-">Purpose: creates a bar chart for visualizing data such as income,
+expenses, and savings.<a class="anchor" aria-label="anchor" href="#purpose-creates-a-bar-chart-for-visualizing-data-such-as-income-expenses-and-savings-"></a>
 </h4>
-<ul>
-<li><p><strong>Primary Use</strong>: To visually represent financial
-data in the form of a bar chart. This kind of visualization makes it
-easier to interpret and compare different categories of financial
-data.</p></li>
-<li><p><strong>Shiny Integration</strong>: While it’s designed for use
-in a Shiny application, it can also be used in other contexts where
-interactive visualizations are beneficial.</p></li>
-</ul>
 </div>
 <div class="section level4">
 <h4 id="parameters-1">Parameters<a class="anchor" aria-label="anchor" href="#parameters-1"></a>
 </h4>
 <ul>
 <li>
-<p><strong><code>data</code></strong>: A data frame that contains
-the data to be plotted. This data frame is expected to have at least two
+<p><strong><code>data</code></strong>: data frame that contains the
+data to be plotted. This data frame is expected to have at least two
 columns:</p>
 <ul>
 <li><p><strong><code>category</code></strong>: A column that contains
@@ -302,7 +270,7 @@ hover effects in a web-based environment.</li>
 </ul>
 </div>
 <div class="section level4">
-<h4 id="example-usage">Example Usage<a class="anchor" aria-label="anchor" href="#example-usage"></a>
+<h4 id="example-1">Example<a class="anchor" aria-label="anchor" href="#example-1"></a>
 </h4>
 <ul>
 <li>In a Shiny application, this plot can be rendered using
@@ -319,8 +287,8 @@ interactive.</li>
 <span><span class="co"># Generate and display the bar chart</span></span>
 <span><span class="va">bar_chart</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generate_bar_chart.html">generate_bar_chart</a></span><span class="op">(</span><span class="va">data</span>, colorblind_switch <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="va">bar_chart</span></span></code></pre></div>
-<div class="plotly html-widget html-fill-item" id="htmlwidget-16f0308cc379354deedf" style="width:700px;height:432.632880098888px;"></div>
-<script type="application/json" data-for="htmlwidget-16f0308cc379354deedf">{"x":{"data":[{"orientation":"v","width":0.89999999999999991,"base":0,"x":[1],"y":[750],"text":"category: Expenses<br />amount:  750<br />category: Expenses","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(102,194,165,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"Expenses","legendgroup":"Expenses","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.90000000000000013,"base":0,"x":[2],"y":[1000],"text":"category: Income<br />amount: 1000<br />category: Income","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(252,141,98,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"Income","legendgroup":"Income","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.90000000000000036,"base":0,"x":[3],"y":[250],"text":"category: Savings<br />amount:  250<br />category: Savings","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(141,160,203,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"Savings","legendgroup":"Savings","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":45.358882994166862,"r":7.3059360730593621,"b":41.778974318367787,"l":48.949771689497723},"font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724},"title":{"text":"Income, Expenses, and Savings","font":{"color":"rgba(0,0,0,1)","family":"","size":17.534246575342465},"x":0,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.40000000000000002,3.6000000000000001],"tickmode":"array","ticktext":["Expenses","Income","Savings"],"tickvals":[1,2,3],"categoryorder":"array","categoryarray":["Expenses","Income","Savings"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.68949771689498},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"y","title":{"text":"Category","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-50,1050],"tickmode":"array","ticktext":["0","250","500","750","1000"],"tickvals":[0,250,500,750,1000],"categoryorder":"array","categoryarray":["0","250","500","750","1000"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.68949771689498},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"x","title":{"text":"Amount","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":false,"legend":{"bgcolor":null,"bordercolor":null,"borderwidth":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.68949771689498}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"2f29327b4b91":{"x":{},"y":{},"fill":{},"type":"bar"}},"cur_data":"2f29327b4b91","visdat":{"2f29327b4b91":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<div class="plotly html-widget html-fill-item" id="htmlwidget-5d3a7d80da5fc3538b74" style="width:700px;height:432.632880098888px;"></div>
+<script type="application/json" data-for="htmlwidget-5d3a7d80da5fc3538b74">{"x":{"data":[{"orientation":"v","width":0.89999999999999991,"base":0,"x":[1],"y":[750],"text":"category: Expenses<br />amount:  750<br />category: Expenses","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(102,194,165,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"Expenses","legendgroup":"Expenses","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.90000000000000013,"base":0,"x":[2],"y":[1000],"text":"category: Income<br />amount: 1000<br />category: Income","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(252,141,98,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"Income","legendgroup":"Income","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.90000000000000036,"base":0,"x":[3],"y":[250],"text":"category: Savings<br />amount:  250<br />category: Savings","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(141,160,203,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"Savings","legendgroup":"Savings","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":45.358882994166862,"r":7.3059360730593621,"b":41.778974318367787,"l":48.949771689497723},"font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724},"title":{"text":"Income, Expenses, and Savings","font":{"color":"rgba(0,0,0,1)","family":"","size":17.534246575342465},"x":0,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.40000000000000002,3.6000000000000001],"tickmode":"array","ticktext":["Expenses","Income","Savings"],"tickvals":[1,2,3],"categoryorder":"array","categoryarray":["Expenses","Income","Savings"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.68949771689498},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"y","title":{"text":"Category","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-50,1050],"tickmode":"array","ticktext":["0","250","500","750","1000"],"tickvals":[0,250,500,750,1000],"categoryorder":"array","categoryarray":["0","250","500","750","1000"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.68949771689498},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"x","title":{"text":"Amount","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":false,"legend":{"bgcolor":null,"bordercolor":null,"borderwidth":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.68949771689498}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"36f15b1c9d7b":{"x":{},"y":{},"fill":{},"type":"bar"}},"cur_data":"36f15b1c9d7b","visdat":{"36f15b1c9d7b":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 </div>
 <div class="section level4">
 <h4 id="output">Output<a class="anchor" aria-label="anchor" href="#output"></a>
@@ -333,19 +301,14 @@ applications or R Markdown documents.</li>
 </div>
 </div>
 <div class="section level2">
-<h2 id="generate_comparison_plot">3. generate_comparison_plot<a class="anchor" aria-label="anchor" href="#generate_comparison_plot"></a>
+<h2 id="generate_comparison_plot">3. <code>generate_comparison_plot</code><a class="anchor" aria-label="anchor" href="#generate_comparison_plot"></a>
 </h2>
 <div class="section level4">
-<h4 id="function-purpose-1">Function Purpose<a class="anchor" aria-label="anchor" href="#function-purpose-1"></a>
+<h4 id="function-visualize-and-compare-two-sets-of-financial-data-the-users-expenses-and-the-average-expenses-in-switzerland-in-a-scatter-plot-format--provides-insights-into-how-personal-spending-patterns-align-with-or-deviate-from-national-averages-">Function: visualize and compare two sets of financial data – the
+user’s expenses and the average expenses in Switzerland – in a scatter
+plot format. Provides insights into how personal spending patterns align
+with or deviate from national averages.<a class="anchor" aria-label="anchor" href="#function-visualize-and-compare-two-sets-of-financial-data-the-users-expenses-and-the-average-expenses-in-switzerland-in-a-scatter-plot-format--provides-insights-into-how-personal-spending-patterns-align-with-or-deviate-from-national-averages-"></a>
 </h4>
-<ul>
-<li>
-<strong>Primary Use</strong>: The main goal of this function is to
-visualize and compare two sets of financial data – the user’s expenses
-and the average expenses in Switzerland – in a scatter plot format. This
-helps in understanding how personal spending aligns with or differs from
-average spending patterns.</li>
-</ul>
 </div>
 <div class="section level4">
 <h4 id="parameters-2">Parameters<a class="anchor" aria-label="anchor" href="#parameters-2"></a>
@@ -421,7 +384,7 @@ allowing for features like tooltips on hover.</li>
 </ul>
 </div>
 <div class="section level4">
-<h4 id="example-usage-1">Example Usage<a class="anchor" aria-label="anchor" href="#example-usage-1"></a>
+<h4 id="example-usage">Example Usage<a class="anchor" aria-label="anchor" href="#example-usage"></a>
 </h4>
 <ul>
 <li>Just like the previous ones, this function is intended to be used
@@ -442,8 +405,8 @@ within a Shiny server function.</li>
 <span></span>
 <span><span class="co"># Display the plot</span></span>
 <span><span class="va">comparison_plot</span></span></code></pre></div>
-<div class="plotly html-widget html-fill-item" id="htmlwidget-6298176770bbfd6244cb" style="width:700px;height:432.632880098888px;"></div>
-<script type="application/json" data-for="htmlwidget-6298176770bbfd6244cb">{"x":{"data":[{"x":[25,18,12],"y":[250,180,120],"text":["Food: 250","Transport: 180","Utilities: 120"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(255,0,0,1)","opacity":0.5,"size":15.118110236220474,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(255,0,0,1)"}},"hoveron":"points","name":"Swiss Average Expenses","legendgroup":"Swiss Average Expenses","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[20,15,10],"y":[200,150,100],"text":["Food: 200","Transport: 150","Utilities: 100"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,255,1)","opacity":0.5,"size":15.118110236220474,"symbol":"triangle-up","line":{"width":1.8897637795275593,"color":"rgba(0,0,255,1)"}},"hoveron":"points","name":"User's Expenses","legendgroup":"User's Expenses","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":45.358882994166862,"r":7.3059360730593621,"b":41.778974318367787,"l":43.105022831050235},"font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724},"title":{"text":"Compare to the Average Swiss Expenses","font":{"color":"rgba(0,0,0,1)","family":"","size":17.534246575342465},"x":0,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[9.25,25.75],"tickmode":"array","ticktext":["10","15","20","25"],"tickvals":[10,15,20,25],"categoryorder":"array","categoryarray":["10","15","20","25"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.68949771689498},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"y","title":{"text":"% Share of Expenses","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[92.5,257.5],"tickmode":"array","ticktext":["100","150","200","250"],"tickvals":[100,150,200,250],"categoryorder":"array","categoryarray":["100","150","200","250"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.68949771689498},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"x","title":{"text":"Amount","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":null,"bordercolor":null,"borderwidth":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.68949771689498},"title":"","labels":["User's expenses","Swiss average expenses"]},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"2f296e71772c":{"x":{},"y":{},"colour":{},"text":{},"shape":{},"type":"scatter"}},"cur_data":"2f296e71772c","visdat":{"2f296e71772c":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<div class="plotly html-widget html-fill-item" id="htmlwidget-83208e5c151d5c602fbd" style="width:700px;height:432.632880098888px;"></div>
+<script type="application/json" data-for="htmlwidget-83208e5c151d5c602fbd">{"x":{"data":[{"x":[25,18,12],"y":[250,180,120],"text":["Food: 250","Transport: 180","Utilities: 120"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(255,0,0,1)","opacity":0.5,"size":15.118110236220474,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(255,0,0,1)"}},"hoveron":"points","name":"Swiss Average Expenses","legendgroup":"Swiss Average Expenses","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[20,15,10],"y":[200,150,100],"text":["Food: 200","Transport: 150","Utilities: 100"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,255,1)","opacity":0.5,"size":15.118110236220474,"symbol":"triangle-up","line":{"width":1.8897637795275593,"color":"rgba(0,0,255,1)"}},"hoveron":"points","name":"User's Expenses","legendgroup":"User's Expenses","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":45.358882994166862,"r":7.3059360730593621,"b":41.778974318367787,"l":43.105022831050235},"font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724},"title":{"text":"Compare to the Average Swiss Expenses","font":{"color":"rgba(0,0,0,1)","family":"","size":17.534246575342465},"x":0,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[9.25,25.75],"tickmode":"array","ticktext":["10","15","20","25"],"tickvals":[10,15,20,25],"categoryorder":"array","categoryarray":["10","15","20","25"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.68949771689498},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"y","title":{"text":"% Share of Expenses","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[92.5,257.5],"tickmode":"array","ticktext":["100","150","200","250"],"tickvals":[100,150,200,250],"categoryorder":"array","categoryarray":["100","150","200","250"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.68949771689498},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"x","title":{"text":"Amount","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":null,"bordercolor":null,"borderwidth":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.68949771689498},"title":"","labels":["User's expenses","Swiss average expenses"]},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"36f129d470a9":{"x":{},"y":{},"colour":{},"text":{},"shape":{},"type":"scatter"}},"cur_data":"36f129d470a9","visdat":{"36f129d470a9":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 </div>
 <div class="section level4">
 <h4 id="output-1">Output<a class="anchor" aria-label="anchor" href="#output-1"></a>
@@ -455,13 +418,12 @@ plot suitable for web applications, particularly for Shiny.</li>
 </div>
 </div>
 <div class="section level2">
-<h2 id="generate_scatter_or_pie">4. generate_scatter_or_pie<a class="anchor" aria-label="anchor" href="#generate_scatter_or_pie"></a>
+<h2 id="generate_scatter_or_pie">4. <code>generate_scatter_or_pie</code><a class="anchor" aria-label="anchor" href="#generate_scatter_or_pie"></a>
 </h2>
 <div class="section level4">
-<h4 id="purpose-1">Purpose<a class="anchor" aria-label="anchor" href="#purpose-1"></a>
+<h4 id="purpose-to-dynamically-generate-a-visualization-of-expenses-data-either-as-a-scatter-plot-or-a-pie-chart-based-on-user-input-">Purpose: to dynamically generate a visualization of expenses data,
+either as a scatter plot or a pie chart, based on user input.<a class="anchor" aria-label="anchor" href="#purpose-to-dynamically-generate-a-visualization-of-expenses-data-either-as-a-scatter-plot-or-a-pie-chart-based-on-user-input-"></a>
 </h4>
-<p>Dynamically generate a visualization of expenses data, either as a
-scatter plot or a pie chart, based on user input.</p>
 <ul>
 <li>
 <strong>Adaptive Visualization</strong>: The function can switch
@@ -539,16 +501,7 @@ information.</p></li>
 </ol>
 </div>
 <div class="section level4">
-<h4 id="output-2">Output<a class="anchor" aria-label="anchor" href="#output-2"></a>
-</h4>
-<ul>
-<li>The function returns a Plotly object, which is an interactive plot.
-This interactivity enhances the user experience, particularly in
-web-based applications like Shiny.</li>
-</ul>
-</div>
-<div class="section level4">
-<h4 id="example-usage-in-shiny-1">Example Usage in Shiny<a class="anchor" aria-label="anchor" href="#example-usage-in-shiny-1"></a>
+<h4 id="example-2">Example<a class="anchor" aria-label="anchor" href="#example-2"></a>
 </h4>
 <ul>
 <li>The function can be called within a Shiny server function, where the
@@ -559,9 +512,7 @@ The resulting plot can be rendered in the UI using
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Packages</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: package 'ggplot2' was built under R version 4.3.1</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://plotly-r.com" class="external-link">plotly</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: package 'plotly' was built under R version 4.3.1</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Attaching package: 'plotly'</span></span>
 <span><span class="co">#&gt; The following object is masked from 'package:ggplot2':</span></span>
@@ -582,42 +533,31 @@ The resulting plot can be rendered in the UI using
 <span>  amount <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">200</span>, <span class="fl">150</span>, <span class="fl">100</span><span class="op">)</span>,</span>
 <span>  percentage <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">40</span>, <span class="fl">30</span>, <span class="fl">30</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Generate a scatter plot</span></span>
-<span><span class="va">scatter_plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generate_scatter_or_pie.html">generate_scatter_or_pie</a></span><span class="op">(</span><span class="va">expenses_summary</span>, <span class="st">"Scatter Plot"</span>, <span class="cn">FALSE</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">scatter_plot</span><span class="op">)</span></span>
-<span></span>
 <span><span class="co"># Generate a pie chart</span></span>
 <span><span class="va">pie_chart</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generate_scatter_or_pie.html">generate_scatter_or_pie</a></span><span class="op">(</span><span class="va">expenses_summary</span>, <span class="st">"Pie Chart"</span>, <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">pie_chart</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
-  </div>
-
-  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-
-        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
-    </nav>
-</div>
-
+  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+    </nav></aside>
 </div>
 
 
 
-      <footer><div class="copyright">
+    <footer><div class="pkgdown-footer-left">
   <p></p>
 <p>Developed by Konstantinos Kourlimpinis.</p>
 </div>
 
-<div class="pkgdown">
+<div class="pkgdown-footer-right">
   <p></p>
 <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
-      </footer>
+    </footer>
 </div>
 
   
-
 
   
 
