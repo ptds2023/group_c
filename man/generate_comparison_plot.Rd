@@ -7,22 +7,24 @@
 generate_comparison_plot(user_vs_swiss, colorblind_switch)
 }
 \arguments{
-\item{user_vs_swiss}{A data frame containing the user's expenses and Swiss average expenses for comparison. The data frame should have columns 'category', 'user_amount', and 'swiss_amount'.}
+\item{user_vs_swiss}{A data frame containing the user's and Swiss average expenses for comparison. The data frame should have columns 'category', 'user_amount', and 'swiss_amount'. It should also have 'type' and 'hover_text' for plot aesthetics and interactivity.}
 
 \item{colorblind_switch}{Logical flag indicating whether to use a colorblind-friendly color palette.}
 }
 \value{
-A Plotly ggplot object representing the comparison scatter plot.
+A Plotly interactive scatter plot object representing the comparison of expenses.
 }
 \description{
-Creates a scatter plot for comparing user expenses with Swiss average expenses. This function is designed for use within a Shiny application, particularly for financial comparison visualizations. It supports a colorblind-friendly mode by altering the color palette.
+Creates an interactive scatter plot for comparing user expenses with Swiss average expenses using Plotly. The plot is designed for use within a Shiny application and features a comparison between user and Swiss average expenses across various categories. It supports a colorblind-friendly mode by altering the color palette and includes interactive hover text with detailed expense information.
 }
 \examples{
 # Example usage within a Shiny server function:
 user_vs_swiss <- data.frame(
   category = c("Food", "Transport", "Utilities"),
   user_amount = c(200, 150, 100),
-  swiss_amount = c(250, 180, 120)
+  swiss_amount = c(250, 180, 120),
+  type = c("User's Expenses", "User's Expenses", "User's Expenses"),
+  hover_text = c("Food: 200", "Transport: 150", "Utilities: 100")
 )
 # Assume colorblind_switch is a boolean input from Shiny
 output$comparisonPlot <- renderPlotly({
@@ -31,5 +33,5 @@ output$comparisonPlot <- renderPlotly({
 
 }
 \author{
-Group C composed of Marc Bourleau, Eleonore Gillain, Khrystyna Khmilovska and Konstantinos Kourlimpinis.
+Group C composed of Marc Bourleau, Eleonore Gillain, Khrystyna Khmilovska, and Konstantinos Kourlimpinis.
 }

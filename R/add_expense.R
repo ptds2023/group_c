@@ -11,11 +11,18 @@
 #' @importFrom shiny showModal
 #' @importFrom shiny modalDialog
 #' @examples
-#' # Assuming existing reactive values expenses_data and selected_categories, and a Shiny session:
-#' add_expense("Food", 50, expenses_data, selected_categories, session)
-#' add_expense("Transport", -10, expenses_data, selected_categories, session) # Invalid amount
-#' add_expense("Food", 30, expenses_data, selected_categories, session) # Category already exists
+#' \dontrun{
+#'   # Simulate the environment of a Shiny app
+#'   library(shiny)
+#'   expenses_data <- reactiveVal(data.frame(category = character(), amount = numeric()))
+#'   selected_categories <- reactiveVal(character())
+#'   session <- shiny::getDefaultReactiveDomain()
 #'
+#'   # Examples of add_expense function
+#'   add_expense("Food", 50, expenses_data, selected_categories, session)
+#'   add_expense("Transport", -10, expenses_data, selected_categories, session) # Invalid amount
+#'   add_expense("Food", 30, expenses_data, selected_categories, session) # Category already exists
+#' }
 #' @export
 add_expense <- function(category, amount, expenses_data, selected_categories, session) {
   if (is.na(amount) || amount < 0) {

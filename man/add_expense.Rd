@@ -7,29 +7,35 @@
 add_expense(category, amount, expenses_data, selected_categories, session)
 }
 \arguments{
-\item{amount}{The amount of the new expense, must be non-negative.}
+\item{category}{A string specifying the category of the expense.}
+
+\item{amount}{A numeric value representing the amount of the expense. Must be non-negative.}
 
 \item{expenses_data}{A reactive value containing a data frame of expenses.}
 
 \item{selected_categories}{A reactive value storing the list of already selected categories.}
+
+\item{session}{The Shiny session object passed to showModal for displaying modals.}
 }
 \value{
-Logical indicating whether the expense was successfully added (TRUE) or not (FALSE).
+Logical TRUE if the expense is successfully added, FALSE otherwise.
 }
 \description{
 This function adds a new expense entry to the given data frame of expenses. It checks for the validity of the category and amount before adding.
 }
 \examples{
-# In a Shiny server function:
-expenses_data <- reactiveVal(data.frame(category = character(), amount = numeric()))
-selected_categories <- reactiveVal(character())
+\dontrun{
+  # Simulate the environment of a Shiny app
+  library(shiny)
+  expenses_data <- reactiveVal(data.frame(category = character(), amount = numeric()))
+  selected_categories <- reactiveVal(character())
+  session <- shiny::getDefaultReactiveDomain()
 
-observeEvent(input$add_expense, {
-  result <- add_expense(input$category, input$expense, expenses_data, selected_categories)
-  if (result) {
-    # Update UI or perform other actions
-  }
-})
+  # Examples of add_expense function
+  add_expense("Food", 50, expenses_data, selected_categories, session)
+  add_expense("Transport", -10, expenses_data, selected_categories, session) # Invalid amount
+  add_expense("Food", 30, expenses_data, selected_categories, session) # Category already exists
+}
 }
 \author{
 Group C composed of Marc Bourleau, Eleonore Gillain, Khrystyna Khmilovska and Konstantinos Kourlimpinis.
