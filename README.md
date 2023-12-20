@@ -13,7 +13,7 @@ Our Shiny app enables users to input their monthly income and expenses for visua
 Use the following command in the console:
 
 ``` r
-devtools::install_github("ptds/group_c")
+devtools::install_github("ptds2023/group_c")
 library(budgetoverview)
 ```
 
